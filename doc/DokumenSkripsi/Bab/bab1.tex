@@ -1,44 +1,67 @@
-%versi 2 (8-10-2016) 
 \chapter{Pendahuluan}
 \label{chap:intro}
-   
+
 \section{Latar Belakang}
-\label{sec:label}
+\label{sec:1:latar_belakang}
 
-Bagian ini akan diisi dengan apa yang melatarbelakangi pembuatan template skripsi ini.
-Termasuk juga masalah-masalah yang akan dihadapi untuk membuatnya, termasuk kurangnya kemampuan penguasaan \LaTeX{} sehingga template ini dibuat dengan mengandalkan berbagai contoh yang tersebar di dunia maya, yang digabung-gabung menjadi satu jua.
-Bagian lain juga akan dilengkapi, untuk sementara diisi dengan lorem ipsum versi bahasa inggris.
+   Perkembangan teknologi web yang sangat pesat menyebabkan halaman web modern memiliki struktur yang semakin kompleks. Setiap halaman web dibangun menggunakan bahasa markup \textit{Hypertext Markup Language} (HTML) yang secara umum dapat direpresentasikan dalam bentuk struktur hierarkis yang dikenal sebagai \textit{Document Object Model} (DOM). Struktur DOM ini berbentuk pohon (\textit{tree}) yang terdiri dari elemen-elemen HTML yang saling terhubung melalui hubungan induk (\textit{parent}) dan anak (\textit{child}).
 
-\dtext{1-5}
+    Meskipun struktur DOM merupakan konsep dasar dalam pengembangan web, representasinya dalam bentuk kode HTML sering kali sulit dipahami secara langsung, terutama pada halaman web yang memiliki banyak elemen. Oleh karena itu, diperlukan suatu cara yang dapat membantu menyajikan struktur tersebut dalam bentuk yang lebih mudah dipahami.
+    
+    Salah satu cara yang dapat digunakan adalah dengan memvisualisasikan struktur halaman web dalam bentuk graf. Dalam pendekatan ini, setiap elemen HTML direpresentasikan sebagai simpul (\textit{node}) dan hubungan antar elemen direpresentasikan sebagai sisi (\textit{edge}). Dengan demikian, struktur DOM dapat dilihat secara lebih jelas dan terstruktur.
+    
+    Berdasarkan permasalahan tersebut, tugas akhir ini berfokus pada pengembangan perangkat lunak yang mampu mengambil dokumen HTML dari suatu \textit{Uniform Resource Locator} (URL), membangun struktur DOM, dan merepresentasikannya dalam bentuk graf yang dapat divisualisasikan. Perangkat lunak ini diharapkan dapat membantu pengguna dalam memahami struktur halaman web secara lebih mudah.
 
 \section{Rumusan Masalah}
-\label{sec:rumusan}
-Bagian ini akan diisi dengan penajaman dari masalah-masalah yang sudah diidentifikasi di bagian sebelumnya. 
+\label{sec:1:rumusan}
 
-\dtext{6}
+Rumusan Masalah yang akan dibahas pada tugas akhir ini adalah:
+\begin{enumerate}
+    \item Bagaimana cara mengambil dokumen HTML dari suatu situs web berdasarkan URL serta membangun struktur DOM?
+        
+    \item Bagaimana cara merepresentasikan struktur DOM ke dalam bentuk graf yang terdiri dari (\textit{node}) dan (\textit{edge}) melalui proses traversal yang sistematis?
+        
+    \item Bagaimana merancang perangkat lunak yang mampu menghasilkan visualisasi graf dari struktur halaman web secara otomatis dan mudah dipahami pengguna?
+\end{enumerate}
 
 \section{Tujuan}
-\label{sec:tujuan}
-Akan dipaparkan secara lebih terperinci dan tersturkur apa yang menjadi tujuan pembuatan template skripsi ini
+\label{sec:1:tujuan}
 
-\dtext{7}
+Tujuan yang ingin dicapai skripsi ini adalah sebagai berikut:
+\begin{enumerate}
+    \item Mengambil dokumen HTML dari suatu situs web berdasarkan URL serta membangun struktur DOM.
+    
+    \item Merepresentasikan struktur DOM ke dalam bentuk graf yang terdiri dari (\textit{node}) dan (\textit{edge}) melalui proses traversal yang sistematis.
+    
+    \item Merancang perangkat lunak yang mampu menghasilkan visualisasi graf dari struktur halaman web secara otomatis dan mudah dipahami pengguna.
+\end{enumerate}
 
 \section{Batasan Masalah}
-\label{sec:batasan}
-Untuk mempermudah pembuatan template ini, tentu ada hal-hal yang harus dibatasi, misalnya saja bahwa template ini bukan berupa style \LaTeX{} pada umumnya (dengan alasannya karena belum mampu jika diminta membuat seperti itu)
+\label{sec:1:batasan}
 
-\dtext{8}
+Pada pengerjaan tugas akhir ini terhadap batasan sebagai berikut:
+\begin{itemize}
+    \item Perangkat lunak dikembangkan menggunakan bahasa pemrograman Java
+\end{itemize}
 
 \section{Metodologi}
-\label{sec:metlit}
-Tentunya akan diisi dengan metodologi yang serius sehingga templatenya terkesan lebih serius.
+\label{sec:1:metlit}
 
-\dtext{9}
+Metodologi pengerjaan tugas akhir ini adalah sebagai berikut:
+\begin{enumerate}
+    \item Melakukan studi literatur mengenai HTML, DOM, struktur data graf, dan metode traversal.
+    \item Melakukan analisis kebutuhan serta perancangan arsitektur perangkat lunak yang akan dikembangkan.
+    \item Mengimplementasikan sistem untuk mengambil dokumen HTML, membangun struktur DOM, serta merepresentasikannya dalam bentuk graf.
+    \item Melakukan pengujian dan eksperimen menggunakan beberapa halaman web dengan struktur yang berbeda.
+    \item Melakukan analisis terhadap hasil visualisasi yang dihasilkan oleh sistem.
+    \item Menyusun dokumentasi dan laporan tugas akhir.
+\end{enumerate}
 
 \section{Sistematika Pembahasan}
-\label{sec:sispem}
-Rencananya Bab 2 akan berisi petunjuk penggunaan template dan dasar-dasar \LaTeX.
-Mungkin bab 3,4,5 dapt diisi oleh ketiga jurusan, misalnya peraturan dasar skripsi atau pedoman penulisan, tentu jika berkenan.
-Bab 6 akan diisi dengan kesimpulan, bahwa membuat template ini ternyata sungguh menghabiskan banyak waktu.
+\label{sec:1:sispem}
 
-\dtext{10}
+Sistematika pembahasan skripsi ini adalah sebagai berikut:
+\begin{itemize}
+    \item \textbf{Bab \ref{chap:intro}:} Pendahuluan \\
+          Membahas latar belakang, rumusan masalah, tujuan, batasan masalah, metodologi, dan sistematika pembahasan.
+\end{itemize}

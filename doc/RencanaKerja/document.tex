@@ -16,7 +16,7 @@
 \makeatletter
 \renewcommand{\@maketitle} {\begin{center} {\LARGE \textbf{ \textsc{\@title}} \par} \bigskip {\large \textbf{\textsc{\@author}} }\end{center} }
 \renewcommand{\thispagestyle}[1]{}
-\markright{\textbf{\textsc{AIF184001/AIF184002 \textemdash Rencana Kerja Tugas Akhir \textemdash Sem. Ganjil 2023/2024}}}
+\markright{\textbf{\textsc{AIF184001/AIF184002 \textemdash Rencana Kerja Tugas Akhir \textemdash Sem. Ganjil 2026/2027}}}
 
 \newcommand{\HRule}{\rule{\linewidth}{0.4mm}}
 \renewcommand{\baselinestretch}{1}
@@ -31,11 +31,11 @@
 	\author{\nama \textendash \@npm} 
 	
 	%tulis nama dan NPM anda di sini:
-	\newcommand{\nama}{Lionov}
-	\newcommand{\@npm}{1997730020}
-	\newcommand{\@judultopik}{Simulasi Kerumunan di Museum} % Judul/topik anda
+	\newcommand{\nama}{Bram Matthew Pasaribu}
+	\newcommand{\@npm}{6182101043}
+	\newcommand{\@judultopik}{Perangkat Lunak Pembuat Visualisasi Graf Situs Web} % Judul/topik anda
 	\newcommand{\jumpemb}{1} % Jumlah pembimbing, 1 atau 2
-	\newcommand{\tanggal}{01/01/1900}
+	\newcommand{\tanggal}{18/02/2026}
 	
 	% Dokumen hasil template ini harus dicetak bolak-balik !!!!
 	
@@ -44,70 +44,66 @@
 	\pagenumbering{arabic}
 	
 	\section{Deskripsi}
-	Tuliskan deskripsi dari topik tugas akhir yang akan anda ajukan. Di sini dapat dituliskan latar belakang, seperti apa penelitian yang sudah ada sebelumnya dan apa yang akan anda kerjakan. Sertakan gambar agar penjelasan anda menjadi lebih baik.
-	
-	Pada tugas akhir ini, akan dibuat sebuah perangkat lunak yang dapat menampilkan visualisasi dan simulasi kerumunan orang yang berkunjung ke sebuah museum. Dengan menggunakan perangkat lunak tersebut, pengelola museum dapat mengatur tempat peletakan objek sehingga tidak terjadi kerumunan yang terlalu padat.
-	
-	Dari berbagai macam teknik yang dapat digunakan untuk melakukan simulasi kerumunan, dipilih dua buah teknik yaitu teknik {\it flow tiles} dan {\it social force model (steering behaviour)}.
-	
-	Dst, dst, dst, \ldots\ldots\ldots 
-	
-	Perangkat lunak akan dibuat dengan bantuan {\it framework} OpenSteer. Sebagai studi kasus, museum yang digunakan untuk melakukan simulasi adalah Museum Geologi Bandung.
-	
-	Dst, dst, dst, \ldots\ldots\ldots 
+	Tugas akhir ini bertujuan untuk merancang dan mengembangkan sebuah perangkat lunak yang mampu melakukan visualisasi struktur graf dari sebuah situs web. Perangkat lunak ini bekerja dengan cara mengambil dokumen \textit{Hypertext Markup Language} (HTML) dari suatu alamat situs web, untuk dilakukan proses \textit{parsing} sehingga membangun struktur \textit{Document Object Model} (DOM). Struktur DOM tersebut selanjutnya direpresentasikan dalam bentuk graf menggunakan \textit{Graphviz} yang menunjukkan hubungan hierarki antar elemen HTML.
+
+    Alur kerja sistem dimulai dari pengguna yang memasukkan \textit{Uniform Resource Locator} (URL). Sistem kemudian mengambil dokumen HTML melalui proses \textit{web request} dan melakukan \textit{parsing} untuk membentuk struktur DOM. Selanjutnya, sistem menelusuri struktur DOM menggunakan metode \textit{Depth-First Search} (DFS), di mana setiap elemen direpresentasikan sebagai simpul (\textit{node}) dan hubungan induk-anak (\textit{parent-child}) sebagai sisi (\textit{edge}).
+    
+    Hasil dari proses tersebut disimpan dalam format .dot yang kemudian divisualisasikan menggunakan \textit{Graphviz} menjadi bentuk graf. Visualisasi ini membantu pengguna dalam memahami struktur halaman web secara lebih jelas.
 	
 	\section{Rumusan Masalah}
-	Tuliskan rumusan dari masalah yang akan anda bahas pada tugas akhir ini. Rumusan masalah biasanya berupa kalimat pertanyaan. Gunakan penomoran untuk menuliskan rumusan masalah ini.
+	\begin{enumerate}
+        \item Bagaimana cara mengambil dokumen \textit{HTML} dari suatu situs web berdasarkan \textit{URL} serta membangun struktur \textit{Document Object Model} (DOM)?
+        
+        \item Bagaimana cara merepresentasikan struktur \textit{DOM} ke dalam bentuk graf yang terdiri dari simpul (\textit{node}) dan sisi (\textit{edge}) melalui proses traversal yang sistematis?
+        
+        \item Bagaimana merancang perangkat lunak yang mampu menghasilkan visualisasi graf dari struktur halaman web secara otomatis dan mudah dipahami pengguna?
+    \end{enumerate}
 	
 	\section{Tujuan}
-	Tuliskan tujuan dari topik tugas akhir yang anda ajukan. Tujuan penelitian biasanya berkaitan erat dengan pertanyaan yang diajukan di bagian rumusan masalah. Gunakan penomoran untuk menuliskan rumusan masalah ini, di mana tiap nomor berkaitan dengan nomor pada rumusan masalah.
+	\begin{enumerate}
+    \item Mengambil dokumen \textit{HTML} dari suatu situs web berdasarkan \textit{URL} serta membangun struktur \textit{Document Object Model} (DOM).
+    
+    \item Merepresentasikan struktur \textit{DOM} ke dalam bentuk graf yang terdiri dari simpul (\textit{node}) dan sisi (\textit{edge}) melalui proses traversal yang sistematis.
+    
+    \item Merancang perangkat lunak yang mampu menghasilkan visualisasi graf dari struktur halaman web secara otomatis dan mudah dipahami pengguna.
+    \end{enumerate}
 	
 	\section{Deskripsi Perangkat Lunak}
-	Tuliskan deksripsi dari perangkat lunak yang akan anda hasilkan. Apa saja fitur yang disediakan oleh PL tersebut dan apa saja kemampuan dari PL tersebut. Perhatikan contoh di bawah ini:
-	
-	Perangkat lunak akhir yang akan dibuat memiliki fitur minimal sebagai berikut:
-	\begin{itemize}
-		\item Pengguna dapat melihat denah Musem Geologi Bandung dalam bidang dua dimensi. Sedangkan pengunjung direpresentasikan menggunakan lingkaran-lingkaran kecil (tidak menggunakan gambar manusia yang diambil dari atas)
-		\item Pengguna dapat memunculkan atau menghilangkan gambar {\it flow tiles} pada denah museum. 
-		\item Pengguna dapat mengatur jalannya simulasi: memulai(start) simulasi, menunda(pause) simulasi, melanjutkan(continue) simulasi, maupun menghentikan(stop) simulasi
-		\item Pengguna dapat mengatur banyaknya pengunjung di dalam museum, baik melalui perubahan frekuensi kedatangan pengunjung maupun menambahkan dan menghapus pengunjung satu-persatu secara manual.
-		\item Posisi kamera dapat diubah (pergerakan di bidang tiga dimensi) sehingga pengguna dapat melihat simulasi di museum dari berbagai arah. 
-		\item Posisi kamera dapat diubah untuk emngikuti perjalanan seorang pengunjung di dalam 
-		\item Pengguna dapat memilih apakah akan menggunakan teknik {\it flow tiles} atau tidak pada saat simulasi berlangsung
-		\item Jenis {\it flow tiles} yang digunakan dapat diubah-ubah pada saat simulasi sedang berlangsung
-		
-	\end{itemize}
+	Perangkat lunak yang akan dibuat memiliki fitur utama sebagai berikut:
+    \begin{itemize}
+    \item Menerima masukan berupa \textit{Uniform Resource Locator} (URL) dan mengambil dokumen \textit{Hypertext Markup Language} (HTML) dari situs web yang diberikan pengguna.
+    
+    \item Melakukan proses \textit{parsing} untuk membangun struktur \textit{Document Object Model} (DOM) serta menelusuri struktur tersebut untuk mengidentifikasi hubungan antar elemen.
+    
+    \item Merepresentasikan struktur \textit{DOM} ke dalam bentuk graf berupa simpul (\textit{node}) dan sisi (\textit{edge}), serta menghasilkan visualisasi graf yang dapat membantu pengguna memahami struktur halaman web.
+    \end{itemize}
 	
 	\section{Detail Pengerjaan Tugas Akhir}
-	Tuliskan bagian-bagian pengerjaan skripsi secara detail. Bagian pekerjaan tersebut mencakup awal hingga akhir skripsi, termasuk di dalamnya pengerjaan dokumentasi skripsi, pengujian, survei, dll.
-	
-	Bagian-bagian pekerjaan skripsi ini adalah sebagai berikut :
-	\begin{enumerate}
-		\item Melakukan survei ke Museum Geologi Bandung untuk mendapatkan denah serta mengetahui perilaku pengunjung museum secara umum (arah perjalanan, kecepatan, lama melihat objek, dll)
-		\item Melakukan analisis pada hasil survei terhadap pergerakan pengunjung di museum dan membuat rancangan denah di komputer yang dilengkapi dengan penghalang dan objek di museum.
-		\item Melakukan studi literatur mengenai sifat kolektif suatu kerumunan, teknik {\it social force model} dan teknik {\it flow tiles}
-		\item Mempelajari bahasa pemrograman C++ dan cara menggunakan framework OpenSteer
-		\item Merancang pergerakan kerumunan di dalam museum menggunakan teknik {\it social force model} dan {\it flow tiles} serta menggunakan teknik lainnya seperti konsep pathway dan waypoints. Selain itu, dirancang pula adanya waktu tunggu (pada saat pengunjung melihat objek di museum) dan cara pembuatan jalur bagi setiap individu pengunjung
-		\item Melakukan analisa dan merancang struktur data yang cocok untuk menyimpan penghalang (obstacle)
-		\item Mengimplementasikan keseluruhan algoritma dan struktur data yang dirancang, dengan menggunakan framework OpenSteer 
-		\item Melakukan pengujian (dan eksperimen) yang melibatkan responde untuk menilai hasil simulasi secara kualitatif
-		\item Menulis dokumen tugas akhir.
-	\end{enumerate}
+	Bagian-bagian pengerjaan tugas akhir ini adalah sebagai berikut:
+    \begin{enumerate}
+        \item Melakukan studi literatur mengenai HTML, DOM, graf, dan metode traversal.
+        \item Mempelajari teknik \textit{parsing} HTML serta visualisasi graf.
+        \item Menganalisis kebutuhan dan merancang sistem perangkat lunak.
+        \item Mengimplementasikan sistem untuk mengambil HTML, membangun DOM, dan membentuk graf.
+        \item Melakukan pengujian dan evaluasi sistem.
+        \item Menyusun dokumentasi dan laporan tugas akhir.
+    \end{enumerate}
 	
 	\section{Rencana Kerja}
-	Rincian capaian yang direncanakan di Tugas Akhir 1 adalah sebagai berikut:
-	\begin{enumerate}
-		\item
-		\item
-		\item
-	\end{enumerate}
-	
-	Sedangkan yang akan diselesaikan di Tugas Akhir 2 adalah sebagai berikut:
-	\begin{enumerate}
-		\item
-		\item
-		\item
-	\end{enumerate}
+	Rincian capaian yang direncanakan sebelum Tugas Akhir 1 adalah sebagai berikut:
+    \begin{enumerate}
+        \item Melakukan studi literatur mengenai HTML, DOM, graf, dan metode traversal.
+        \item Mempelajari teknik \textit{parsing} HTML dan visualisasi graf.
+        \item Menganalisis kebutuhan serta merancang sistem perangkat lunak.
+        \item Menulis sebagian dokumen tugas akhir (Bab 1, 2, dan 3).
+    \end{enumerate}
+    
+    Sedangkan yang akan diselesaikan di Tugas Akhir 1 dan Tugas Akhir 2 adalah sebagai berikut:
+    \begin{enumerate}
+        \item Mengimplementasikan sistem pengambilan HTML, parsing DOM, dan pembentukan graf.
+        \item Melakukan pengujian dan evaluasi hasil visualisasi.
+        \item Menyelesaikan penulisan dokumen tugas akhir (Bab 4, 5, dan 6).
+    \end{enumerate}
 	
 	\vspace{1cm}
 	\centering Bandung, \tanggal\\
