@@ -2,201 +2,327 @@
 \chapter{Landasan Teori}
 \label{chap:teori}
 
-\section{Skripsi}
-\label{sec:skripsi} 
+\section{Hypertext Markup Language (HTML)}
+\label{sec:html}
+\subsection{Pengertian HTML}
  
-Rencananya akan diisi dengan penjelasan umum mengenai buku skripsi.
+{\it Hypertext Markup Language} (HTML) merupakan bahasa markup yang digunakan untuk menyusun struktur dasar halaman web. HTML tidak termasuk bahasa pemrograman, melainkan bahasa yang digunakan untuk mendeskripsikan bagaimana konten ditampilkan pada browser. HTML memungkinkan pengembang untuk mengatur berbagai jenis konten seperti teks, gambar, tautan, tabel, dan elemen multimedia lainnya.
 
-\dtext{11-12} 
+Menurut {\it HTML and CSS: Design and Build Websites}, HTML berfungsi sebagai kerangka utama dari halaman web, yang menentukan bagaimana setiap bagian konten disusun sehingga dapat ditampilkan secara terstruktur oleh browser.
 
-\section{\LaTeX}
-\label{sec:latex}
+HTML bekerja dengan konsep {\it tag-based structure}, di mana setiap elemen ditandai dengan tag tertentu. Dengan adanya struktur ini, browser dapat memahami peran masing-masing elemen dan menampilkannya dengan benar.
 
-Mengapa menggunakan \LaTeX{} untuk buku skripsi dan apa keunggulan/kerugiannya bagi mahasiswa dan pembuat template. 
+\subsection{Elemen dan Tag HTML}
+Elemen HTML merupakan komponen dasar dalam penyusunan halaman web. Setiap elemen biasanya terdiri dari tag pembuka dan tag penutup, serta isi di antara keduanya. Sebagai contoh, elemen paragraf dituliskan dengan <p> sebagai tag pembuka dan </p> sebagai tag penutup.
 
-\dtext{13-14}
+Selain itu, elemen HTML juga dapat memiliki atribut yang memberikan informasi tambahan. Atribut ini dituliskan di dalam tag pembuka, seperti atribut href pada elemen <a> untuk menentukan alamat tautan.
+
+Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbentuknya hubungan hierarkis antar elemen. Hal ini menjadi dasar penting dalam pembentukan struktur DOM.
+
+\begin{figure} [H]
+	\centering  
+	\includegraphics[scale=0.5]{Skripsi/DokumenSkripsi/Gambar/StrukturDasarHTML.png}
+	\caption[Gambar Struktur dasar HTML]{Contoh struktur dasar dokumen HTML} 
+	\label{fig:htmlpng} 
+\end{figure}
+
+%\dtext{11-12} 
+
+\section{Struktur Dokumen HTML}
+\label{sec:struktur}
+
+\subsection{Struktur dasar HTML}
+Dokumen HTML memiliki struktur standar yang terdiri dari beberapa bagian utama, yaitu <html>, <head>, dan <body>. Elemen <html> merupakan root dari seluruh dokumen. Elemen <head> berisi informasi metadata seperti judul halaman, sedangkan <body> berisi konten utama yang ditampilkan kepada pengguna.
+
+Struktur ini memastikan bahwa setiap halaman web memiliki susunan yang konsisten dan dapat dipahami oleh browser.
+
+\subsection{Hierarki elemen HTML}
+
+Struktur HTML bersifat hierarkis, yang berarti elemen dapat berada di dalam elemen lain. Misalnya, elemen <div> dapat berisi elemen <p>, <img>, atau elemen lainnya. Hubungan ini membentuk struktur bertingkat yang menyerupai pohon.
+
+Hierarki ini penting karena menentukan bagaimana elemen saling berhubungan dan bagaimana struktur tersebut akan diproses menjadi DOM. Semakin kompleks halaman web, maka semakin dalam dan luas struktur hierarki yang terbentuk.
+
+\begin{figure} [H]
+	\centering  
+	\includegraphics[scale=0.7]{Skripsi/DokumenSkripsi/Gambar/HTMLTree.png}
+	\caption[Gambar Struktur dasar HTML]{Representasi hierarki elemen HTML dalam bentuk pohon} 
+	\label{fig:htmltree} 
+\end{figure}
+
+%\dtext{13-14}
 
 
-\section{Template Skripsi FTIS UNPAR}
-\label{sec:template}
+\section{Document Object Model (DOM)}
+\label{sec:dom}
+
+ \subsection{Pengertian DOM}
+{\it Document Object Model} (DOM) adalah representasi dari dokumen HTML dalam bentuk struktur objek yang dapat diakses dan dimanipulasi oleh program. DOM memungkinkan setiap elemen dalam halaman web diperlakukan sebagai objek yang memiliki properti dan metode.
+
+Menurut {\it World Wide Web Consortium}, DOM menyediakan antarmuka standar untuk mengakses dan memodifikasi dokumen HTML.
+
+Dengan adanya DOM, halaman web tidak hanya menjadi tampilan statis, tetapi juga dapat diproses dan dimodifikasi secara dinamis.
+
+\subsection{Struktur DOM sebagai Tree}
+Struktur DOM berbentuk pohon (tree structure), di mana setiap elemen HTML direpresentasikan sebagai node. Node paling atas disebut root node, yang biasanya adalah elemen <html>.
+Setiap node dapat memiliki:
+\begin{itemize}
+    \item Parent (induk)
+    \item Child (anak)
+    \item Sibling (saudara) 
+\end{itemize}
+Struktur ini memungkinkan proses traversal dilakukan secara sistematis, seperti menggunakan DFS.
+
+\begin{figure} [H]
+	\centering  
+	\includegraphics[scale=0.8]{Skripsi/DokumenSkripsi/Gambar/DOMtree2.png}
+	\caption[Gambar Struktur dasar HTML]{Struktur DOM dalam bentuk Tree} 
+	\label{fig:digraph} 
+\end{figure}
+
+\subsection{Jenis node pada DOM}
+DOM terdiri dari beberapa jenis node, antara lain:
+\begin{itemize}
+    \item Element node: merepresentasikan tag HTML
+    \item Text node: merepresentasikan isi teks
+    \item Attribute node: merepresentasikan atribut 
+\end{itemize}
+Keberadaan berbagai jenis node ini membuat struktur DOM lebih kompleks dibandingkan HTML mentah, sehingga analisis DOM memberikan informasi yang lebih lengkap.
  
-Akan dipaparkan bagaimana menggunakan template ini, termasuk petunjuk singkat membuat referensi, gambar dan tabel.
-Juga hal-hal lain yang belum terpikir sampai saat ini. 
- 
-\dtext{15-16}
+%\dtext{15-16}
 
-\subsection{Tabel}  
-Berikut adalah contoh pembuatan tabel. 
-Penempatan tabel dan gambar secara umum diatur secara otomatis oleh \LaTeX{}, perhatikan contoh di file bab2.tex untuk melihat bagaimana cara memaksa tabel ditempatkan sesuai keinginan kita.
+\section{Struktur Data Graf}
+\subsection{Pengertian Graf}
+Graf adalah struktur data yang terdiri dari simpul (node) dan sisi (edge) yang menghubungkan simpul tersebut.
 
-Perhatikan bawa berbeda dengan penempatan judul gambar gambar, keterangan tabel harus diletakkan di atas tabel!!
-Lihat Tabel~\ref{tab:contoh1} berikut ini:
+Menurut {\it Introduction to Algorithms}, graf digunakan untuk merepresentasikan hubungan antar objek dalam berbagai bidang komputasi.
 
-\begin{table}[H] %atau h saja untuk "kira kira di sini"
-	\centering 
-	\caption{Tabel contoh}
-	\label{tab:contoh1}
-	\begin{tabular}{cccc}
-		\toprule
-		& $v_{start}$ & $\mathcal{S}_{1}$ & $v_{end}$\\
+\subsection{Graf Berarah}
+Graf berarah adalah graf yang memiliki arah pada setiap edge. Dalam konteks DOM, hubungan parent ke child memiliki arah, sehingga dapat dimodelkan sebagai graf berarah.
 
-		\midrule
-		$\tau_{1}$ & 1 & 12& 20\\
-		$\tau_{2}$ & 1 &  & 20\\
-		$\tau_{3}$ & 1 & 9 & 20\\
-		$\tau_{4}$ & 1 &  & 20\\
+\begin{figure} [H]
+	\centering  
+	\includegraphics[scale=0.65]{Skripsi/DokumenSkripsi/Gambar/digraph2.png}
+	\caption[Gambar Struktur dasar HTML]{Contoh graf berarah sederhana (node dan edge)} 
+	\label{fig:digraph} 
+\end{figure}
 
-		\bottomrule
+\subsection{Representasi DOM sebagai graf}
+Struktur DOM dapat direpresentasikan sebagai graf dengan cara memetakan setiap elemen HTML sebagai node dan hubungan parent-child sebagai edge.
+
+Pendekatan ini memungkinkan struktur halaman web dianalisis menggunakan teori graf, serta mempermudah visualisasi menggunakan perangkat lunak seperti Graphviz.
+
+\section{Traversal Graph}
+\subsection{Pengertian Traversal}
+Traversal graf adalah proses mengunjungi setiap node dalam graf secara sistematis. Traversal diperlukan untuk memastikan seluruh struktur graf dapat diproses tanpa ada node yang terlewat.
+
+\subsection{Depth-First Search}
+{\it Depth-First Search} (DFS) adalah metode traversal yang bekerja dengan menelusuri node hingga ke bagian terdalam sebelum kembali ke node sebelumnya.
+
+Metode ini sangat cocok untuk struktur berbentuk tree seperti DOM karena mengikuti pola parent-child secara mendalam.
+
+Menurut {\it Introduction to Algorithms}, DFS sering digunakan untuk eksplorasi struktur hierarkis dan graf.
+
+\begin{figure} [H]
+	\centering  
+	\includegraphics[scale=0.65]{Skripsi/DokumenSkripsi/Gambar/DFS.png}
+	\caption[Gambar Struktur dasar HTML]{Ilustrasi proses DFS pada graf berarah} 
+	\label{fig:dfs} 
+\end{figure}
+
+\section{Graphviz}
+\subsection{Pengertian Graphviz}
+Graphviz adalah perangkat lunak yang digunakan untuk memvisualisasikan graf berdasarkan deskripsi teks.
+
+Menurut {\i Graphviz Project}, Graphviz menyediakan berbagai algoritma layout untuk menampilkan graf secara otomatis.
+
+\subsection{Format DOT}
+Graphviz menggunakan format DOT untuk mendefinisikan graf.
+
+\begin{figure} [H]
+	\centering  
+	\includegraphics[scale=0.65]{Skripsi/DokumenSkripsi/Gambar/DOT.png}
+	\caption[Gambar Struktur dasar HTML]{Potongan Kode dengan format DOT} 
+	\label{fig:dot} 
+\end{figure}
+
+\begin{figure} [H]
+	\centering  
+	\includegraphics[scale=0.55]{Skripsi/DokumenSkripsi/Gambar/VisualisasiDOM.png}
+	\caption[Gambar Struktur dasar HTML]{Visualisasi dari format DOT dengan menggunakan Graphviz} 
+	\label{fig:visdot} 
+\end{figure}
+
+%\subsection{Tabel}  
+%Berikut adalah contoh pembuatan tabel. 
+%Penempatan tabel dan gambar secara umum diatur secara otomatis oleh \LaTeX{}, perhatikan contoh di file bab2.tex untuk melihat bagaimana cara memaksa tabel ditempatkan sesuai keinginan kita.
+
+%Perhatikan bawa berbeda dengan penempatan judul gambar gambar, keterangan tabel harus diletakkan di atas tabel!!
+%Lihat Tabel~\ref{tab:contoh1} berikut ini:
+
+%\begin{table}[H] %atau h saja untuk "kira kira di sini"
+	%\centering 
+	%\caption{Tabel contoh}
+	%\label{tab:contoh1}
+	%\begin{tabular}{cccc}
+		%\toprule
+		%& $v_{start}$ & $\mathcal{S}_{1}$ & $v_{end}$\\
+
+		%\midrule
+		%$\tau_{1}$ & 1 & 12& 20\\
+		%$\tau_{2}$ & 1 &  & 20\\
+		%$\tau_{3}$ & 1 & 9 & 20\\
+		%$\tau_{4}$ & 1 &  & 20\\
+
+		%\bottomrule
 		
-	\end{tabular} 
-\end{table}
-Tabel~\ref{tab:cthwarna1} dan Tabel~\ref{tab:cthwarna2} berikut ini adalah tabel dengan sel yang berwarna dan ada dua tabel yang bersebelahan. 
-\begin{table}[H]
-	\begin{minipage}[c]{0.49\linewidth}
-		\centering
-		\caption{Tabel bewarna(1)}
-		\label{tab:cthwarna1}
-		\begin{tabular}{ccccc}
-			\toprule
-			 & $v_{start}$ & $\mathcal{S}_{2}$ & $\mathcal{S}_{1}$ & $v_{end}$\\
+	%\end{tabular} 
+%\end{table}
+%Tabel~\ref{tab:cthwarna1} dan Tabel~\ref{tab:cthwarna2} berikut ini adalah tabel dengan sel yang berwarna dan ada dua tabel yang bersebelahan. 
+%\begin{table}[H]
+	%\begin{minipage}[c]{0.49\linewidth}
+		%\centering
+		%\caption{Tabel bewarna(1)}
+		%\label{tab:cthwarna1}
+		%\begin{tabular}{ccccc}
+			%\toprule
+			 %& $v_{start}$ & $\mathcal{S}_{2}$ & $\mathcal{S}_{1}$ & $v_{end}$\\
 			
-			\midrule
-			$\tau_{1}$ & 1 & 5 \cellcolor{green}& 12& 20\\
-			$\tau_{2}$ & 1 & 8 \cellcolor{green}& & 20\\
-			$\tau_{3}$ & 1 & 2/8/17 \cellcolor{green}& 9 & 20\\
-			$\tau_{4}$ & 1 & \cellcolor{red}& & 20\\
+			%\midrule
+			%$\tau_{1}$ & 1 & 5 \cellcolor{green}& 12& 20\\
+			%$\tau_{2}$ & 1 & 8 \cellcolor{green}& & 20\\
+			%$\tau_{3}$ & 1 & 2/8/17 \cellcolor{green}& 9 & 20\\
+			%$\tau_{4}$ & 1 & \cellcolor{red}& & 20\\
 			
-			\bottomrule
+			%\bottomrule
 
-		\end{tabular}
-	\end{minipage}
-	\begin{minipage}[c]{0.49\linewidth}
+		\%end{tabular}
+	%\end{minipage}
+	%\begin{minipage}[c]{0.49\linewidth}
 		
-		\centering 
-		\caption{Tabel bewarna(2)}
-		\label{tab:cthwarna2}
-		\begin{tabular}{ccccc}
-			\toprule
-			 & $v_{start}$ & $\mathcal{S}_{1}$ & $\mathcal{S}_{2}$ & $v_{end}$\\
+		%\centering 
+		%\caption{Tabel bewarna(2)}
+		%\label{tab:cthwarna2}
+		%\begin{tabular}{ccccc}
+			%\toprule
+			 %& $v_{start}$ & $\mathcal{S}_{1}$ & $\mathcal{S}_{2}$ & $v_{end}$\\
 			
-			\midrule
-			$\tau_{1}$ & 1 & 12& 5 \cellcolor{red} &20\\
-			$\tau_{2}$ & 1 &  &  8 \cellcolor{green} &20\\
-			$\tau_{3}$ & 1 & 9 & 2/8/17 \cellcolor{green} &20\\
-			$\tau_{4}$ & 1 &   & \cellcolor{red} &20\\
+			%\midrule
+			%$\tau_{1}$ & 1 & 12& 5 \cellcolor{red} &20\\
+			%$\tau_{2}$ & 1 &  &  8 \cellcolor{green} &20\\
+			%$\tau_{3}$ & 1 & 9 & 2/8/17 \cellcolor{green} &20\\
+			%$\tau_{4}$ & 1 &   & \cellcolor{red} &20\\
 			
-			\bottomrule
+			%\bottomrule
 		
-		\end{tabular}
-	\end{minipage}
-\end{table}
+		%\end{tabular}
+	%\end{minipage}
+%\end{table}
 
  
 \subsection{Kutipan}
 \label{subs:kutipan} 
-Berikut contoh kutipan dari berbagai sumber, untuk keterangan lebih lengkap, silahkan membaca file referensi.bib yang disediakan juga di template ini.
-Contoh kutipan:
 \begin{itemize}
-	\item Buku:~\cite{berg:08:compgeom} 
-	\item Bab dalam buku:~\cite{kreveld:04:GIS}
-	\item Artikel dari Jurnal:~\cite{buchin:13:median}
-	\item Artikel dari prosiding seminar/konferensi:~\cite{kreveld:11:median}
-	\item Skripsi/Thesis/Disertasi:~\cite{lionov:02:animasi}~\cite{wiratma:10:following}~\cite{wiratma:22:later}
-	\item Technical/Scientific Report:~\cite{kreveld:07:watertight}
-	\item RFC (Request For Comments):~\cite{RFC1654}
-	\item Technical Documentation/Technical Manual:~\cite{Z.500}~\cite{unicode:16:stdv9}~\cite{google:16:and7}
-	\item Paten:~\cite{webb:12:comm}
-	\item Tidak dipublikasikan:~\cite{wiratma:09:median}~\cite{lionov:11:cpoly}
-	\item Laman web:~\cite{erickson:03:cgmodel}  
-	\item Lain-lain:~\cite{agung:12:tango}
+    \item Buku:~\cite{duckett:11:htmlcss}
+	\item Buku:~\cite{cormen:22:introalgo} 
+	%\item Bab dalam buku:~\cite{kreveld:04:GIS}
+	%\item Artikel dari Jurnal:~\cite{buchin:13:median}
+	%\item Artikel dari prosiding seminar/konferensi:~\cite{kreveld:11:median}
+	%\item Skripsi/Thesis/Disertasi:~\cite{lionov:02:animasi}~\cite{wiratma:10:following}~\cite{wiratma:22:later}
+	%\item Technical/Scientific Report:~\cite{kreveld:07:watertight}
+	%\item RFC (Request For Comments):~\cite{RFC1654}
+	%\item Technical Documentation/Technical Manual:~\cite{Z.500}~\cite{unicode:16:stdv9}~\cite{google:16:and7}
+	%\item Paten:~\cite{webb:12:comm}
+	%\item Tidak dipublikasikan:~\cite{wiratma:09:median}~\cite{lionov:11:cpoly}
+	%\item Laman web:~\cite{erickson:03:cgmodel}  
+	%\item Lain-lain:~\cite{agung:12:tango}
 \end{itemize}    
   
-\subsection{Gambar}
+%\subsection{Gambar}
 
-Pada hampir semua editor, penempatan gambar di dalam dokumen \LaTeX{} tidak dapat dilakukan melalui proses {\it drag and drop}.
-Perhatikan contoh pada file bab2.tex untuk melihat bagaimana cara menempatkan gambar.
-Beberapa hal yang harus diperhatikan pada saat menempatkan gambar:
-\begin{itemize}
-	\item Setiap gambar {\bf harus} diacu di dalam teks (gunakan {\it field} {\sc label})
-	\item {\it Field} {\sc caption} digunakan untuk teks pengantar pada gambar. Terdapat dua bagian yaitu yang ada di antara tanda $[$ dan $]$ dan yang ada di antara tanda $\{$ dan $\}$. Yang pertama akan muncul di Daftar Gambar, sedangkan yang kedua akan muncul di teks pengantar gambar. Untuk skripsi ini, samakan isi keduanya.
-	\item Jenis file yang dapat digunakan sebagai gambar cukup banyak, tetapi yang paling populer adalah tipe {\sc png} (lihat Gambar~\ref{fig:ularpng}), tipe {\sc jpg} (Gambar~\ref{fig:ularjpg}) dan tipe {\sc pdf} (Gambar~\ref{fig:ularpdf})
-	\item Besarnya gambar dapat diatur dengan {\it field} {\sc scale}.
-	\item Penempatan gambar diatur menggunakan {\it placement specifier} (di antara tanda  $[$ dan $]$ setelah deklarasi gambar.
-	Yang umum digunakan adalah {\bf H} untuk menempatkan gambar {\bf sesuai} penempatannya di file .tex atau  {\bf h} yang berarti "kira-kira" di sini. \\
-	Jika tidak menggunakan {\it placement specifier}, \LaTeX{} akan menempatkan gambar secara otomatis untuk menghindari bagian kosong pada dokumen anda.
-	Walaupun cara ini sangat mudah, hindarkan terjadinya penempatan dua gambar secara berurutan. 	
-	\begin{itemize}
-		\item Gambar~\ref{fig:ularpng} ditempatkan di bagian atas halaman, walaupun penempatannya dilakukan setelah penulisan 3 paragraf setelah penjelasan ini.
-		\item Gambar~\ref{fig:ularjpg} dengan skala 0.5 ditempatkan di antara dua buah paragraf. Perhatikan penulisannya di dalam file bab2.tex!
-		\item Gambar~\ref{fig:ularpdf} ditempatkan menggunakan {\it specifier} {\bf h}.
-	\end{itemize}
-\end{itemize}
+%Pada hampir semua editor, penempatan gambar di dalam dokumen \LaTeX{} tidak dapat dilakukan melalui proses {\it drag and drop}.
+%Perhatikan contoh pada file bab2.tex untuk melihat bagaimana cara menempatkan gambar.
+%Beberapa hal yang harus diperhatikan pada saat menempatkan gambar:
+%\begin{itemize}
+	%\item Setiap gambar {\bf harus} diacu di dalam teks (gunakan {\it field} {\sc label})
+	%\item {\it Field} {\sc caption} digunakan untuk teks pengantar pada gambar. Terdapat dua bagian yaitu yang ada di antara tanda $[$ dan $]$ dan yang ada di antara tanda $\{$ dan $\}$. Yang pertama akan muncul di Daftar Gambar, sedangkan yang kedua akan muncul di teks pengantar gambar. Untuk skripsi ini, samakan isi keduanya.
+	%\item Jenis file yang dapat digunakan sebagai gambar cukup banyak, tetapi yang paling populer adalah tipe {\sc png} (lihat Gambar~\ref{fig:ularpng}), tipe {\sc jpg} (Gambar~\ref{fig:ularjpg}) dan tipe {\sc pdf} (Gambar~\ref{fig:ularpdf})
+	%\item Besarnya gambar dapat diatur dengan {\it field} {\sc scale}.
+	%\item Penempatan gambar diatur menggunakan {\it placement specifier} (di antara tanda  $[$ dan $]$ setelah deklarasi gambar.
+	%Yang umum digunakan adalah {\bf H} untuk menempatkan gambar {\bf sesuai} penempatannya di file .tex atau  {\bf h} yang berarti "kira-kira" di sini. \\
+	%Jika tidak menggunakan {\it placement specifier}, \LaTeX{} akan menempatkan gambar secara otomatis untuk menghindari bagian kosong pada dokumen anda.
+	%Walaupun cara ini sangat mudah, hindarkan terjadinya penempatan dua gambar secara berurutan. 	
+	%\begin{itemize}
+		%\item Gambar~\ref{fig:ularpng} ditempatkan di bagian atas halaman, walaupun penempatannya dilakukan setelah penulisan 3 paragraf setelah penjelasan ini.
+		%\item Gambar~\ref{fig:ularjpg} dengan skala 0.5 ditempatkan di antara dua buah paragraf. Perhatikan penulisannya di dalam file bab2.tex!
+		%\item Gambar~\ref{fig:ularpdf} ditempatkan menggunakan {\it specifier} {\bf h}.
+	%\end{itemize}
+%\end{itemize}
  
-\dtext{17-18}
-\begin{figure} 
-	\centering  
-	\includegraphics[scale=1]{ular-png}  
-	\caption[Gambar {\it Serpentes} dalam format png]{Gambar {\it Serpentes} dalam format png} 
-	\label{fig:ularpng} 
-\end{figure} 
+%\dtext{17-18}
+%\begin{figure} 
+	%\centering  
+	%\includegraphics[scale=1]{ular-png}  
+	%\caption[Gambar {\it Serpentes} dalam format png]{Gambar {\it Serpentes} dalam format png} 
+	%\label{fig:ularpng} 
+%\end{figure} 
 
-\dtext{19-20}
-\begin{figure}[H]
-	\centering  
-	\includegraphics[scale=0.5]{ular-jpg}  
-	\caption[Ular kecil]{Ular kecil} 
-	\label{fig:ularjpg} 
-\end{figure} 
-\dtext{21-22}
+%\dtext{19-20}
+%\begin{figure}[H]
+	%\centering  
+	%\includegraphics[scale=0.5]{ular-jpg}  
+	%\caption[Ular kecil]{Ular kecil} 
+	%\label{fig:ularjpg} 
+%\end{figure} 
+%\dtext{21-22}
 
-\begin{figure}[ht] 
-	\centering  
-	\includegraphics[scale=1]{ular-pdf}  
-	\caption[ {\it Serpentes} betina]{ {\it Serpentes} jantan} 
-	\label{fig:ularpdf} 
-\end{figure} 
+%\begin{figure}[ht] 
+	%\centering  
+	%\includegraphics[scale=1]{ular-pdf}  
+	%\caption[ {\it Serpentes} betina]{ {\it Serpentes} jantan} 
+	%\label{fig:ularpdf} 
+%\end{figure} 
  
-\subsection{Kode Program}
+%\subsection{Kode Program}
 
-Kode program dalam bahasa tertentu seringkali harus ditulis di dalam bab, bukan hanya dilampirkan di bagian Lampiran. 
-Kode~\ref{kode:aneh} menampilkan penggunaan karakter-karakter yang umum digunakan dalam sebuah program yang ditulis dengan bahasa C.
+%Kode program dalam bahasa tertentu seringkali harus ditulis di dalam bab, bukan hanya dilampirkan di bagian Lampiran. 
+%Kode~\ref{kode:aneh} menampilkan penggunaan karakter-karakter yang umum digunakan dalam sebuah program yang ditulis dengan bahasa C.
 
 
-\begin{lstlisting}[language=Java, caption=Kode untuk menampilkan karakter-karakter aneh, label=kode:aneh]
-// This does not make algorithmic sense, 
-// but it shows off significant programming characters.
+%\begin{lstlisting}[language=Java, caption=Kode untuk menampilkan karakter-karakter aneh, label=kode:aneh]
+%// This does not make algorithmic sense, 
+%// but it shows off significant programming characters.
 
-#include<stdio.h>
+%#include<stdio.h>
 
-void myFunction( int input, float* output ) {
-	switch ( array[i] ) {
-		case 1: // This is silly code
-			if ( a >= 0 || b <= 3 && c != x )
-				*output += 0.005 + 20050;
-			char = 'g';
-			b = 2^n + ~right_size - leftSize * MAX_SIZE;
-			c = (--aaa + &daa) / (bbb++ - ccc % 2 );
-			strcpy(a,"hello $@?"); 
-	}
-	count = ~mask | 0x00FF00AA;
-}
+%void myFunction( int input, float* output ) {
+	%switch ( array[i] ) {
+		%case 1: // This is silly code
+			%if ( a >= 0 || b <= 3 && c != x )
+				%*output += 0.005 + 20050;
+			%char = 'g';
+			%b = 2^n + ~right_size - leftSize * MAX_SIZE;
+			%c = (--aaa + &daa) / (bbb++ - ccc % 2 );
+			%strcpy(a,"hello $@?"); 
+	%}
+	%count = ~mask | 0x00FF00AA;
+%}
 
-// Fonts for Displaying Program Code in LATEX
-// Adrian P. Robson, nepsweb.co.uk
-// 8 October 2012
-// http://nepsweb.co.uk/docs/progfonts.pdf
+%// Fonts for Displaying Program Code in LATEX
+%// Adrian P. Robson, nepsweb.co.uk
+%// 8 October 2012
+%// http://nepsweb.co.uk/docs/progfonts.pdf
 
-\end{lstlisting}
+%\end{lstlisting}
 
-\subsection{Notasi}
+%\subsection{Notasi}
 
-Simbol-simbol (matematika) yang sering digunakan sepanjang penulisan skripsi, dapat dimasukkan ke dalam ``Daftar Notasi''. Daftar ini ada di halaman depan sebelum Bab~\ref{chap:intro}.
-Cara memasukkan sebuah simbol ke dalam Daftar Notasi adalah menggunakan perintah \verb|\nomenclature|. Contoh:
-\begin{center}
-    \verb|\nomenclature[]{$A$}{luas kandang ular}|    
-\end{center}
-\nomenclature[]{$A$}{luas kandang ular}
-\nomenclature[]{$n$}{banyaknya ular}
-\nomenclature[]{$k$}{jumlah kepala per seekor ular\nomrefpage}
-Argumen opsional digunakan untuk mengurutkan notasi. Silahkan lihat sendiri dokumentasi package \verb|nomencl|
+%Simbol-simbol (matematika) yang sering digunakan sepanjang penulisan skripsi, dapat dimasukkan ke dalam ``Daftar Notasi''. Daftar ini ada di halaman depan sebelum Bab~\ref{chap:intro}.
+%Cara memasukkan sebuah simbol ke dalam Daftar Notasi adalah menggunakan perintah \verb|\nomenclature|. Contoh:
+%\begin{center}
+    %\verb|\nomenclature[]{$A$}{luas kandang ular}|    
+%\end{center}
+%\nomenclature[]{$A$}{luas kandang ular}
+%\nomenclature[]{$n$}{banyaknya ular}
+%\nomenclature[]{$k$}{jumlah kepala per seekor ular\nomrefpage}
+%Argumen opsional digunakan untuk mengurutkan notasi. Silahkan lihat sendiri dokumentasi package \verb|nomencl|
 
