@@ -6,7 +6,7 @@
 \label{sec:html}
 \subsection{Pengertian HTML}
  
-\textit{Hypertext Markup Language} (HTML) merupakan bahasa markup yang digunakan untuk menyusun struktur dasar halaman web. HTML tidak termasuk bahasa pemrograman, melainkan bahasa yang digunakan untuk mendeskripsikan bagaimana konten ditampilkan pada browser. HTML memungkinkan pengembang untuk mengatur berbagai jenis konten seperti teks, gambar, tautan, tabel, dan elemen multimedia lainnya.
+\textit{Hypertext Markup Language} (HTML) merupakan bahasa markup yang digunakan untuk menyusun struktur dasar halaman web. HTML tidak termasuk bahasa pemrograman, melainkan bahasa yang digunakan untuk mendeskripsikan bagaimana konten ditampilkan pada browser\cite{duckett:11:htmlcss}. HTML memungkinkan pengembang untuk mengatur berbagai jenis konten seperti teks, gambar, tautan, tabel, dan elemen multimedia lainnya.
 
 HTML berfungsi sebagai kerangka utama dari halaman web, yang menentukan bagaimana setiap bagian konten disusun sehingga dapat ditampilkan secara terstruktur oleh browser~\cite{duckett:11:htmlcss}.
 
@@ -21,8 +21,8 @@ Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbe
 
 \begin{figure} [H]
 	\centering  
-	\includegraphics[scale=0.5]{Skripsi/DokumenSkripsi/Gambar/StrukturDasarHTML2.png}
-	\caption[Gambar Struktur dasar HTML]{Contoh struktur dasar dokumen HTML} 
+	\includegraphics[scale=0.3]{Skripsi/DokumenSkripsi/Gambar/TagHTML.png}
+	\caption[Gambar Tag pembuka dan penutup]{Contoh tag pembuka dan penutup dokumen HTML} 
 	\label{fig:htmlpng} 
 \end{figure}
 
@@ -33,6 +33,13 @@ Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbe
 Dokumen HTML memiliki struktur standar yang terdiri dari beberapa bagian utama, yaitu <html>, <head>, dan <body>. Elemen <html> merupakan root dari seluruh dokumen. Elemen <head> berisi informasi metadata seperti judul halaman, sedangkan <body> berisi konten utama yang ditampilkan kepada pengguna.
 
 Struktur ini memastikan bahwa setiap halaman web memiliki susunan yang konsisten dan dapat dipahami oleh browser.
+
+\begin{figure} [H]
+	\centering  
+	\includegraphics[scale=0.5]{Skripsi/DokumenSkripsi/Gambar/StrukturDasarHTML2.png}
+	\caption[Gambar Struktur dasar HTML]{Contoh struktur dasar dokumen HTML} 
+	\label{fig:htmlpng} 
+\end{figure}
 
 \subsection{Hierarki elemen HTML}
 
@@ -101,9 +108,7 @@ Traversal graf adalah proses mengunjungi setiap node dalam graf secara sistemati
 \subsection{Depth-First Search}
 {\it Depth-First Search} (DFS) adalah metode traversal yang bekerja dengan menelusuri node hingga ke bagian terdalam sebelum kembali ke node sebelumnya.
 
-Metode ini sangat cocok untuk struktur berbentuk tree seperti DOM karena mengikuti pola parent-child secara mendalam.
-
-Menurut {\it Introduction to Algorithms}, DFS sering digunakan untuk eksplorasi struktur hierarkis dan graf.
+Metode ini sangat cocok untuk struktur berbentuk tree seperti DOM karena mengikuti pola parent-child secara mendalam. DFS sering digunakan untuk eksplorasi struktur hierarkis dan graf\cite{cormen:22:introalgo}.
 
 \begin{figure} [H]
 	\centering  
@@ -114,7 +119,7 @@ Menurut {\it Introduction to Algorithms}, DFS sering digunakan untuk eksplorasi 
 
 \section{Graphviz}
 \subsection{Pengertian Graphviz}
-Graphviz adalah perangkat lunak yang digunakan untuk memvisualisasikan graf berdasarkan deskripsi teks.
+Graphviz adalah perangkat lunak visualisasi grafik \textit{open source}. Visualisasi grafik adalah cara untuk merepresentasikan informasi struktural sebagai diagram grafik abstrak dan jaringan. Teknologi ini memiliki aplikasi penting dalam jaringan, bioinformatika, rekayasa perangkat lunak, desain basis data dan web, pembelajaran mesin, dan antarmuka visual untuk domain teknis lainnya\cite{ellson:24:graphviz}.
 
 Menurut \textit{Graphviz Project}, Graphviz menyediakan berbagai algoritma layout untuk menampilkan graf secara otomatis.
 
@@ -124,7 +129,7 @@ Graphviz menggunakan format DOT untuk mendefinisikan graf.
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.65]{Skripsi/DokumenSkripsi/Gambar/DOT.png}
-	\caption[Potongan Kode dengan format DOT]{Potongan Kode dengan format DOT} 
+	\caption[Potongan Kode dengan format DOT]{Potongan kode .dot menggambarkan struktur DOM sederhana di mana HTML terhubung ke head, dan head memiliki beberapa elemen anak seperti link dan script} 
 	\label{fig:dot} 
 \end{figure}
 
