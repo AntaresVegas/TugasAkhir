@@ -6,11 +6,11 @@
 \label{sec:html}
 \subsection{Pengertian HTML}
  
-{\it Hypertext Markup Language} (HTML) merupakan bahasa markup yang digunakan untuk menyusun struktur dasar halaman web. HTML tidak termasuk bahasa pemrograman, melainkan bahasa yang digunakan untuk mendeskripsikan bagaimana konten ditampilkan pada browser. HTML memungkinkan pengembang untuk mengatur berbagai jenis konten seperti teks, gambar, tautan, tabel, dan elemen multimedia lainnya.
+\textit{Hypertext Markup Language} (HTML) merupakan bahasa markup yang digunakan untuk menyusun struktur dasar halaman web. HTML tidak termasuk bahasa pemrograman, melainkan bahasa yang digunakan untuk mendeskripsikan bagaimana konten ditampilkan pada browser. HTML memungkinkan pengembang untuk mengatur berbagai jenis konten seperti teks, gambar, tautan, tabel, dan elemen multimedia lainnya.
 
-Menurut {\it HTML and CSS: Design and Build Websites}, HTML berfungsi sebagai kerangka utama dari halaman web, yang menentukan bagaimana setiap bagian konten disusun sehingga dapat ditampilkan secara terstruktur oleh browser.
+HTML berfungsi sebagai kerangka utama dari halaman web, yang menentukan bagaimana setiap bagian konten disusun sehingga dapat ditampilkan secara terstruktur oleh browser~\cite{duckett:11:htmlcss}.
 
-HTML bekerja dengan konsep {\it tag-based structure}, di mana setiap elemen ditandai dengan tag tertentu. Dengan adanya struktur ini, browser dapat memahami peran masing-masing elemen dan menampilkannya dengan benar.
+HTML bekerja dengan konsep \textit{tag-based structure}, di mana setiap elemen ditandai dengan tag tertentu. Dengan adanya struktur ini, browser dapat memahami peran masing-masing elemen dan menampilkannya dengan benar.
 
 \subsection{Elemen dan Tag HTML}
 Elemen HTML merupakan komponen dasar dalam penyusunan halaman web. Setiap elemen biasanya terdiri dari tag pembuka dan tag penutup, serta isi di antara keduanya. Sebagai contoh, elemen paragraf dituliskan dengan <p> sebagai tag pembuka dan </p> sebagai tag penutup.
@@ -21,17 +21,15 @@ Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbe
 
 \begin{figure} [H]
 	\centering  
-	\includegraphics[scale=0.5]{Skripsi/DokumenSkripsi/Gambar/StrukturDasarHTML.png}
+	\includegraphics[scale=0.5]{Skripsi/DokumenSkripsi/Gambar/StrukturDasarHTML2.png}
 	\caption[Gambar Struktur dasar HTML]{Contoh struktur dasar dokumen HTML} 
 	\label{fig:htmlpng} 
 \end{figure}
 
 %\dtext{11-12} 
 
-\section{Struktur Dokumen HTML}
-\label{sec:struktur}
-
 \subsection{Struktur dasar HTML}
+\label{sec:struktur}
 Dokumen HTML memiliki struktur standar yang terdiri dari beberapa bagian utama, yaitu <html>, <head>, dan <body>. Elemen <html> merupakan root dari seluruh dokumen. Elemen <head> berisi informasi metadata seperti judul halaman, sedangkan <body> berisi konten utama yang ditampilkan kepada pengguna.
 
 Struktur ini memastikan bahwa setiap halaman web memiliki susunan yang konsisten dan dapat dipahami oleh browser.
@@ -42,13 +40,6 @@ Struktur HTML bersifat hierarkis, yang berarti elemen dapat berada di dalam elem
 
 Hierarki ini penting karena menentukan bagaimana elemen saling berhubungan dan bagaimana struktur tersebut akan diproses menjadi DOM. Semakin kompleks halaman web, maka semakin dalam dan luas struktur hierarki yang terbentuk.
 
-\begin{figure} [H]
-	\centering  
-	\includegraphics[scale=0.7]{Skripsi/DokumenSkripsi/Gambar/HTMLTree.png}
-	\caption[Gambar Struktur dasar HTML]{Representasi hierarki elemen HTML dalam bentuk pohon} 
-	\label{fig:htmltree} 
-\end{figure}
-
 %\dtext{13-14}
 
 
@@ -56,9 +47,9 @@ Hierarki ini penting karena menentukan bagaimana elemen saling berhubungan dan b
 \label{sec:dom}
 
  \subsection{Pengertian DOM}
-{\it Document Object Model} (DOM) adalah representasi dari dokumen HTML dalam bentuk struktur objek yang dapat diakses dan dimanipulasi oleh program. DOM memungkinkan setiap elemen dalam halaman web diperlakukan sebagai objek yang memiliki properti dan metode.
+\textit{Document Object Model }(DOM) adalah representasi dari dokumen HTML dalam bentuk struktur objek yang dapat diakses dan dimanipulasi oleh program. DOM memungkinkan setiap elemen dalam halaman web diperlakukan sebagai objek yang memiliki properti dan metode~\cite{marini:02:thedom}.
 
-Menurut {\it World Wide Web Consortium}, DOM menyediakan antarmuka standar untuk mengakses dan memodifikasi dokumen HTML.
+Menurut \textit{World Wide Web Consortium}, DOM menyediakan antarmuka standar untuk mengakses dan memodifikasi dokumen HTML.
 
 Dengan adanya DOM, halaman web tidak hanya menjadi tampilan statis, tetapi juga dapat diproses dan dimodifikasi secara dinamis.
 
@@ -71,13 +62,6 @@ Setiap node dapat memiliki:
     \item Sibling (saudara) 
 \end{itemize}
 Struktur ini memungkinkan proses traversal dilakukan secara sistematis, seperti menggunakan DFS.
-
-\begin{figure} [H]
-	\centering  
-	\includegraphics[scale=0.8]{Skripsi/DokumenSkripsi/Gambar/DOMtree2.png}
-	\caption[Gambar Struktur dasar HTML]{Struktur DOM dalam bentuk Tree} 
-	\label{fig:digraph} 
-\end{figure}
 
 \subsection{Jenis node pada DOM}
 DOM terdiri dari beberapa jenis node, antara lain:
@@ -94,7 +78,7 @@ Keberadaan berbagai jenis node ini membuat struktur DOM lebih kompleks dibanding
 \subsection{Pengertian Graf}
 Graf adalah struktur data yang terdiri dari simpul (node) dan sisi (edge) yang menghubungkan simpul tersebut.
 
-Menurut {\it Introduction to Algorithms}, graf digunakan untuk merepresentasikan hubungan antar objek dalam berbagai bidang komputasi.
+Graf digunakan untuk merepresentasikan hubungan antar objek dalam berbagai bidang komputasi~\cite{cormen:22:introalgo}.
 
 \subsection{Graf Berarah}
 Graf berarah adalah graf yang memiliki arah pada setiap edge. Dalam konteks DOM, hubungan parent ke child memiliki arah, sehingga dapat dimodelkan sebagai graf berarah.
@@ -102,7 +86,7 @@ Graf berarah adalah graf yang memiliki arah pada setiap edge. Dalam konteks DOM,
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.65]{Skripsi/DokumenSkripsi/Gambar/digraph2.png}
-	\caption[Gambar Struktur dasar HTML]{Contoh graf berarah sederhana (node dan edge)} 
+	\caption[Contoh graf berarah sederhana (node dan edge)]{Contoh graf berarah sederhana (node dan edge)} 
 	\label{fig:digraph} 
 \end{figure}
 
@@ -111,8 +95,7 @@ Struktur DOM dapat direpresentasikan sebagai graf dengan cara memetakan setiap e
 
 Pendekatan ini memungkinkan struktur halaman web dianalisis menggunakan teori graf, serta mempermudah visualisasi menggunakan perangkat lunak seperti Graphviz.
 
-\section{Traversal Graph}
-\subsection{Pengertian Traversal}
+\subsection{Pengertian Traversal Graf}
 Traversal graf adalah proses mengunjungi setiap node dalam graf secara sistematis. Traversal diperlukan untuk memastikan seluruh struktur graf dapat diproses tanpa ada node yang terlewat.
 
 \subsection{Depth-First Search}
@@ -125,7 +108,7 @@ Menurut {\it Introduction to Algorithms}, DFS sering digunakan untuk eksplorasi 
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.65]{Skripsi/DokumenSkripsi/Gambar/DFS.png}
-	\caption[Gambar Struktur dasar HTML]{Ilustrasi proses DFS pada graf berarah} 
+	\caption[Ilustrasi proses DFS pada Graf berarah]{Ilustrasi proses DFS pada graf berarah. Sisi-sisi diklasifikasikan sesuai urutan penjelajahannya: sisi pohon diberi label T, sisi belakang B, sisi depan F, dan sisi silang C.} 
 	\label{fig:dfs} 
 \end{figure}
 
@@ -133,7 +116,7 @@ Menurut {\it Introduction to Algorithms}, DFS sering digunakan untuk eksplorasi 
 \subsection{Pengertian Graphviz}
 Graphviz adalah perangkat lunak yang digunakan untuk memvisualisasikan graf berdasarkan deskripsi teks.
 
-Menurut {\i Graphviz Project}, Graphviz menyediakan berbagai algoritma layout untuk menampilkan graf secara otomatis.
+Menurut \textit{Graphviz Project}, Graphviz menyediakan berbagai algoritma layout untuk menampilkan graf secara otomatis.
 
 \subsection{Format DOT}
 Graphviz menggunakan format DOT untuk mendefinisikan graf.
@@ -141,14 +124,14 @@ Graphviz menggunakan format DOT untuk mendefinisikan graf.
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.65]{Skripsi/DokumenSkripsi/Gambar/DOT.png}
-	\caption[Gambar Struktur dasar HTML]{Potongan Kode dengan format DOT} 
+	\caption[Potongan Kode dengan format DOT]{Potongan Kode dengan format DOT} 
 	\label{fig:dot} 
 \end{figure}
 
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.55]{Skripsi/DokumenSkripsi/Gambar/VisualisasiDOM.png}
-	\caption[Gambar Struktur dasar HTML]{Visualisasi dari format DOT dengan menggunakan Graphviz} 
+	\caption[Visualisasi dari format DOT dengan menggunakan Graphviz]{Visualisasi dari format DOT dengan menggunakan Graphviz} 
 	\label{fig:visdot} 
 \end{figure}
 
@@ -219,11 +202,11 @@ Graphviz menggunakan format DOT untuk mendefinisikan graf.
 %\end{table}
 
  
-\subsection{Kutipan}
-\label{subs:kutipan} 
-\begin{itemize}
-    \item Buku:~\cite{duckett:11:htmlcss}
-	\item Buku:~\cite{cormen:22:introalgo} 
+%\subsection{Kutipan}
+%\label{subs:kutipan} 
+%\begin{itemize}
+    %\item Buku:~\cite{duckett:11:htmlcss}
+	%\item Buku:~\cite{cormen:22:introalgo} 
 	%\item Bab dalam buku:~\cite{kreveld:04:GIS}
 	%\item Artikel dari Jurnal:~\cite{buchin:13:median}
 	%\item Artikel dari prosiding seminar/konferensi:~\cite{kreveld:11:median}
@@ -235,7 +218,7 @@ Graphviz menggunakan format DOT untuk mendefinisikan graf.
 	%\item Tidak dipublikasikan:~\cite{wiratma:09:median}~\cite{lionov:11:cpoly}
 	%\item Laman web:~\cite{erickson:03:cgmodel}  
 	%\item Lain-lain:~\cite{agung:12:tango}
-\end{itemize}    
+%\end{itemize}    
   
 %\subsection{Gambar}
 
