@@ -6,25 +6,25 @@
 \label{sec:html}
 \subsection{Pengertian HTML}
  
-\textit{Hypertext Markup Language} (HTML) merupakan bahasa markup yang digunakan untuk menyusun struktur dasar halaman web. HTML tidak termasuk bahasa pemrograman karena tidak memiliki mekanisme logika seperti percabangan, perulangan, atau pengolahan data secara langsung, melainkan digunakan untuk mendeskripsikan struktur dan makna konten yang akan ditampilkan pada browser~\cite{duckett:11:htmlcss}. HTML memungkinkan pengembang mengatur berbagai jenis konten, seperti teks, gambar, tautan, tabel, formulir, serta elemen multimedia lainnya dalam sebuah dokumen web.
+\textit{Hypertext Markup Language} (HTML) merupakan bahasa \textit{markup} yang digunakan untuk menyusun struktur dasar halaman web. HTML tidak termasuk bahasa pemrograman karena tidak memiliki mekanisme logika seperti percabangan, perulangan, atau pengolahan data secara langsung, melainkan digunakan untuk mendeskripsikan struktur dan makna konten yang akan ditampilkan pada \textit{browser}~\cite{duckett:11:htmlcss}. HTML memungkinkan pengembang mengatur berbagai jenis konten, seperti teks, gambar, tautan, tabel, formulir, serta elemen multimedia lainnya dalam sebuah dokumen web.
 
-HTML berfungsi sebagai kerangka utama halaman web yang menentukan bagaimana setiap bagian konten disusun sehingga dapat ditampilkan secara terstruktur oleh browser~\cite{duckett:11:htmlcss}. Dalam pengembangan web, HTML umumnya digunakan bersama dengan CSS dan JavaScript. HTML berperan dalam membentuk struktur konten, CSS digunakan untuk mengatur tampilan atau gaya visual, sedangkan JavaScript digunakan untuk menambahkan interaktivitas pada halaman web.
+HTML berfungsi sebagai kerangka utama halaman web yang menentukan bagaimana setiap bagian konten disusun sehingga dapat ditampilkan secara terstruktur oleh \textit{browser}~\cite{duckett:11:htmlcss}. Dalam pengembangan web, HTML umumnya digunakan bersama dengan CSS dan JavaScript. HTML berperan dalam membentuk struktur konten, CSS digunakan untuk mengatur tampilan atau gaya visual, sedangkan JavaScript digunakan untuk menambahkan interaktivitas pada halaman web.
 
-HTML bekerja dengan konsep \textit{tag-based structure}, yaitu setiap elemen ditandai dengan tag tertentu. Tag tersebut memberikan informasi kepada browser mengenai jenis dan fungsi konten, misalnya paragraf, judul, gambar, tautan, atau daftar. Melalui struktur ini, browser dapat memahami peran masing-masing elemen, menyusun hubungan antar elemen, dan menampilkannya dengan benar kepada pengguna.
+HTML bekerja dengan konsep \textit{tag-based structure}, yaitu setiap elemen ditandai dengan \textit{tag} tertentu. Tag tersebut memberikan informasi kepada \textit{browser} mengenai jenis dan fungsi konten, misalnya paragraf, judul, gambar, tautan, atau daftar. Melalui struktur ini, \textit{browser} dapat memahami peran masing-masing elemen, menyusun hubungan antar elemen, dan menampilkannya dengan benar kepada pengguna.
 
 \subsection{Elemen dan Tag HTML}
-Elemen HTML merupakan komponen dasar dalam penyusunan halaman web. Setiap elemen digunakan untuk merepresentasikan bagian tertentu dari konten, seperti paragraf, judul, gambar, tautan, tabel, daftar, maupun formulir. Secara umum, sebuah elemen HTML terdiri dari tag pembuka, isi elemen, dan tag penutup. Sebagai contoh, elemen paragraf dituliskan dengan <p> sebagai tag pembuka, isi teks sebagai konten, dan </p> sebagai tag penutup.
+Elemen HTML merupakan komponen dasar dalam penyusunan halaman web. Setiap elemen digunakan untuk merepresentasikan bagian tertentu dari konten, seperti paragraf, judul, gambar, tautan, tabel, daftar, maupun formulir. Secara umum, sebuah elemen HTML terdiri dari \textit{tag} pembuka, isi elemen, dan \textit{tag} penutup. Sebagai contoh, elemen paragraf dituliskan dengan <p> sebagai \textit{tag} pembuka, isi teks sebagai konten, dan </p> sebagai \textit{tag} penutup seperti pada gambar \ref{fig:htmlpng}.
 
-Tag berfungsi sebagai penanda yang memberi tahu browser mengenai jenis elemen yang sedang digunakan. Tag pembuka menunjukkan awal suatu elemen, sedangkan tag penutup menunjukkan akhir elemen tersebut. Namun, tidak semua elemen HTML memiliki tag penutup. Beberapa elemen, seperti <img>, <br>, dan <hr>, termasuk elemen kosong karena tidak memiliki isi di antara tag pembuka dan tag penutup.
+Tag berfungsi sebagai penanda yang memberi tahu \textit{browser} mengenai jenis elemen yang sedang digunakan. Tag pembuka menunjukkan awal suatu elemen, sedangkan \textit{tag} penutup menunjukkan akhir elemen tersebut. Namun, tidak semua elemen HTML memiliki \textit{tag} penutup. Beberapa elemen, seperti <img>, <br>, dan <hr>, termasuk elemen kosong karena tidak memiliki isi di antara \textit{tag} pembuka dan \textit{tag} penutup.
 
-Selain tag, elemen HTML juga dapat memiliki atribut yang memberikan informasi tambahan terhadap elemen tersebut. Atribut dituliskan di dalam tag pembuka dan umumnya terdiri dari nama atribut serta nilai atribut. Sebagai contoh, atribut href pada elemen <a> digunakan untuk menentukan alamat tautan, sedangkan atribut src pada elemen <img> digunakan untuk menentukan lokasi berkas gambar. Atribut lain seperti id dan class sering digunakan untuk memberi identitas atau pengelompokan elemen agar dapat diatur lebih lanjut menggunakan CSS atau diproses melalui JavaScript.
+Selain \textit{tag}, elemen HTML juga dapat memiliki atribut yang memberikan informasi tambahan terhadap elemen tersebut. Atribut dituliskan di dalam \textit{tag} pembuka dan umumnya terdiri dari nama atribut serta nilai atribut. Sebagai contoh, atribut \textit{href} pada elemen <a> digunakan untuk menentukan alamat tautan, sedangkan atribut \textit{src} pada elemen <img> digunakan untuk menentukan lokasi berkas gambar. Atribut lain seperti \textit{id} dan \textit{class} sering digunakan untuk memberi identitas atau pengelompokan elemen agar dapat diatur lebih lanjut menggunakan CSS atau diproses melalui JavaScript.
 
-Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbentuknya hubungan hierarkis antar elemen. Dalam struktur ini, suatu elemen dapat menjadi induk bagi elemen lain yang berada di dalamnya. Misalnya, elemen <body> dapat memuat elemen <div>, kemudian elemen <div> tersebut dapat memuat elemen <p>, <img>, atau <a>. Hubungan bertingkat ini menjadi dasar penting dalam pembentukan struktur DOM karena browser akan membaca dokumen HTML sebagai susunan node yang saling terhubung.
+Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbentuknya hubungan hierarkis antar elemen. Dalam struktur ini, suatu elemen dapat menjadi induk bagi elemen lain yang berada di dalamnya. Misalnya, elemen <body> dapat memuat elemen <div>, kemudian elemen <div> tersebut dapat memuat elemen <p>, <img>, atau <a>. Hubungan bertingkat ini menjadi dasar penting dalam pembentukan struktur DOM karena \textit{browser} akan membaca dokumen HTML sebagai susunan \textit{node} yang saling terhubung.
 
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.3]{../Gambar/TagHTML.png}
-	\caption[Gambar Tag pembuka dan penutup]{Contoh tag pembuka dan penutup dokumen HTML} 
+	\caption[Gambar Tag pembuka dan penutup]{Contoh \textit{tag} pembuka dan penutup dokumen HTML} 
 	\label{fig:htmlpng} 
 \end{figure}
 
@@ -32,30 +32,42 @@ Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbe
 
 \subsection{Struktur dasar HTML}
 \label{sec:struktur}
-Dokumen HTML memiliki struktur standar yang terdiri dari beberapa bagian utama, yaitu <html>, <head>, dan <body>. Struktur tersebut biasanya diawali dengan deklarasi <!DOCTYPE html> yang berfungsi untuk memberi tahu browser bahwa dokumen menggunakan standar HTML modern. Setelah deklarasi tersebut, elemen <html> digunakan sebagai root dari seluruh dokumen HTML dan menjadi wadah bagi elemen-elemen lain di dalam halaman web.
+Dokumen HTML memiliki struktur standar yang terdiri dari beberapa bagian utama, yaitu <html>, <head>, dan <body>. Pada kode \ref{kode:2:2:1:model}, struktur tersebut diawali dengan deklarasi <!DOCTYPE html> yang berfungsi untuk memberi tahu \textit{browser} bahwa dokumen menggunakan standar HTML modern. Setelah deklarasi tersebut, elemen <html> digunakan sebagai \textit{root} dari seluruh dokumen HTML dan menjadi wadah bagi elemen <head> serta <body>.
 
-Elemen <head> berisi informasi yang tidak ditampilkan secara langsung pada halaman, tetapi dibutuhkan oleh browser dan mesin pencari untuk memahami dokumen. Informasi tersebut dapat berupa judul halaman melalui elemen <title>, pengaturan karakter melalui elemen <meta>, pemanggilan berkas CSS melalui elemen <link>, serta pemanggilan skrip tertentu melalui elemen <script>. Bagian ini berperan penting dalam pengaturan metadata, optimasi halaman, dan hubungan dokumen HTML dengan sumber daya eksternal.
+Bagian <head> pada kode berikut berisi informasi yang tidak ditampilkan secara langsung pada halaman, tetapi dibutuhkan oleh \textit{browser} untuk memahami dokumen. Elemen <meta charset="UTF-8"> digunakan untuk menentukan pengkodean karakter, elemen <meta name="viewport"> digunakan untuk mengatur tampilan halaman pada perangkat yang berbeda, sedangkan elemen <title> digunakan untuk menentukan judul dokumen.
 
-Elemen <body> berisi seluruh konten utama yang ditampilkan kepada pengguna pada browser. Konten tersebut dapat berupa teks, gambar, tautan, tabel, formulir, daftar, maupun elemen multimedia. Dengan demikian, bagian <body> menjadi tempat penyusunan tampilan utama halaman web yang dapat dilihat dan berinteraksi langsung dengan pengguna.
+Bagian <body> pada kode berikut berisi konten utama yang akan ditampilkan kepada pengguna. Di dalamnya terdapat elemen <h1> sebagai judul utama, elemen <h2> sebagai subjudul, serta elemen <p> sebagai paragraf. Susunan tersebut menunjukkan bahwa isi halaman web ditempatkan di dalam <body> dan disusun berdasarkan fungsi masing-masing elemen.
 
-Struktur dasar ini memastikan bahwa setiap halaman web memiliki susunan yang konsisten dan dapat dipahami oleh browser. Ketika sebuah dokumen HTML dimuat, browser akan membaca struktur tersebut dari bagian paling atas, memproses metadata pada <head>, kemudian menampilkan konten yang terdapat pada <body>. Susunan yang teratur juga memudahkan proses pembentukan DOM karena setiap elemen memiliki posisi dan hubungan yang jelas di dalam hierarki dokumen.
+Dengan demikian, kode berikut memperlihatkan bahwa dokumen HTML memiliki susunan yang hierarkis. Elemen <html> menjadi elemen induk, sedangkan <head> dan <body> menjadi elemen anak. Di dalam <body>, \textit{heading} dan paragraf menjadi bagian dari konten halaman. Susunan yang teratur ini memudahkan \textit{browser} membaca dokumen, menampilkan halaman secara benar, dan membentuk DOM karena setiap elemen memiliki posisi serta hubungan yang jelas di dalam hierarki dokumen.
 
-\begin{figure} [H]
-	\centering  
-	\includegraphics[scale=0.5]{../Gambar/StrukturDasarHTML2.png}
-	\caption[Gambar Struktur dasar HTML]{Contoh struktur dasar dokumen HTML} 
-	\label{fig:strukturdasarhtml} 
-\end{figure}
+\begin{lstlisting}[language=html, caption=Contoh struktur dasar dokumen HTML yang terdiri dari deklarasi dokumen; elemen html; bagian head; yang berisi metadata dan title serta bagian body berisi heading dan paragraf sebagai konten utama halaman, label=kode:2:2:1:model]
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+		<body>
+			<h1>This is the Main Heading</h1>
+			<p>This text might be an introduction to the rest of the page, And if the page is a long one it might be split up into several sub-headings.</p>
+				<h2>This is a Sub-Heading</h2>
+				<p>Many long articles have sub-heading so to help you follow the structure of what is being written. There may even be sub-sub-headings (or lower-level headings).</p>
+				<h2>Another Sub-Heading</h2>
+				<p>Here you can see another sub-heading</p>
+		</body>
+	</html>
+\end{lstlisting}
 
 \subsection{Hierarki elemen HTML}
 
-Struktur HTML bersifat hierarkis, yang berarti elemen dapat berada di dalam elemen lain. Hubungan antar elemen ini membentuk struktur bertingkat yang menyerupai pohon, di mana setiap elemen memiliki posisi tertentu dalam dokumen. Dalam struktur tersebut, elemen yang memuat elemen lain disebut sebagai parent, sedangkan elemen yang berada di dalamnya disebut sebagai child. Elemen-elemen yang berada pada tingkat yang sama dan memiliki parent yang sama disebut sebagai sibling.
+Struktur HTML bersifat hierarkis, yang berarti elemen dapat berada di dalam elemen lain. Hubungan antar elemen ini membentuk struktur bertingkat yang menyerupai pohon, di mana setiap elemen memiliki posisi tertentu dalam dokumen. Dalam struktur tersebut, elemen yang memuat elemen lain disebut sebagai \textit{parent}, sedangkan elemen yang berada di dalamnya disebut sebagai \textit{child}. Elemen-elemen yang berada pada tingkat yang sama dan memiliki \textit{parent} yang sama disebut sebagai \textit{sibling}.
 
-Sebagai contoh, elemen <body> dapat berperan sebagai parent bagi elemen <div>. Selanjutnya, elemen <div> dapat berisi elemen <p>, <img>, atau <a> sebagai child. Jika di dalam satu elemen <div> terdapat beberapa elemen <p>, maka elemen-elemen tersebut dapat disebut sebagai sibling karena berada pada tingkat hierarki yang sama. Hubungan seperti ini menunjukkan bahwa dokumen HTML tidak hanya tersusun secara berurutan, tetapi juga memiliki hubungan induk-anak yang jelas antar elemen.
+Sebagai contoh, elemen <body> dapat berperan sebagai \textit{parent} bagi elemen <div>. Selanjutnya, elemen <div> dapat berisi elemen <p>, <img>, atau <a> sebagai \textit{child}. Jika di dalam satu elemen <div> terdapat beberapa elemen <p>, maka elemen-elemen tersebut dapat disebut sebagai \textit{sibling} karena berada pada tingkat hierarki yang sama. Hubungan seperti ini menunjukkan bahwa dokumen HTML tidak hanya tersusun secara berurutan, tetapi juga memiliki hubungan induk-anak yang jelas antar elemen.
 
-Hierarki ini penting karena menentukan bagaimana elemen saling berhubungan dan bagaimana struktur tersebut akan diproses menjadi DOM. Ketika browser membaca dokumen HTML, setiap elemen akan direpresentasikan sebagai node dalam struktur DOM. Hubungan parent, child, dan sibling pada HTML akan menjadi dasar pembentukan hubungan antar node di dalam DOM. Oleh karena itu, susunan elemen yang benar akan memudahkan browser dalam memahami struktur dokumen dan menampilkan halaman web secara sesuai.
+Hierarki ini penting karena menentukan bagaimana elemen saling berhubungan dan bagaimana struktur tersebut akan diproses menjadi DOM. Ketika \textit{browser} membaca dokumen HTML, setiap elemen akan direpresentasikan sebagai \textit{node} dalam struktur DOM. Hubungan \textit{parent}, \textit{child}, dan \textit{sibling} pada HTML akan menjadi dasar pembentukan hubungan antar \textit{node} di dalam DOM. Oleh karena itu, susunan elemen yang benar akan memudahkan \textit{browser} dalam memahami struktur dokumen dan menampilkan halaman web secara sesuai.
 
-Semakin kompleks halaman web, maka semakin dalam dan luas struktur hierarki yang terbentuk. Halaman yang memiliki banyak bagian, seperti header, navigasi, konten utama, sidebar, formulir, dan footer, akan menghasilkan struktur HTML yang lebih bercabang. Struktur hierarkis tersebut juga memengaruhi proses penelusuran elemen, baik dalam manipulasi DOM menggunakan JavaScript maupun dalam analisis struktur halaman menggunakan pendekatan traversal seperti DFS.
+Semakin kompleks halaman web, maka semakin dalam dan luas struktur hierarki yang terbentuk. Halaman yang memiliki banyak bagian, seperti header, navigasi, konten utama, sidebar, formulir, dan footer, akan menghasilkan struktur HTML yang lebih bercabang. Struktur hierarkis tersebut juga memengaruhi proses penelusuran elemen, baik dalam manipulasi DOM menggunakan JavaScript maupun dalam analisis struktur halaman menggunakan pendekatan \textit{traversal} seperti \textit{Depth First Search} (DFS).
 
 %\dtext{13-14}
 
@@ -66,52 +78,77 @@ Semakin kompleks halaman web, maka semakin dalam dan luas struktur hierarki yang
  \subsection{Pengertian DOM}
 \textit{Document Object Model }(DOM) adalah representasi dari dokumen HTML dalam bentuk struktur objek yang dapat diakses dan dimanipulasi oleh program. DOM memungkinkan setiap elemen dalam halaman web diperlakukan sebagai objek yang memiliki properti dan metode~\cite{marini:02:thedom}.
 
-Menurut \textit{World Wide Web Consortium}, DOM menyediakan antarmuka standar untuk mengakses dan memodifikasi dokumen HTML.
-
-Dengan adanya DOM, halaman web tidak hanya menjadi tampilan statis, tetapi juga dapat diproses dan dimodifikasi secara dinamis.
+Menurut \textit{World Wide Web Consortium}, DOM menyediakan antarmuka standar untuk mengakses dan memodifikasi dokumen HTML. Dengan adanya DOM, halaman web tidak hanya menjadi tampilan statis, tetapi juga dapat diproses dan dimodifikasi secara dinamis.
 
 \subsection{Struktur DOM sebagai Tree}
-Struktur DOM berbentuk pohon (tree structure), di mana setiap elemen HTML direpresentasikan sebagai node. Node paling atas disebut root node, yang biasanya adalah elemen <html>.
-Setiap node dapat memiliki:
-\begin{itemize}
-    \item Parent (induk)
-    \item Child (anak)
-    \item Sibling (saudara) 
-\end{itemize}
-Struktur ini memungkinkan proses traversal dilakukan secara sistematis, seperti menggunakan DFS.
+Struktur DOM berbentuk pohon (\textit{tree structure}) karena dokumen HTML disusun dari elemen-elemen yang saling berhubungan secara hierarkis. Dalam DOM, setiap bagian dokumen direpresentasikan sebagai \textit{node}, seperti \textit{node} dokumen, \textit{node} elemen, \textit{node} atribut, dan \textit{node} teks. Menurut Marini, DOM memodelkan dokumen sebagai kumpulan objek yang tersusun dalam struktur pohon sehingga setiap objek dapat diakses, ditelusuri, dan dimodifikasi melalui antarmuka pemrograman~\cite{marini:02:thedom}.
 
-\subsection{Jenis node pada DOM}
-DOM terdiri dari beberapa jenis node, antara lain:
+Pada struktur tersebut, \textit{node} paling atas disebut \textit{root node}. Untuk dokumen HTML, elemen <html> umumnya menjadi akar utama yang menaungi elemen <head> dan <body>. Elemen <head> dapat memiliki anak seperti <title> atau <meta>, sedangkan elemen <body> dapat memiliki anak seperti <div>, <h1>, <p>, atau elemen lain yang membentuk isi halaman. Hubungan bertingkat ini membuat DOM dapat dipahami sebagai susunan induk dan anak antar elemen, sebagaimana ditunjukkan pada Gambar~\ref{fig:domtree}.
+
+Setiap \textit{node} dalam DOM dapat memiliki beberapa jenis relasi, yaitu:
 \begin{itemize}
-    \item Element node: merepresentasikan tag HTML
-    \item Text node: merepresentasikan isi teks
-    \item Attribute node: merepresentasikan atribut 
+    \item Parent (induk), yaitu \textit{node} yang menaungi \textit{node} lain di bawahnya.
+    \item Child (anak), yaitu \textit{node} yang berada langsung di dalam \textit{node} induk.
+    \item Sibling (saudara), yaitu \textit{node} yang berada pada tingkat yang sama dan memiliki \textit{parent} yang sama.
 \end{itemize}
-Keberadaan berbagai jenis node ini membuat struktur DOM lebih kompleks dibandingkan HTML mentah, sehingga analisis DOM memberikan informasi yang lebih lengkap.
+
+Relasi \textit{parent}, \textit{child}, dan \textit{sibling} memungkinkan program menelusuri dokumen dari satu \textit{node} ke \textit{node} lain. Penelusuran dapat dilakukan dari \textit{root} menuju \textit{node} turunan, dari suatu \textit{node} menuju \textit{parent}, atau antar \textit{node} yang berada pada level yang sama. Dengan bentuk pohon tersebut, struktur DOM dapat dianalisis secara sistematis menggunakan metode \textit{traversal}, misalnya \textit{Depth First Search} (DFS), untuk membaca seluruh elemen dari akar hingga \textit{node}-\textit{node} turunannya.
+
+\begin{figure} [H]
+	\centering  
+	\includegraphics[scale=0.65]{../Gambar/DOMtree.png}
+	\caption[Contoh Dom Tree]{Contoh Dom berbentuk \textit{tree} yang berisi Body dan Head, di dalam Body terdapat elemen \textit{bold} dan \textit{italic}, di dalam Head terdapat elemen judul} 
+	\label{fig:domtree} 
+\end{figure}
+
+
+\subsection{Jenis \textit{node} pada DOM}
+DOM tidak hanya terdiri dari elemen HTML, tetapi juga tersusun dari beberapa jenis \textit{node} yang merepresentasikan bagian berbeda dari dokumen. DOM memandang dokumen sebagai kumpulan objek, sehingga setiap bagian dokumen dapat diperlakukan sebagai \textit{node} yang memiliki jenis, nilai, serta hubungan tertentu dengan \textit{node} lain~\cite{marini:02:thedom}. Perbedaan jenis \textit{node} ini penting karena program perlu mengetahui apakah suatu \textit{node} merupakan elemen, teks, atribut, atau bagian dokumen lainnya sebelum dilakukan proses pembacaan maupun manipulasi.
+
+Beberapa jenis \textit{node} yang umum terdapat pada DOM antara lain:
+\begin{itemize}
+    \item \textit{Document node}, yaitu \textit{node} utama yang merepresentasikan keseluruhan dokumen HTML. Node ini menjadi titik awal untuk mengakses struktur DOM.
+    \item \textit{Element node}, yaitu \textit{node} yang merepresentasikan \textit{tag} HTML seperti <html>, <head>, <body>, <div>, <p>, atau <a>. \textit{Node} jenis ini biasanya memiliki relasi \textit{parent} dan \textit{child} dengan elemen lain.
+    \item \textit{Text node}, yaitu \textit{node} yang merepresentasikan isi teks yang berada di dalam suatu elemen. Misalnya, teks dalam elemen <p> akan dibaca sebagai \textit{node} teks.
+    \item \textit{Attribute node}, yaitu \textit{node} yang merepresentasikan atribut pada elemen HTML, seperti \textit{id}, \textit{class}, \textit{href}, atau \textit{src}. Atribut memberikan informasi tambahan terhadap elemen yang memilikinya.
+    \item \textit{Comment node}, yaitu \textit{node} yang merepresentasikan komentar di dalam dokumen HTML. Node ini tidak ditampilkan sebagai konten utama halaman, tetapi tetap dapat menjadi bagian dari struktur dokumen.
+\end{itemize}
+
+Keberadaan berbagai jenis \textit{node} tersebut membuat DOM lebih kaya dibandingkan HTML mentah karena DOM tidak hanya menyimpan \textit{tag}, tetapi juga menyimpan teks, atribut, komentar, serta relasi antarbagian dokumen. Dengan demikian, analisis DOM dapat memberikan informasi yang lebih lengkap mengenai struktur halaman web. Pemahaman terhadap jenis \textit{node} diperlukan agar elemen-elemen yang relevan dapat dipilih dan dipetakan ke dalam representasi graf secara tepat.
  
 %\dtext{15-16}
 
-\section{Parsing HTML}
-\subsection{Pengertian Parsing HTML}
-Parsing HTML adalah proses membaca dan menganalisis dokumen HTML untuk membentuk struktur yang dapat dipahami dan diproses oleh program. Pada proses ini, teks HTML yang tersusun dari tag, atribut, dan konten akan diinterpretasikan menjadi struktur yang lebih terorganisasi. Browser melakukan proses parsing untuk memahami susunan dokumen HTML sebelum membentuk DOM dan menampilkan halaman web kepada pengguna.
+\section{Jsoup}
+\subsection{Pengertian Jsoup}
+Jsoup merupakan \textit{library} Java yang digunakan untuk membaca, memproses, mengekstraksi, dan memanipulasi dokumen HTML. \textit{Library} ini menyediakan antarmuka pemrograman yang memudahkan pengembang dalam mengambil data dari dokumen HTML, baik yang berasal dari berkas lokal, \textit{string} HTML, maupun halaman web yang diakses melalui \textit{URL}~\cite{jsoup:26:jsoup}. Dengan menggunakan Jsoup, struktur HTML dapat diproses menjadi bentuk dokumen yang lebih mudah ditelusuri dan dianalisis oleh program.
 
-Dalam konteks pengolahan dokumen web, parsing HTML penting karena dokumen HTML tidak hanya berisi teks biasa, tetapi juga memiliki struktur tag yang saling bersarang. Melalui proses parsing, setiap elemen dapat dikenali berdasarkan tag, atribut, posisi, dan hubungannya dengan elemen lain. Hasil parsing inilah yang kemudian dapat digunakan untuk analisis struktur halaman, ekstraksi informasi, maupun pembentukan representasi DOM.
+Jsoup bekerja dengan cara mem-parsing kode HTML dan membentuk representasi dokumen yang menyerupai struktur DOM. Setelah dokumen diproses, elemen-elemen HTML dapat diakses berdasarkan \textit{tag}, atribut, teks, maupun relasi antar elemen. Hal ini membuat Jsoup banyak digunakan dalam pengolahan dokumen web, seperti ekstraksi informasi, pembersihan data HTML, analisis struktur halaman, dan pengambilan elemen tertentu dari sebuah halaman web.
 
-\subsection{Hubungan Parsing HTML dengan DOM}
-Parsing HTML memiliki hubungan erat dengan pembentukan DOM. Ketika sebuah dokumen HTML diproses, parser akan membaca elemen-elemen HTML secara berurutan dan membentuk struktur node yang merepresentasikan dokumen tersebut. Struktur node ini kemudian menjadi DOM tree, yaitu representasi hierarkis dari dokumen HTML.
+\begin{lstlisting}[language=java, caption=Potongan kode dengan fungsi mengambil \textit{homepage} Wikipedia lalu melakukan \textit{parse} menjadi DOM dan memilih judul berita dari bagian "Berita" ke dalam daftar Elemen, label=kode:2:2:1:model]
+	Document doc = Jsoup.connect("https://en.wikipedia.org/").get();
+	log(doc.title());
+	Elements newsHeadlines = doc.select("#mp-itn b a");
+	for (Element headline : newsHeadlines) {
+		log("%s\n\t%s", 
+			headline.attr("title"), headline.absUrl("href"));
+}
+\end{lstlisting}
 
-Pada penelitian ini, proses parsing HTML menjadi tahap awal yang penting sebelum struktur DOM direpresentasikan sebagai graf. Elemen-elemen hasil parsing dapat dipetakan menjadi node, sedangkan hubungan antar elemen seperti parent dan child dapat dipetakan menjadi edge. Dengan demikian, parsing HTML menjadi penghubung antara dokumen HTML mentah dan struktur graf yang dapat dianalisis serta divisualisasikan.
+\subsection{Penggunaan Jsoup dalam Pemrosesan DOM}
+Dalam konteks pemrosesan DOM, Jsoup berperan sebagai alat bantu untuk mengubah dokumen HTML mentah menjadi objek dokumen yang dapat ditelusuri secara sistematis. Setiap elemen HTML yang telah diproses dapat diakses sebagai \textit{node} yang memiliki hubungan dengan elemen lain, seperti \textit{parent}, \textit{child}, dan \textit{sibling}. Relasi tersebut memungkinkan program membaca struktur halaman secara hierarkis tanpa harus memproses teks HTML secara manual.
+
+Pada penelitian ini, Jsoup digunakan sebagai tahap awal untuk memperoleh struktur DOM dari dokumen HTML. Elemen-elemen yang dihasilkan oleh Jsoup dapat dipetakan menjadi \textit{node}, sedangkan hubungan antar elemen seperti \textit{parent} dan \textit{child} dapat dipetakan menjadi \textit{edge}. Dengan demikian, Jsoup menjadi penghubung antara dokumen HTML mentah dan representasi graf yang dapat dianalisis serta divisualisasikan.
 
 \section{Struktur Data Tree}
 \subsection{Pengertian Tree}
-Tree adalah struktur data hierarkis yang terdiri dari sekumpulan node dan hubungan antar node. Node paling atas dalam tree disebut root, sedangkan node yang berada di bawah node lain disebut child. Node yang memiliki child disebut parent, sementara node yang tidak memiliki child disebut leaf. Struktur tree digunakan untuk merepresentasikan hubungan bertingkat, yaitu satu node dapat memiliki beberapa node turunan.
+Tree adalah struktur data hierarkis yang terdiri dari sekumpulan \textit{node} dan hubungan antar \textit{node} \cite{cormen:22:introalgo}. Node paling atas dalam \textit{tree} disebut \textit{root}, sedangkan \textit{node} yang berada di bawah \textit{node} lain disebut \textit{child}. Node yang memiliki \textit{child} disebut \textit{parent}, sementara \textit{node} yang tidak memiliki \textit{child} disebut leaf. Struktur \textit{tree} digunakan untuk merepresentasikan hubungan bertingkat, yaitu satu \textit{node} dapat memiliki beberapa \textit{node} turunan.
 
-Secara konsep, tree merupakan bentuk khusus dari graf yang tidak memiliki siklus dan memiliki hubungan hierarkis yang jelas. Setiap node dalam tree, kecuali root, memiliki satu parent. Karakteristik ini membuat tree cocok digunakan untuk memodelkan struktur yang tersusun secara bertingkat, seperti struktur folder, organisasi data, ekspresi matematika, dan dokumen HTML.
+Secara konsep, \textit{tree} merupakan bentuk khusus dari graf yang tidak memiliki siklus dan memiliki hubungan hierarkis yang jelas. Setiap \textit{node} dalam \textit{tree}, kecuali \textit{root}, memiliki satu \textit{parent}. Karakteristik ini membuat \textit{tree} cocok digunakan untuk memodelkan struktur yang tersusun secara bertingkat, seperti struktur folder, organisasi data, ekspresi matematika, dan dokumen HTML.
 
 \subsection{Tree pada Struktur DOM}
-DOM memiliki karakteristik yang menyerupai tree karena setiap elemen dalam dokumen HTML tersusun secara hierarkis. Elemen <html> biasanya menjadi root, sedangkan elemen <head> dan <body> menjadi child dari elemen tersebut. Selanjutnya, elemen-elemen lain seperti <div>, <p>, <img>, dan <a> dapat menjadi turunan dari elemen <body> atau elemen lain di dalamnya.
+DOM memiliki karakteristik yang menyerupai \textit{tree} karena setiap elemen dalam dokumen HTML tersusun secara hierarkis. Elemen <html> biasanya menjadi \textit{root}, sedangkan elemen <head> dan <body> menjadi \textit{child} dari elemen tersebut. Selanjutnya, elemen-elemen lain seperti <div>, <p>, <img>, dan <a> dapat menjadi turunan dari elemen <body> atau elemen lain di dalamnya.
 
-Pemahaman mengenai tree penting dalam penelitian ini karena struktur DOM yang berbentuk tree dapat ditelusuri menggunakan algoritma traversal. Salah satu algoritma yang sesuai untuk struktur seperti ini adalah DFS, karena DFS menelusuri node secara mendalam dari root menuju leaf sebelum kembali ke cabang lain. Dengan demikian, konsep tree menjadi dasar untuk memahami hubungan antara DOM, graf, dan proses traversal.
+Pemahaman mengenai \textit{tree} penting dalam penelitian ini karena struktur DOM yang berbentuk \textit{tree} dapat ditelusuri menggunakan algoritma \textit{traversal}. Salah satu algoritma yang sesuai untuk struktur seperti ini adalah DFS, karena DFS menelusuri \textit{node} secara mendalam dari \textit{root} menuju leaf sebelum kembali ke cabang lain. Dengan demikian, konsep \textit{tree} menjadi dasar untuk memahami hubungan antara DOM, graf, dan proses \textit{traversal}.
 
 \section{Struktur Data Graf}
 \subsection{Pengertian Graf}
@@ -121,60 +158,60 @@ Menurut Cormen, graf banyak digunakan untuk memodelkan berbagai jenis hubungan d
 
 Graf dapat dibedakan berdasarkan karakteristik sisinya. Pada graf tidak berarah, hubungan antar simpul tidak memiliki arah tertentu sehingga relasi antara dua simpul dianggap berlaku dua arah. Sebaliknya, pada graf berarah, setiap sisi memiliki arah dari satu simpul ke simpul lainnya. Selain itu, graf juga dapat memiliki bobot pada sisi untuk menyatakan nilai tertentu, seperti jarak, biaya, waktu, atau tingkat hubungan antar simpul.
 
-Dalam konteks penelitian ini, konsep graf digunakan untuk merepresentasikan struktur DOM dari dokumen HTML. Setiap elemen HTML dapat dipandang sebagai simpul, sedangkan hubungan antara elemen induk dan elemen anak dapat dipandang sebagai sisi. Dengan pemodelan tersebut, struktur halaman web dapat dianalisis menggunakan konsep teori graf, seperti hubungan antar node, arah hubungan, dan proses traversal.
+Dalam konteks penelitian ini, konsep graf digunakan untuk merepresentasikan struktur DOM dari dokumen HTML. Setiap elemen HTML dapat dipandang sebagai simpul, sedangkan hubungan antara elemen induk dan elemen anak dapat dipandang sebagai sisi. Dengan pemodelan tersebut, struktur halaman web dapat dianalisis menggunakan konsep teori graf, seperti hubungan antar \textit{node}, arah hubungan, dan proses \textit{traversal}.
 
 \subsection{Representasi Graf}
 Representasi graf adalah cara menyimpan struktur graf agar dapat diproses oleh komputer. Dalam implementasi algoritma, graf tidak cukup hanya didefinisikan sebagai himpunan simpul dan sisi, tetapi perlu direpresentasikan dalam bentuk data tertentu. Dua bentuk representasi graf yang umum digunakan adalah adjacency matrix dan adjacency list~\cite{cormen:22:introalgo}.
 
 Adjacency matrix merepresentasikan graf dalam bentuk matriks dua dimensi. Setiap baris dan kolom mewakili simpul, sedangkan nilai pada sel matriks menunjukkan ada atau tidaknya sisi antara dua simpul. Representasi ini mudah dipahami dan efisien untuk memeriksa hubungan langsung antar simpul, tetapi dapat menggunakan ruang penyimpanan yang besar jika jumlah simpul banyak dan jumlah sisi sedikit.
 
-Adjacency list merepresentasikan graf dengan menyimpan daftar tetangga untuk setiap simpul. Setiap simpul memiliki daftar node lain yang terhubung dengannya. Representasi ini lebih hemat ruang untuk graf yang memiliki jumlah sisi relatif sedikit dibandingkan jumlah kemungkinan sisi. Dalam konteks DOM, adjacency list sesuai digunakan karena setiap elemen biasanya hanya memiliki hubungan langsung dengan sejumlah child tertentu, bukan dengan seluruh elemen dalam dokumen.
+Adjacency list merepresentasikan graf dengan menyimpan daftar tetangga untuk setiap simpul. Setiap simpul memiliki daftar \textit{node} lain yang terhubung dengannya. Representasi ini lebih hemat ruang untuk graf yang memiliki jumlah sisi relatif sedikit dibandingkan jumlah kemungkinan sisi. Dalam konteks DOM, adjacency list sesuai digunakan karena setiap elemen biasanya hanya memiliki hubungan langsung dengan sejumlah \textit{child} tertentu, bukan dengan seluruh elemen dalam dokumen.
 
 \subsection{Graf Berarah}
 Graf berarah ({\it directed graph} atau {\it digraph}) adalah graf yang setiap sisinya memiliki arah tertentu. Pada graf berarah, sisi tidak hanya menunjukkan bahwa dua simpul saling terhubung, tetapi juga menunjukkan arah hubungan dari satu simpul menuju simpul lainnya. Secara formal, sisi pada graf berarah dapat dinyatakan sebagai pasangan terurut $(u,v)$, yang berarti sisi tersebut berawal dari simpul $u$ dan menuju simpul $v$~\cite{cormen:22:introalgo}.
 
 Berbeda dengan graf tidak berarah, hubungan pada graf berarah tidak selalu berlaku dua arah. Jika terdapat sisi dari simpul $u$ ke simpul $v$, maka hal tersebut tidak secara otomatis berarti terdapat sisi dari simpul $v$ ke simpul $u$. Oleh karena itu, arah sisi menjadi informasi penting dalam memahami pola hubungan antar simpul. Konsep ini banyak digunakan untuk memodelkan hubungan yang memiliki alur, urutan, atau ketergantungan, seperti tautan antar halaman web, aliran data, proses kerja, maupun struktur hierarkis.
 
-Dalam konteks DOM, hubungan antara parent dan child memiliki arah yang jelas, yaitu dari node induk menuju node anak. Misalnya, elemen <html> memiliki hubungan ke elemen <head> dan <body>, kemudian elemen <body> dapat memiliki hubungan ke elemen <div>, <p>, atau elemen lainnya. Arah hubungan tersebut menunjukkan bahwa suatu elemen berada di bawah elemen lain dalam struktur dokumen.
+Dalam konteks DOM, hubungan antara \textit{parent} dan \textit{child} memiliki arah yang jelas, yaitu dari \textit{node} induk menuju \textit{node} anak. Misalnya, elemen <html> memiliki hubungan ke elemen <head> dan <body>, kemudian elemen <body> dapat memiliki hubungan ke elemen <div>, <p>, atau elemen lainnya. Arah hubungan tersebut menunjukkan bahwa suatu elemen berada di bawah elemen lain dalam struktur dokumen.
 
-Pemodelan DOM sebagai graf berarah membantu menunjukkan alur hubungan antar elemen secara lebih terstruktur. Dengan menggunakan arah sisi, proses penelusuran dapat dilakukan dari root node menuju node-node turunannya. Hal ini penting dalam analisis struktur halaman web karena urutan dan arah hubungan antar elemen memengaruhi cara DOM dibaca, divisualisasikan, dan ditelusuri menggunakan algoritma traversal seperti DFS.
+Pemodelan DOM sebagai graf berarah membantu menunjukkan alur hubungan antar elemen secara lebih terstruktur. Dengan menggunakan arah sisi, proses penelusuran dapat dilakukan dari \textit{root node} menuju \textit{node}-\textit{node} turunannya. Hal ini penting dalam analisis struktur halaman web karena urutan dan arah hubungan antar elemen memengaruhi cara DOM dibaca, divisualisasikan, dan ditelusuri menggunakan algoritma \textit{traversal} seperti \textit{Depth First Search}. Contoh bentuk graf berarah sederhana yang terdiri dari \textit{node} dan \textit{edge} ditunjukkan pada Gambar~\ref{fig:digraph}.
 
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.65]{../Gambar/digraph2.png}
-	\caption[Contoh graf berarah sederhana (node dan edge)]{Contoh graf berarah sederhana (node dan edge)} 
+	\caption[Contoh graf berarah sederhana (\textit{node} dan \textit{edge})]{Contoh graf berarah sederhana (\textit{node} dan \textit{edge})} 
 	\label{fig:digraph} 
 \end{figure}
 
 \subsection{Representasi DOM sebagai graf}
-Struktur DOM dapat direpresentasikan sebagai graf dengan cara memetakan setiap elemen HTML sebagai node dan hubungan parent-child sebagai edge. Dalam representasi ini, elemen root seperti <html> menjadi node awal, sedangkan elemen-elemen turunannya seperti <head>, <body>, <div>, <p>, dan elemen lain menjadi node yang terhubung melalui edge.
+Struktur DOM dapat direpresentasikan sebagai graf dengan cara memetakan setiap elemen HTML sebagai \textit{node} dan hubungan \textit{parent-child} sebagai \textit{edge}. Dalam representasi ini, elemen \textit{root} seperti <html> menjadi \textit{node} awal, sedangkan elemen-elemen turunannya seperti <head>, <body>, <div>, <p>, dan elemen lain menjadi \textit{node} yang terhubung melalui \textit{edge}.
 
-Karena hubungan antar elemen dalam DOM memiliki arah dari parent menuju child, struktur DOM lebih sesuai dimodelkan sebagai graf berarah. Setiap edge menunjukkan hubungan hierarkis antara dua elemen. Misalnya, hubungan dari <body> ke <div> menunjukkan bahwa elemen <div> berada di dalam elemen <body>. Dengan pemetaan ini, struktur HTML yang semula berbentuk dokumen teks dapat dianalisis sebagai struktur node dan edge.
+Karena hubungan antar elemen dalam DOM memiliki arah dari \textit{parent} menuju \textit{child}, struktur DOM lebih sesuai dimodelkan sebagai graf berarah. Setiap \textit{edge} menunjukkan hubungan hierarkis antara dua elemen. Misalnya, hubungan dari <body> ke <div> menunjukkan bahwa elemen <div> berada di dalam elemen <body>. Dengan pemetaan ini, struktur HTML yang semula berbentuk dokumen teks dapat dianalisis sebagai struktur \textit{node} dan \textit{edge}.
 
-Representasi DOM sebagai graf mempermudah proses analisis dan visualisasi struktur halaman web. Melalui pendekatan graf, hubungan antar elemen dapat ditelusuri menggunakan algoritma traversal seperti DFS. Selain itu, representasi ini juga mempermudah pembuatan visualisasi menggunakan Graphviz karena struktur DOM dapat diubah ke dalam format DOT dan ditampilkan sebagai diagram graf.
+Representasi DOM sebagai graf mempermudah proses analisis dan visualisasi struktur halaman web. Melalui pendekatan graf, hubungan antar elemen dapat ditelusuri menggunakan algoritma \textit{traversal} seperti DFS. Selain itu, representasi ini juga mempermudah pembuatan visualisasi menggunakan Graphviz karena struktur DOM dapat diubah ke dalam format DOT dan ditampilkan sebagai diagram graf.
 
 \subsection{Pengertian Traversal Graf}
-Traversal graf adalah proses mengunjungi setiap node dalam graf secara sistematis berdasarkan aturan tertentu. Proses ini dilakukan untuk menelusuri hubungan antar node sehingga seluruh struktur graf dapat diproses tanpa ada node yang terlewat. Dalam kajian algoritma, traversal menjadi langkah penting karena banyak permasalahan graf membutuhkan proses pemeriksaan node dan edge, misalnya untuk mencari jalur, menentukan keterhubungan, menemukan komponen, atau menganalisis struktur hubungan antar objek~\cite{cormen:22:introalgo}.
+Traversal graf adalah proses mengunjungi setiap \textit{node} dalam graf secara sistematis berdasarkan aturan tertentu. Proses ini dilakukan untuk menelusuri hubungan antar \textit{node} sehingga seluruh struktur graf dapat diproses tanpa ada \textit{node} yang terlewat. Dalam kajian algoritma, \textit{traversal} menjadi langkah penting karena banyak permasalahan graf membutuhkan proses pemeriksaan \textit{node} dan \textit{edge}, misalnya untuk mencari jalur, menentukan keterhubungan, menemukan komponen, atau menganalisis struktur hubungan antar objek~\cite{cormen:22:introalgo}.
 
-Pada proses traversal, suatu node biasanya dipilih sebagai titik awal, kemudian algoritma akan menelusuri node-node lain yang terhubung melalui edge. Urutan kunjungan node bergantung pada metode traversal yang digunakan. Beberapa metode traversal yang umum digunakan adalah {\it Breadth-First Search} (BFS) dan {\it Depth-First Search} (DFS). BFS menelusuri node berdasarkan tingkat kedekatan dari node awal, sedangkan DFS menelusuri node secara mendalam hingga mencapai cabang terdalam sebelum kembali ke node sebelumnya.
+Pada proses \textit{traversal}, suatu \textit{node} biasanya dipilih sebagai titik awal, kemudian algoritma akan menelusuri \textit{node}-\textit{node} lain yang terhubung melalui \textit{edge}. Urutan kunjungan \textit{node} bergantung pada metode \textit{traversal} yang digunakan. Beberapa metode \textit{traversal} yang umum digunakan adalah {\it Breadth-First Search} (BFS) dan {\it Depth-First Search} (DFS). BFS menelusuri \textit{node} berdasarkan tingkat kedekatan dari \textit{node} awal, sedangkan DFS menelusuri \textit{node} secara mendalam hingga mencapai cabang terdalam sebelum kembali ke \textit{node} sebelumnya.
 
-Dalam konteks penelitian ini, traversal graf digunakan untuk menelusuri struktur DOM yang telah direpresentasikan sebagai graf. Setiap elemen HTML dipandang sebagai node, sedangkan hubungan parent-child dipandang sebagai edge. Dengan traversal, struktur halaman web dapat dibaca secara teratur dari node awal menuju node-node turunannya. Hal ini membantu proses analisis DOM karena setiap elemen dapat diperiksa sesuai urutan hubungan hierarkisnya.
+Dalam konteks penelitian ini, \textit{traversal} graf digunakan untuk menelusuri struktur DOM yang telah direpresentasikan sebagai graf. Setiap elemen HTML dipandang sebagai \textit{node}, sedangkan hubungan \textit{parent-child} dipandang sebagai \textit{edge}. Dengan \textit{traversal}, struktur halaman web dapat dibaca secara teratur dari \textit{node} awal menuju \textit{node}-\textit{node} turunannya. Hal ini membantu proses analisis DOM karena setiap elemen dapat diperiksa sesuai urutan hubungan hierarkisnya.
 
 \subsection{Depth-First Search}
-{\it Depth-First Search} (DFS) adalah metode traversal graf yang bekerja dengan menelusuri suatu simpul hingga ke bagian terdalam terlebih dahulu sebelum kembali ke simpul sebelumnya. Sesuai dengan namanya, DFS akan memilih untuk bergerak lebih dalam pada graf selama masih terdapat sisi yang belum dieksplorasi dari simpul yang sedang dikunjungi.
+{\it Depth-First Search} (DFS) adalah metode \textit{traversal} graf yang bekerja dengan menelusuri suatu simpul hingga ke bagian terdalam terlebih dahulu sebelum kembali ke simpul sebelumnya. Sesuai dengan namanya, DFS akan memilih untuk bergerak lebih dalam pada graf selama masih terdapat sisi yang belum dieksplorasi dari simpul yang sedang dikunjungi.
 
 Menurut Cormen, DFS mengeksplorasi sisi-sisi yang keluar dari simpul yang paling baru ditemukan dan masih memiliki sisi yang belum diperiksa. Jika seluruh sisi dari simpul tersebut telah dieksplorasi, proses pencarian akan melakukan {\it backtracking}, yaitu kembali ke simpul asal tempat simpul tersebut ditemukan untuk melanjutkan eksplorasi sisi lain yang belum dikunjungi~\cite{cormen:22:introalgo}. Proses ini berlanjut hingga seluruh simpul yang dapat dicapai dari simpul awal berhasil ditemukan. Apabila masih terdapat simpul lain yang belum ditemukan, DFS akan memilih simpul tersebut sebagai sumber baru dan mengulangi proses pencarian sampai seluruh simpul dalam graf telah diperiksa.
 
 Dalam prosesnya, DFS juga mencatat hubungan pendahulu ({\it predecessor}) dari setiap simpul yang ditemukan. Ketika suatu simpul baru ditemukan dari simpul lain, hubungan tersebut dicatat sebagai bagian dari struktur hasil pencarian. Pada graf yang tidak seluruh simpulnya terhubung dari satu sumber, DFS dapat menghasilkan beberapa pohon pencarian, sehingga hasil keseluruhannya disebut sebagai {\it depth-first forest}. Sisi-sisi yang membentuk hubungan pendahulu tersebut dikenal sebagai {\it tree edges}~\cite{cormen:22:introalgo}.
 
-DFS menggunakan penandaan warna untuk menunjukkan status setiap simpul selama proses traversal. Simpul yang belum dikunjungi diberi warna putih, simpul yang sedang diproses diberi warna abu-abu, dan simpul yang seluruh sisi keluarnya telah selesai diperiksa diberi warna hitam. Selain itu, DFS juga mencatat dua waktu pada setiap simpul, yaitu waktu penemuan ({\it discovery time}) ketika simpul pertama kali dikunjungi dan waktu penyelesaian ({\it finishing time}) ketika seluruh daftar ketetanggaan simpul tersebut telah selesai diperiksa. Informasi ini berguna untuk memahami urutan traversal dan struktur hubungan antar simpul dalam graf~\cite{cormen:22:introalgo}.
+DFS menggunakan penandaan warna untuk menunjukkan status setiap simpul selama proses \textit{traversal}. Simpul yang belum dikunjungi diberi warna putih, simpul yang sedang diproses diberi warna abu-abu, dan simpul yang seluruh sisi keluarnya telah selesai diperiksa diberi warna hitam. Selain itu, DFS juga mencatat dua waktu pada setiap simpul, yaitu waktu penemuan ({\it discovery time}) ketika simpul pertama kali dikunjungi dan waktu penyelesaian ({\it finishing time}) ketika seluruh daftar ketetanggaan simpul tersebut telah selesai diperiksa. Informasi ini berguna untuk memahami urutan \textit{traversal} dan struktur hubungan antar simpul dalam graf~\cite{cormen:22:introalgo}.
 
-Metode ini sangat cocok untuk struktur berbentuk tree seperti DOM karena mengikuti pola parent-child secara mendalam. Pada konteks DOM, DFS dapat digunakan untuk menelusuri elemen dari node induk ke node anak secara bertahap hingga mencapai elemen terdalam, kemudian kembali ke node sebelumnya untuk melanjutkan penelusuran ke cabang lain. Oleh karena itu, DFS sering digunakan untuk eksplorasi struktur hierarkis dan graf~\cite{cormen:22:introalgo}.
+Metode ini sangat cocok untuk struktur berbentuk \textit{tree} seperti DOM karena mengikuti pola \textit{parent-child} secara mendalam. Pada konteks DOM, DFS dapat digunakan untuk menelusuri elemen dari \textit{node} induk ke \textit{node} anak secara bertahap hingga mencapai elemen terdalam, kemudian kembali ke \textit{node} sebelumnya untuk melanjutkan penelusuran ke cabang lain. Ilustrasi proses DFS pada graf berarah dapat dilihat pada Gambar~\ref{fig:dfs}. Oleh karena itu, DFS sering digunakan untuk eksplorasi struktur hierarkis dan graf~\cite{cormen:22:introalgo}.
 
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.65]{../Gambar/DFS.png}
-	\caption[Ilustrasi proses DFS pada Graf berarah]{Ilustrasi proses DFS pada graf berarah. Sisi-sisi diklasifikasikan sesuai urutan penjelajahannya: sisi pohon diberi label T, sisi belakang B, sisi depan F, dan sisi silang C.} 
+	\caption[Ilustrasi proses DFS pada Graf berarah]{Ilustrasi proses DFS pada graf berarah. Sisi-sisi diklasifikasikan sesuai urutan penjelajahannya: sisi pohon diberi \textit{label} T, sisi belakang B, sisi depan F, dan sisi silang C.} 
 	\label{fig:dfs} 
 \end{figure}
 
@@ -182,24 +219,44 @@ Metode ini sangat cocok untuk struktur berbentuk tree seperti DOM karena mengiku
 \subsection{Pengertian Graphviz}
 Graphviz adalah perangkat lunak visualisasi grafik \textit{open source}. Visualisasi grafik adalah cara untuk merepresentasikan informasi struktural sebagai diagram grafik abstrak dan jaringan. Teknologi ini memiliki aplikasi penting dalam jaringan, bioinformatika, rekayasa perangkat lunak, desain basis data dan web, pembelajaran mesin, dan antarmuka visual untuk domain teknis lainnya\cite{ellson:24:graphviz}.
 
-Menurut \textit{Graphviz Project}, Graphviz menyediakan berbagai algoritma layout untuk menampilkan graf secara otomatis.
+Menurut \textit{Graphviz Project}, Graphviz menyediakan berbagai algoritma \textit{layout} untuk menampilkan graf secara otomatis.
 
 \subsection{Format DOT}
-Graphviz menggunakan format DOT untuk mendefinisikan graf. DOT merupakan bahasa deskripsi graf berbasis teks yang digunakan untuk menuliskan struktur node dan edge secara sederhana. Melalui format ini, pengguna dapat menentukan jenis graf, nama graf, hubungan antar node, serta atribut visual seperti label, warna, bentuk node, dan arah hubungan. Graf tidak berarah pada DOT didefinisikan menggunakan kata kunci {\it graph} dengan simbol --, sedangkan graf berarah didefinisikan menggunakan kata kunci {\it digraph} dengan simbol ->.
+Graphviz menggunakan format DOT untuk mendefinisikan graf. DOT merupakan bahasa deskripsi graf berbasis teks yang digunakan untuk menuliskan struktur \textit{node} dan \textit{edge} secara sederhana. Melalui format ini, pengguna dapat menentukan jenis graf, nama graf, hubungan antar \textit{node}, serta atribut visual seperti \textit{label}, warna, bentuk \textit{node}, dan arah hubungan. Graf tidak berarah pada DOT didefinisikan menggunakan kata kunci {\it graph} dengan simbol --, sedangkan graf berarah didefinisikan menggunakan kata kunci {\it digraph} dengan simbol ->.
 
-Format DOT sesuai digunakan untuk merepresentasikan struktur DOM karena hubungan antar elemen HTML bersifat hierarkis dan berarah dari parent menuju child. Misalnya, hubungan antara elemen HTML dan head dapat dituliskan sebagai HTML -> head, yang menunjukkan adanya edge dari node HTML menuju node head. Dalam konteks penelitian ini, DOT digunakan sebagai format perantara untuk mengubah struktur DOM menjadi representasi graf yang kemudian dapat divisualisasikan menggunakan Graphviz.
+Format DOT sesuai digunakan untuk merepresentasikan struktur DOM karena hubungan antar elemen HTML bersifat hierarkis dan berarah dari \textit{parent} menuju \textit{child}. Misalnya, hubungan antara elemen HTML dan \textit{head} dapat dituliskan sebagai HTML -> \textit{head}, yang menunjukkan adanya \textit{edge} dari \textit{node} HTML menuju \textit{node} \textit{head}. Contoh penulisan struktur DOM dalam format DOT ditunjukkan pada Kode~\ref{kode:2:3:1:model}, sedangkan hasil visualisasinya menggunakan Graphviz ditunjukkan pada Gambar~\ref{fig:visdot}. Dalam konteks penelitian ini, DOT digunakan sebagai format perantara untuk mengubah struktur DOM menjadi representasi graf yang kemudian dapat divisualisasikan menggunakan Graphviz.
+
+\begin{lstlisting}[language=html, caption=Contoh kode .dot, label=kode:2:3:1:model]
+	digraph DOM {
+	node [shape=oval];
+	node1 [label="html"];
+	node2 [label="head"];
+	node1 -> node2;
+	node3 [label="title"];
+	node2 -> node3;
+	node4 [label="meta"];
+	node2 -> node4;
+	node5 [label="style"];
+	node2 -> node5;
+	node6 [label="body"];
+	node1 -> node6;
+	node7 [label="div"];
+	node6 -> node7;
+	node8 [label="h1"];
+	node7 -> node8;
+	node9 [label="p"];
+	node7 -> node9;
+	node10 [label="p"];
+	node7 -> node10;
+	node11 [label="a"];
+	node10 -> node11;
+	}
+\end{lstlisting}
 
 \begin{figure} [H]
 	\centering  
-	\includegraphics[scale=0.65]{../Gambar/DOT.png}
-	\caption[Potongan Kode dengan format DOT]{Potongan kode .dot menggambarkan struktur DOM sederhana di mana HTML terhubung ke head, dan head memiliki beberapa elemen anak seperti link dan script} 
-	\label{fig:dot} 
-\end{figure}
-
-\begin{figure} [H]
-	\centering  
-	\includegraphics[scale=0.55]{../Gambar/VisualisasiDOM.png}
-	\caption[Visualisasi dari format DOT dengan menggunakan Graphviz]{Visualisasi dari format DOT dengan menggunakan Graphviz} 
+	\includegraphics[scale=0.55]{../Gambar/VisualisasiGraf.png}
+	\caption[Visualisasi dari format DOT dengan menggunakan Graphviz]{Visualisasi dari kode \ref{kode:2:3:1:model} dengan format DOT dengan menggunakan Graphviz} 
 	\label{fig:visdot} 
 \end{figure}
 
@@ -246,7 +303,7 @@ Format DOT sesuai digunakan untuk merepresentasikan struktur DOM karena hubungan
 			
 			%\bottomrule
 
-		\%end{tabular}
+		%end{tabular}
 	%\end{minipage}
 	%\begin{minipage}[c]{0.49\linewidth}
 		
