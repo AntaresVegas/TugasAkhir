@@ -177,7 +177,8 @@
 % seterusnya, harus dilakukan secara manual dengan mengubah file skripsi.tex
 % Catatan: bagian ini hanya bisa diatur di mode bimbingan
 %=============================================================================
-\lampiran{all}
+\lampiran{none}
+\edef\vlamp{} % menonaktifkan lampiran template pada mode sidang/final
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -203,9 +204,9 @@
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda
 %=============================================================================
 \namanpm{Bram Matthew}{6182101043}
-\tanggal{<<tanggal>>}{<<bulan>>}{2026}         %isi bulan dengan angka
-\pembimbing{\PAN}{<<pembimbing pendamping/2>>}    
-\penguji{<<penguji 1>>}{<<penguji 2>>} 
+\tanggal{12}{6}{2026}         %isi bulan dengan angka
+\pembimbing{\PAN}{}    
+\penguji{}{} 
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -221,8 +222,8 @@
 % - gunakan \texorpdfstring{\\}{} untuk pindah ke baris baru
 % - judul TIDAK ditulis dengan menggunakan huruf besar seluruhnya !!
 %=============================================================================
-\judulINA{Perangkat Lunak Pembuat Visualisasi Graf Situs Web}
-\judulENG{Website Graphic Visualization Software}
+\judulINA{Perangkat Lunak Pembuat Visualisasi Graf Struktur DOM Halaman Web}
+\judulENG{Web Page DOM Structure Graph Visualization Software}
 %_____________________________________________________________________________
 %=============================================================================
 % 								BAGIAN X
@@ -234,8 +235,8 @@
 % - hilangkan tanda << & >>, dan isi sesuai dengan data anda
 % - langsung mulai setelah '{' awal, jangan mulai menulis di baris bawahnya
 %=============================================================================
-\abstrakINA{<<Tuliskan abstrak anda di sini, dalam bahasa Indonesia>>}
-\abstrakENG{<<Tuliskan abstrak anda di sini, dalam bahasa Inggris>>} 
+\abstrakINA{Penelitian ini membahas pengembangan perangkat lunak untuk membuat visualisasi graf dari struktur Document Object Model (DOM) pada satu halaman web. Sistem menerima masukan berupa Uniform Resource Locator (URL), mengambil dokumen HTML, membentuk struktur DOM menggunakan Jsoup, kemudian menelusuri elemen HTML menggunakan metode Depth-First Search (DFS). Setiap elemen HTML direpresentasikan sebagai node dengan ID unik, sedangkan hubungan parent-child antar elemen direpresentasikan sebagai edge berarah. Hasil pemetaan tersebut disusun ke dalam format DOT dan divisualisasikan menggunakan Graphviz. Perangkat lunak ini diharapkan membantu pengguna memahami struktur DOM halaman web secara lebih mudah dibandingkan membaca kode HTML mentah.}
+\abstrakENG{This research discusses the development of software for generating graph visualizations of the Document Object Model (DOM) structure of a single web page. The system receives a Uniform Resource Locator (URL), retrieves the HTML document, builds the DOM structure using Jsoup, and traverses the HTML elements using Depth-First Search (DFS). Each HTML element is represented as a node with a unique ID, while each parent-child relationship is represented as a directed edge. The mapping result is written in DOT format and visualized using Graphviz. The software is expected to help users understand the DOM structure of a web page more easily than reading raw HTML code.} 
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -247,8 +248,8 @@
 % - kunciENG: keywords in english
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\kunciINA{<<Tuliskan di sini kata-kata kunci yang anda gunakan, dalam bahasa Indonesia>>}
-\kunciENG{<<Tuliskan di sini kata-kata kunci yang anda gunakan, dalam bahasa Inggris>>}
+\kunciINA{DOM, HTML, visualisasi graf, Jsoup, Graphviz, Depth-First Search}
+\kunciENG{DOM, HTML, graph visualization, Jsoup, Graphviz, Depth-First Search}
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -258,7 +259,7 @@
 % Persembahan : kepada siapa anda mempersembahkan skripsi ini ...
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\untuk{<<kepada siapa anda mempersembahkan skripsi ini\ldots?>>}
+\untuk{Keluarga dan semua pihak yang telah memberikan dukungan.}
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -269,7 +270,7 @@
 % kasih kepada yang telah membantu anda bla bla bla ....  
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\prakata{<<Tuliskan kata pengantar dari anda di sini \ldots>>} 
+\prakata{Puji syukur penulis panjatkan atas terselesaikannya penyusunan skripsi ini. Penulis mengucapkan terima kasih kepada dosen pembimbing, keluarga, dan semua pihak yang telah memberikan dukungan, masukan, serta bantuan selama proses pengerjaan skripsi. Penulis menyadari bahwa skripsi ini masih memiliki kekurangan. Oleh karena itu, kritik dan saran yang membangun sangat diharapkan untuk penyempurnaan di masa mendatang.} 
 %=============================================================================
 
 %_____________________________________________________________________________

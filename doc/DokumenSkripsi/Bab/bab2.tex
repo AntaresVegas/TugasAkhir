@@ -13,13 +13,13 @@ HTML berfungsi sebagai kerangka utama halaman web yang menentukan bagaimana seti
 HTML bekerja dengan konsep \textit{tag-based structure}, yaitu setiap elemen ditandai dengan \textit{tag} tertentu. Tag tersebut memberikan informasi kepada \textit{browser} mengenai jenis dan fungsi konten, misalnya paragraf, judul, gambar, tautan, atau daftar. Melalui struktur ini, \textit{browser} dapat memahami peran masing-masing elemen, menyusun hubungan antar elemen, dan menampilkannya dengan benar kepada pengguna.
 
 \subsection{Elemen dan Tag HTML}
-Elemen HTML merupakan komponen dasar dalam penyusunan halaman web. Setiap elemen digunakan untuk merepresentasikan bagian tertentu dari konten, seperti paragraf, judul, gambar, tautan, tabel, daftar, maupun formulir. Secara umum, sebuah elemen HTML terdiri dari \textit{tag} pembuka, isi elemen, dan \textit{tag} penutup. Sebagai contoh, elemen paragraf dituliskan dengan <p> sebagai \textit{tag} pembuka, isi teks sebagai konten, dan </p> sebagai \textit{tag} penutup seperti pada gambar \ref{fig:htmlpng}.
+Elemen HTML merupakan komponen dasar dalam penyusunan halaman web. Setiap elemen digunakan untuk merepresentasikan bagian tertentu dari konten, seperti paragraf, judul, gambar, tautan, tabel, daftar, maupun formulir. Secara umum, sebuah elemen HTML terdiri dari \textit{tag} pembuka, isi elemen, dan \textit{tag} penutup. Sebagai contoh, elemen paragraf dituliskan dengan \texttt{<p>} sebagai \textit{tag} pembuka, isi teks sebagai konten, dan \texttt{</p>} sebagai \textit{tag} penutup seperti pada gambar \ref{fig:htmlpng}.
 
-Tag berfungsi sebagai penanda yang memberi tahu \textit{browser} mengenai jenis elemen yang sedang digunakan. Tag pembuka menunjukkan awal suatu elemen, sedangkan \textit{tag} penutup menunjukkan akhir elemen tersebut. Namun, tidak semua elemen HTML memiliki \textit{tag} penutup. Beberapa elemen, seperti <img>, <br>, dan <hr>, termasuk elemen kosong karena tidak memiliki isi di antara \textit{tag} pembuka dan \textit{tag} penutup.
+Tag berfungsi sebagai penanda yang memberi tahu \textit{browser} mengenai jenis elemen yang sedang digunakan. Tag pembuka menunjukkan awal suatu elemen, sedangkan \textit{tag} penutup menunjukkan akhir elemen tersebut. Namun, tidak semua elemen HTML memiliki \textit{tag} penutup. Beberapa elemen, seperti \texttt{<img>}, \texttt{<br>}, dan \texttt{<hr>}, termasuk elemen kosong karena tidak memiliki isi di antara \textit{tag} pembuka dan \textit{tag} penutup.
 
-Selain \textit{tag}, elemen HTML juga dapat memiliki atribut yang memberikan informasi tambahan terhadap elemen tersebut. Atribut dituliskan di dalam \textit{tag} pembuka dan umumnya terdiri dari nama atribut serta nilai atribut. Sebagai contoh, atribut \textit{href} pada elemen <a> digunakan untuk menentukan alamat tautan, sedangkan atribut \textit{src} pada elemen <img> digunakan untuk menentukan lokasi berkas gambar. Atribut lain seperti \textit{id} dan \textit{class} sering digunakan untuk memberi identitas atau pengelompokan elemen agar dapat diatur lebih lanjut menggunakan CSS atau diproses melalui JavaScript.
+Selain \textit{tag}, elemen HTML juga dapat memiliki atribut yang memberikan informasi tambahan terhadap elemen tersebut. Atribut dituliskan di dalam \textit{tag} pembuka dan umumnya terdiri dari nama atribut serta nilai atribut. Sebagai contoh, atribut \textit{href} pada elemen \texttt{<a>} digunakan untuk menentukan alamat tautan, sedangkan atribut \textit{src} pada elemen \texttt{<img>} digunakan untuk menentukan lokasi berkas gambar. Atribut lain seperti \textit{id} dan \textit{class} sering digunakan untuk memberi identitas atau pengelompokan elemen agar dapat diatur lebih lanjut menggunakan CSS atau diproses melalui JavaScript.
 
-Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbentuknya hubungan hierarkis antar elemen. Dalam struktur ini, suatu elemen dapat menjadi induk bagi elemen lain yang berada di dalamnya. Misalnya, elemen <body> dapat memuat elemen <div>, kemudian elemen <div> tersebut dapat memuat elemen <p>, <img>, atau <a>. Hubungan bertingkat ini menjadi dasar penting dalam pembentukan struktur DOM karena \textit{browser} akan membaca dokumen HTML sebagai susunan \textit{node} yang saling terhubung.
+Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbentuknya hubungan hierarkis antar elemen. Dalam struktur ini, suatu elemen dapat menjadi induk bagi elemen lain yang berada di dalamnya. Misalnya, elemen \texttt{<body>} dapat memuat elemen \texttt{<div>}, kemudian elemen \texttt{<div>} tersebut dapat memuat elemen \texttt{<p>}, \texttt{<img>}, atau \texttt{<a>}. Hubungan bertingkat ini menjadi dasar penting dalam pembentukan struktur DOM karena \textit{browser} akan membaca dokumen HTML sebagai susunan \textit{node} yang saling terhubung.
 
 \begin{figure} [H]
 	\centering  
@@ -32,15 +32,15 @@ Struktur elemen yang saling bersarang ({\it nested elements}) memungkinkan terbe
 
 \subsection{Struktur dasar HTML}
 \label{sec:struktur}
-Dokumen HTML memiliki struktur standar yang terdiri dari beberapa bagian utama, yaitu <html>, <head>, dan <body>. Pada kode \ref{kode:2:2:1:model}, struktur tersebut diawali dengan deklarasi <!DOCTYPE html> yang berfungsi untuk memberi tahu \textit{browser} bahwa dokumen menggunakan standar HTML modern. Setelah deklarasi tersebut, elemen <html> digunakan sebagai \textit{root} dari seluruh dokumen HTML dan menjadi wadah bagi elemen <head> serta <body>.
+Dokumen HTML memiliki struktur standar yang terdiri dari beberapa bagian utama, yaitu \texttt{<html>}, \texttt{<head>}, dan \texttt{<body>}. Pada kode \ref{kode:2:2:html-struktur}, struktur tersebut diawali dengan deklarasi \texttt{<!DOCTYPE html>} yang berfungsi untuk memberi tahu \textit{browser} bahwa dokumen menggunakan standar HTML modern. Setelah deklarasi tersebut, elemen \texttt{<html>} digunakan sebagai \textit{root} dari seluruh dokumen HTML dan menjadi wadah bagi elemen \texttt{<head>} serta \texttt{<body>}.
 
-Bagian <head> pada kode berikut berisi informasi yang tidak ditampilkan secara langsung pada halaman, tetapi dibutuhkan oleh \textit{browser} untuk memahami dokumen. Elemen <meta charset="UTF-8"> digunakan untuk menentukan pengkodean karakter, elemen <meta name="viewport"> digunakan untuk mengatur tampilan halaman pada perangkat yang berbeda, sedangkan elemen <title> digunakan untuk menentukan judul dokumen.
+Bagian \texttt{<head>} pada Kode~\ref{kode:2:2:html-struktur} berisi informasi yang tidak ditampilkan secara langsung pada halaman, tetapi dibutuhkan oleh \textit{browser} untuk memahami dokumen. Elemen \texttt{meta} dengan atribut \texttt{charset} digunakan untuk menentukan pengkodean karakter. Elemen \texttt{meta} dengan atribut \texttt{name="viewport"} digunakan untuk mengatur tampilan halaman pada perangkat yang berbeda, sedangkan elemen \texttt{<title>} digunakan untuk menentukan judul dokumen.
 
-Bagian <body> pada kode berikut berisi konten utama yang akan ditampilkan kepada pengguna. Di dalamnya terdapat elemen <h1> sebagai judul utama, elemen <h2> sebagai subjudul, serta elemen <p> sebagai paragraf. Susunan tersebut menunjukkan bahwa isi halaman web ditempatkan di dalam <body> dan disusun berdasarkan fungsi masing-masing elemen.
+Bagian \texttt{<body>} pada Kode~\ref{kode:2:2:html-struktur} berisi konten utama yang akan ditampilkan kepada pengguna. Di dalamnya terdapat elemen \texttt{<h1>} sebagai judul utama, elemen \texttt{<h2>} sebagai subjudul, serta elemen \texttt{<p>} sebagai paragraf. Susunan tersebut menunjukkan bahwa isi halaman web ditempatkan di dalam \texttt{<body>} dan disusun berdasarkan fungsi masing-masing elemen.
 
-Dengan demikian, kode berikut memperlihatkan bahwa dokumen HTML memiliki susunan yang hierarkis. Elemen <html> menjadi elemen induk, sedangkan <head> dan <body> menjadi elemen anak. Di dalam <body>, \textit{heading} dan paragraf menjadi bagian dari konten halaman. Susunan yang teratur ini memudahkan \textit{browser} membaca dokumen, menampilkan halaman secara benar, dan membentuk DOM karena setiap elemen memiliki posisi serta hubungan yang jelas di dalam hierarki dokumen.
+Dengan demikian, Kode~\ref{kode:2:2:html-struktur} memperlihatkan bahwa dokumen HTML memiliki susunan yang hierarkis. Elemen \texttt{<html>} menjadi elemen induk, sedangkan \texttt{<head>} dan \texttt{<body>} menjadi elemen anak. Di dalam \texttt{<body>}, \textit{heading} dan paragraf menjadi bagian dari konten halaman. Susunan yang teratur ini memudahkan \textit{browser} membaca dokumen, menampilkan halaman secara benar, dan membentuk DOM karena setiap elemen memiliki posisi serta hubungan yang jelas di dalam hierarki dokumen.
 
-\begin{lstlisting}[language=html, caption=Contoh struktur dasar dokumen HTML yang terdiri dari deklarasi dokumen; elemen html; bagian head; yang berisi metadata dan title serta bagian body berisi heading dan paragraf sebagai konten utama halaman, label=kode:2:2:1:model]
+\begin{lstlisting}[language=html, caption=Contoh struktur dasar dokumen HTML yang terdiri dari deklarasi dokumen; elemen html; bagian head; yang berisi metadata dan title serta bagian body berisi heading dan paragraf sebagai konten utama halaman, label=kode:2:2:html-struktur]
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -63,7 +63,7 @@ Dengan demikian, kode berikut memperlihatkan bahwa dokumen HTML memiliki susunan
 
 Struktur HTML bersifat hierarkis, yang berarti elemen dapat berada di dalam elemen lain. Hubungan antar elemen ini membentuk struktur bertingkat yang menyerupai pohon, di mana setiap elemen memiliki posisi tertentu dalam dokumen. Dalam struktur tersebut, elemen yang memuat elemen lain disebut sebagai \textit{parent}, sedangkan elemen yang berada di dalamnya disebut sebagai \textit{child}. Elemen-elemen yang berada pada tingkat yang sama dan memiliki \textit{parent} yang sama disebut sebagai \textit{sibling}.
 
-Sebagai contoh, elemen <body> dapat berperan sebagai \textit{parent} bagi elemen <div>. Selanjutnya, elemen <div> dapat berisi elemen <p>, <img>, atau <a> sebagai \textit{child}. Jika di dalam satu elemen <div> terdapat beberapa elemen <p>, maka elemen-elemen tersebut dapat disebut sebagai \textit{sibling} karena berada pada tingkat hierarki yang sama. Hubungan seperti ini menunjukkan bahwa dokumen HTML tidak hanya tersusun secara berurutan, tetapi juga memiliki hubungan induk-anak yang jelas antar elemen.
+Sebagai contoh, elemen \texttt{<body>} dapat berperan sebagai \textit{parent} bagi elemen \texttt{<div>}. Selanjutnya, elemen \texttt{<div>} dapat berisi elemen \texttt{<p>}, \texttt{<img>}, atau \texttt{<a>} sebagai \textit{child}. Jika di dalam satu elemen \texttt{<div>} terdapat beberapa elemen \texttt{<p>}, maka elemen-elemen tersebut dapat disebut sebagai \textit{sibling} karena berada pada tingkat hierarki yang sama. Hubungan seperti ini menunjukkan bahwa dokumen HTML tidak hanya tersusun secara berurutan, tetapi juga memiliki hubungan induk-anak yang jelas antar elemen.
 
 Hierarki ini penting karena menentukan bagaimana elemen saling berhubungan dan bagaimana struktur tersebut akan diproses menjadi DOM. Ketika \textit{browser} membaca dokumen HTML, setiap elemen akan direpresentasikan sebagai \textit{node} dalam struktur DOM. Hubungan \textit{parent}, \textit{child}, dan \textit{sibling} pada HTML akan menjadi dasar pembentukan hubungan antar \textit{node} di dalam DOM. Oleh karena itu, susunan elemen yang benar akan memudahkan \textit{browser} dalam memahami struktur dokumen dan menampilkan halaman web secara sesuai.
 
@@ -83,7 +83,7 @@ Menurut \textit{World Wide Web Consortium}, DOM menyediakan antarmuka standar un
 \subsection{Struktur DOM sebagai Tree}
 Struktur DOM berbentuk pohon (\textit{tree structure}) karena dokumen HTML disusun dari elemen-elemen yang saling berhubungan secara hierarkis. Dalam DOM, setiap bagian dokumen direpresentasikan sebagai \textit{node}, seperti \textit{node} dokumen, \textit{node} elemen, \textit{node} atribut, dan \textit{node} teks. Menurut Marini, DOM memodelkan dokumen sebagai kumpulan objek yang tersusun dalam struktur pohon sehingga setiap objek dapat diakses, ditelusuri, dan dimodifikasi melalui antarmuka pemrograman~\cite{marini:02:thedom}.
 
-Pada struktur tersebut, \textit{node} paling atas disebut \textit{root node}. Untuk dokumen HTML, elemen <html> umumnya menjadi akar utama yang menaungi elemen <head> dan <body>. Elemen <head> dapat memiliki anak seperti <title> atau <meta>, sedangkan elemen <body> dapat memiliki anak seperti <div>, <h1>, <p>, atau elemen lain yang membentuk isi halaman. Hubungan bertingkat ini membuat DOM dapat dipahami sebagai susunan induk dan anak antar elemen, sebagaimana ditunjukkan pada Gambar~\ref{fig:domtree}.
+Pada struktur tersebut, \textit{node} paling atas disebut \textit{root node}. Untuk dokumen HTML, elemen \texttt{<html>} umumnya menjadi akar utama yang menaungi elemen \texttt{<head>} dan \texttt{<body>}. Elemen \texttt{<head>} dapat memiliki anak seperti \texttt{<title>} atau \texttt{<meta>}, sedangkan elemen \texttt{<body>} dapat memiliki anak seperti \texttt{<div>}, \texttt{<h1>}, \texttt{<p>}, atau elemen lain yang membentuk isi halaman. Hubungan bertingkat ini membuat DOM dapat dipahami sebagai susunan induk dan anak antar elemen, sebagaimana ditunjukkan pada Gambar~\ref{fig:domtree}.
 
 Setiap \textit{node} dalam DOM dapat memiliki beberapa jenis relasi, yaitu:
 \begin{itemize}
@@ -97,7 +97,7 @@ Relasi \textit{parent}, \textit{child}, dan \textit{sibling} memungkinkan progra
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.65]{../Gambar/DOMtree.png}
-	\caption[Contoh Dom Tree]{Contoh Dom berbentuk \textit{tree} yang berisi Body dan Head, di dalam Body terdapat elemen \textit{bold} dan \textit{italic}, di dalam Head terdapat elemen judul} 
+	\caption[Contoh DOM Tree]{Contoh DOM berbentuk \textit{tree} yang berisi Body dan Head, di dalam Body terdapat elemen \textit{bold} dan \textit{italic}, di dalam Head terdapat elemen judul} 
 	\label{fig:domtree} 
 \end{figure}
 
@@ -108,8 +108,8 @@ DOM tidak hanya terdiri dari elemen HTML, tetapi juga tersusun dari beberapa jen
 Beberapa jenis \textit{node} yang umum terdapat pada DOM antara lain:
 \begin{itemize}
     \item \textit{Document node}, yaitu \textit{node} utama yang merepresentasikan keseluruhan dokumen HTML. Node ini menjadi titik awal untuk mengakses struktur DOM.
-    \item \textit{Element node}, yaitu \textit{node} yang merepresentasikan \textit{tag} HTML seperti <html>, <head>, <body>, <div>, <p>, atau <a>. \textit{Node} jenis ini biasanya memiliki relasi \textit{parent} dan \textit{child} dengan elemen lain.
-    \item \textit{Text node}, yaitu \textit{node} yang merepresentasikan isi teks yang berada di dalam suatu elemen. Misalnya, teks dalam elemen <p> akan dibaca sebagai \textit{node} teks.
+    \item \textit{Element node}, yaitu \textit{node} yang merepresentasikan \textit{tag} HTML seperti \texttt{<html>}, \texttt{<head>}, \texttt{<body>}, \texttt{<div>}, \texttt{<p>}, atau \texttt{<a>}. \textit{Node} jenis ini biasanya memiliki relasi \textit{parent} dan \textit{child} dengan elemen lain.
+    \item \textit{Text node}, yaitu \textit{node} yang merepresentasikan isi teks yang berada di dalam suatu elemen. Misalnya, teks dalam elemen \texttt{<p>} akan dibaca sebagai \textit{node} teks.
     \item \textit{Attribute node}, yaitu \textit{node} yang merepresentasikan atribut pada elemen HTML, seperti \textit{id}, \textit{class}, \textit{href}, atau \textit{src}. Atribut memberikan informasi tambahan terhadap elemen yang memilikinya.
     \item \textit{Comment node}, yaitu \textit{node} yang merepresentasikan komentar di dalam dokumen HTML. Node ini tidak ditampilkan sebagai konten utama halaman, tetapi tetap dapat menjadi bagian dari struktur dokumen.
 \end{itemize}
@@ -124,7 +124,7 @@ Jsoup merupakan \textit{library} Java yang digunakan untuk membaca, memproses, m
 
 Jsoup bekerja dengan cara mem-parsing kode HTML dan membentuk representasi dokumen yang menyerupai struktur DOM. Setelah dokumen diproses, elemen-elemen HTML dapat diakses berdasarkan \textit{tag}, atribut, teks, maupun relasi antar elemen. Hal ini membuat Jsoup banyak digunakan dalam pengolahan dokumen web, seperti ekstraksi informasi, pembersihan data HTML, analisis struktur halaman, dan pengambilan elemen tertentu dari sebuah halaman web.
 
-\begin{lstlisting}[language=java, caption=Potongan kode dengan fungsi mengambil \textit{homepage} Wikipedia lalu melakukan \textit{parse} menjadi DOM dan memilih judul berita dari bagian "Berita" ke dalam daftar Elemen, label=kode:2:2:1:model]
+\begin{lstlisting}[language=java, caption=Potongan kode dengan fungsi mengambil \textit{homepage} Wikipedia lalu melakukan \textit{parse} menjadi DOM dan memilih judul berita dari bagian "Berita" ke dalam daftar Elemen, label=kode:2:2:jsoup-connect]
 	Document doc = Jsoup.connect("https://en.wikipedia.org/").get();
 	log(doc.title());
 	Elements newsHeadlines = doc.select("#mp-itn b a");
@@ -134,10 +134,74 @@ Jsoup bekerja dengan cara mem-parsing kode HTML dan membentuk representasi dokum
 }
 \end{lstlisting}
 
+\subsection{Kelas \texttt{Jsoup}}
+Kelas \texttt{Jsoup} merupakan titik masuk utama untuk menggunakan pustaka Jsoup. Berikut adalah beberapa metode yang tersedia pada kelas ini:
+
+\begin{itemize}[itemsep=0mm]
+    \item \textit{connect:}
+    Metode ini digunakan untuk membuat koneksi HTTP menuju URL situs web tujuan.
+    
+    \item \textit{parse:}
+    Metode ini digunakan untuk melakukan \textit{parsing} pada \texttt{String} HTML menjadi objek \texttt{Document}.
+    
+    \item \textit{parseBodyFragment:}
+    Metode ini digunakan untuk melakukan \textit{parsing} pada potongan HTML parsial dan menghasilkan objek \texttt{Document}.
+\end{itemize}
+
+\subsection{Kelas \texttt{Document}}
+Kelas \texttt{Document} merupakan representasi dari keseluruhan dokumen HTML setelah proses \textit{parsing}. Kelas ini berfungsi sebagai akar struktur DOM dan menyediakan metode untuk membaca, menelusuri, atau memodifikasi isi dokumen. Berikut adalah beberapa metode yang tersedia pada kelas ini:
+
+\begin{itemize}[itemsep=0mm]
+    \item \textit{title:}
+    Metode ini digunakan untuk mendapatkan isi teks dari elemen \texttt{<title>} dalam bentuk \texttt{String}. Jika elemen \texttt{<title>} diperlukan sebagai objek elemen, elemen tersebut dapat diperoleh menggunakan metode seleksi seperti \texttt{selectFirst("title")}.
+    
+    \item \textit{body:}
+    Metode ini digunakan untuk mendapatkan elemen \texttt{<body>} dari dokumen.
+    
+    \item \textit{select:}
+    Metode ini digunakan untuk mencari elemen dalam dokumen berdasarkan CSS \textit{selector}.
+    
+    \item \textit{baseUri:}
+    Metode ini digunakan untuk mendapatkan URL dasar dari dokumen, jika sumbernya diambil melalui URL.
+    
+\end{itemize}
+
+\subsection{Kelas Element}
+Kelas \texttt{Element} merupakan representasi satu elemen HTML dalam struktur DOM. Kelas ini memiliki \textit{tag}, atribut, konten teks, serta daftar elemen anak. Berikut adalah beberapa metode yang tersedia pada kelas ini:
+
+\begin{itemize}[itemsep=0mm]
+    \item \textit{attr:}
+    Metode ini digunakan untuk mengambil nilai suatu atribut.
+    
+    \item \textit{text:}
+    Metode ini digunakan untuk mendapatkan teks dalam elemen beserta elemen turunannya.
+    
+    \item \textit{absUrl:}
+    Metode ini digunakan untuk mendapatkan URL absolut dari sebuah atribut, seperti \texttt{href} atau \texttt{src}, berdasarkan URI dasar dokumen.
+    
+    \item \textit{html:}
+    Metode ini digunakan untuk memperoleh markup HTML bagian dalam elemen.
+    
+    \item \textit{children:}
+    Metode ini digunakan untuk mendapatkan daftar elemen anak dari sebuah elemen tertentu.
+\end{itemize}
+
 \subsection{Penggunaan Jsoup dalam Pemrosesan DOM}
 Dalam konteks pemrosesan DOM, Jsoup berperan sebagai alat bantu untuk mengubah dokumen HTML mentah menjadi objek dokumen yang dapat ditelusuri secara sistematis. Setiap elemen HTML yang telah diproses dapat diakses sebagai \textit{node} yang memiliki hubungan dengan elemen lain, seperti \textit{parent}, \textit{child}, dan \textit{sibling}. Relasi tersebut memungkinkan program membaca struktur halaman secara hierarkis tanpa harus memproses teks HTML secara manual.
 
-Pada penelitian ini, Jsoup digunakan sebagai tahap awal untuk memperoleh struktur DOM dari dokumen HTML. Elemen-elemen yang dihasilkan oleh Jsoup dapat dipetakan menjadi \textit{node}, sedangkan hubungan antar elemen seperti \textit{parent} dan \textit{child} dapat dipetakan menjadi \textit{edge}. Dengan demikian, Jsoup menjadi penghubung antara dokumen HTML mentah dan representasi graf yang dapat dianalisis serta divisualisasikan.
+Pada penelitian ini, Jsoup digunakan sebagai tahap awal untuk memperoleh struktur DOM dari dokumen HTML. Elemen-elemen yang dihasilkan oleh Jsoup dapat dipetakan menjadi \textit{node}, sedangkan hubungan antar elemen seperti \textit{parent} dan \textit{child} dapat dipetakan menjadi \textit{edge}. Contoh penggunaan Jsoup untuk melakukan \textit{parsing} HTML dan mengambil elemen DOM ditunjukkan pada Kode~\ref{kode:2:3:jsoup-dom}. Dengan demikian, Jsoup menjadi penghubung antara dokumen HTML mentah dan representasi graf yang dapat dianalisis serta divisualisasikan.
+
+\begin{lstlisting}[language=java, caption=Menggunakan metode DOM setelah \textit{parsing} HTML ke dokumen, label=kode:2:3:jsoup-dom]
+	String url = "https://en.wikipedia.org/";
+	Document doc = Jsoup.connect(url).get();
+
+	Element content = doc.getElementById("content");
+	Elements links = content.getElementsByTag("a");
+	for (Element link : links) {
+		String linkHref = link.attr("href");
+		String linkText = link.text();
+	}
+\end{lstlisting}
 
 \section{Struktur Data Tree}
 \subsection{Pengertian Tree}
@@ -146,7 +210,7 @@ Tree adalah struktur data hierarkis yang terdiri dari sekumpulan \textit{node} d
 Secara konsep, \textit{tree} merupakan bentuk khusus dari graf yang tidak memiliki siklus dan memiliki hubungan hierarkis yang jelas. Setiap \textit{node} dalam \textit{tree}, kecuali \textit{root}, memiliki satu \textit{parent}. Karakteristik ini membuat \textit{tree} cocok digunakan untuk memodelkan struktur yang tersusun secara bertingkat, seperti struktur folder, organisasi data, ekspresi matematika, dan dokumen HTML.
 
 \subsection{Tree pada Struktur DOM}
-DOM memiliki karakteristik yang menyerupai \textit{tree} karena setiap elemen dalam dokumen HTML tersusun secara hierarkis. Elemen <html> biasanya menjadi \textit{root}, sedangkan elemen <head> dan <body> menjadi \textit{child} dari elemen tersebut. Selanjutnya, elemen-elemen lain seperti <div>, <p>, <img>, dan <a> dapat menjadi turunan dari elemen <body> atau elemen lain di dalamnya.
+DOM memiliki karakteristik yang menyerupai \textit{tree} karena setiap elemen dalam dokumen HTML tersusun secara hierarkis. Elemen \texttt{<html>} biasanya menjadi \textit{root}, sedangkan elemen \texttt{<head>} dan \texttt{<body>} menjadi \textit{child} dari elemen tersebut. Selanjutnya, elemen-elemen lain seperti \texttt{<div>}, \texttt{<p>}, \texttt{<img>}, dan \texttt{<a>} dapat menjadi turunan dari elemen \texttt{<body>} atau elemen lain di dalamnya.
 
 Pemahaman mengenai \textit{tree} penting dalam penelitian ini karena struktur DOM yang berbentuk \textit{tree} dapat ditelusuri menggunakan algoritma \textit{traversal}. Salah satu algoritma yang sesuai untuk struktur seperti ini adalah DFS, karena DFS menelusuri \textit{node} secara mendalam dari \textit{root} menuju leaf sebelum kembali ke cabang lain. Dengan demikian, konsep \textit{tree} menjadi dasar untuk memahami hubungan antara DOM, graf, dan proses \textit{traversal}.
 
@@ -172,7 +236,7 @@ Graf berarah ({\it directed graph} atau {\it digraph}) adalah graf yang setiap s
 
 Berbeda dengan graf tidak berarah, hubungan pada graf berarah tidak selalu berlaku dua arah. Jika terdapat sisi dari simpul $u$ ke simpul $v$, maka hal tersebut tidak secara otomatis berarti terdapat sisi dari simpul $v$ ke simpul $u$. Oleh karena itu, arah sisi menjadi informasi penting dalam memahami pola hubungan antar simpul. Konsep ini banyak digunakan untuk memodelkan hubungan yang memiliki alur, urutan, atau ketergantungan, seperti tautan antar halaman web, aliran data, proses kerja, maupun struktur hierarkis.
 
-Dalam konteks DOM, hubungan antara \textit{parent} dan \textit{child} memiliki arah yang jelas, yaitu dari \textit{node} induk menuju \textit{node} anak. Misalnya, elemen <html> memiliki hubungan ke elemen <head> dan <body>, kemudian elemen <body> dapat memiliki hubungan ke elemen <div>, <p>, atau elemen lainnya. Arah hubungan tersebut menunjukkan bahwa suatu elemen berada di bawah elemen lain dalam struktur dokumen.
+Dalam konteks DOM, hubungan antara \textit{parent} dan \textit{child} memiliki arah yang jelas, yaitu dari \textit{node} induk menuju \textit{node} anak. Misalnya, elemen \texttt{<html>} memiliki hubungan ke elemen \texttt{<head>} dan \texttt{<body>}, kemudian elemen \texttt{<body>} dapat memiliki hubungan ke elemen \texttt{<div>}, \texttt{<p>}, atau elemen lainnya. Arah hubungan tersebut menunjukkan bahwa suatu elemen berada di bawah elemen lain dalam struktur dokumen.
 
 Pemodelan DOM sebagai graf berarah membantu menunjukkan alur hubungan antar elemen secara lebih terstruktur. Dengan menggunakan arah sisi, proses penelusuran dapat dilakukan dari \textit{root node} menuju \textit{node}-\textit{node} turunannya. Hal ini penting dalam analisis struktur halaman web karena urutan dan arah hubungan antar elemen memengaruhi cara DOM dibaca, divisualisasikan, dan ditelusuri menggunakan algoritma \textit{traversal} seperti \textit{Depth First Search}. Contoh bentuk graf berarah sederhana yang terdiri dari \textit{node} dan \textit{edge} ditunjukkan pada Gambar~\ref{fig:digraph}.
 
@@ -184,9 +248,9 @@ Pemodelan DOM sebagai graf berarah membantu menunjukkan alur hubungan antar elem
 \end{figure}
 
 \subsection{Representasi DOM sebagai graf}
-Struktur DOM dapat direpresentasikan sebagai graf dengan cara memetakan setiap elemen HTML sebagai \textit{node} dan hubungan \textit{parent-child} sebagai \textit{edge}. Dalam representasi ini, elemen \textit{root} seperti <html> menjadi \textit{node} awal, sedangkan elemen-elemen turunannya seperti <head>, <body>, <div>, <p>, dan elemen lain menjadi \textit{node} yang terhubung melalui \textit{edge}.
+Struktur DOM dapat direpresentasikan sebagai graf dengan cara memetakan setiap elemen HTML sebagai \textit{node} dan hubungan \textit{parent-child} sebagai \textit{edge}. Dalam representasi ini, elemen \textit{root} seperti \texttt{<html>} menjadi \textit{node} awal, sedangkan elemen-elemen turunannya seperti \texttt{<head>}, \texttt{<body>}, \texttt{<div>}, \texttt{<p>}, dan elemen lain menjadi \textit{node} yang terhubung melalui \textit{edge}.
 
-Karena hubungan antar elemen dalam DOM memiliki arah dari \textit{parent} menuju \textit{child}, struktur DOM lebih sesuai dimodelkan sebagai graf berarah. Setiap \textit{edge} menunjukkan hubungan hierarkis antara dua elemen. Misalnya, hubungan dari <body> ke <div> menunjukkan bahwa elemen <div> berada di dalam elemen <body>. Dengan pemetaan ini, struktur HTML yang semula berbentuk dokumen teks dapat dianalisis sebagai struktur \textit{node} dan \textit{edge}.
+Karena hubungan antar elemen dalam DOM memiliki arah dari \textit{parent} menuju \textit{child}, struktur DOM lebih sesuai dimodelkan sebagai graf berarah. Setiap \textit{edge} menunjukkan hubungan hierarkis antara dua elemen. Misalnya, hubungan dari \texttt{<body>} ke \texttt{<div>} menunjukkan bahwa elemen \texttt{<div>} berada di dalam elemen \texttt{<body>}. Dengan pemetaan ini, struktur HTML yang semula berbentuk dokumen teks dapat dianalisis sebagai struktur \textit{node} dan \textit{edge}.
 
 Representasi DOM sebagai graf mempermudah proses analisis dan visualisasi struktur halaman web. Melalui pendekatan graf, hubungan antar elemen dapat ditelusuri menggunakan algoritma \textit{traversal} seperti DFS. Selain itu, representasi ini juga mempermudah pembuatan visualisasi menggunakan Graphviz karena struktur DOM dapat diubah ke dalam format DOT dan ditampilkan sebagai diagram graf.
 
@@ -211,22 +275,22 @@ Metode ini sangat cocok untuk struktur berbentuk \textit{tree} seperti DOM karen
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.65]{../Gambar/DFS.png}
-	\caption[Ilustrasi proses DFS pada Graf berarah]{Ilustrasi proses DFS pada graf berarah. Sisi-sisi diklasifikasikan sesuai urutan penjelajahannya: sisi pohon diberi \textit{label} T, sisi belakang B, sisi depan F, dan sisi silang C.} 
+	\caption[Ilustrasi proses DFS pada graf berarah]{Ilustrasi proses DFS pada graf berarah. Sisi-sisi diklasifikasikan sesuai urutan penjelajahannya: sisi pohon diberi \textit{label} T, sisi belakang B, sisi depan F, dan sisi silang C.} 
 	\label{fig:dfs} 
 \end{figure}
 
 \section{Graphviz}
 \subsection{Pengertian Graphviz}
-Graphviz adalah perangkat lunak visualisasi grafik \textit{open source}. Visualisasi grafik adalah cara untuk merepresentasikan informasi struktural sebagai diagram grafik abstrak dan jaringan. Teknologi ini memiliki aplikasi penting dalam jaringan, bioinformatika, rekayasa perangkat lunak, desain basis data dan web, pembelajaran mesin, dan antarmuka visual untuk domain teknis lainnya\cite{ellson:24:graphviz}.
+Graphviz adalah perangkat lunak visualisasi grafik \textit{open source}. Visualisasi grafik adalah cara untuk merepresentasikan informasi struktural sebagai diagram grafik abstrak dan jaringan. Teknologi ini memiliki aplikasi penting dalam jaringan, bioinformatika, rekayasa perangkat lunak, desain basis data dan web, pembelajaran mesin, dan antarmuka visual untuk domain teknis lainnya~\cite{ellson:24:graphviz}.
 
 Menurut \textit{Graphviz Project}, Graphviz menyediakan berbagai algoritma \textit{layout} untuk menampilkan graf secara otomatis.
 
 \subsection{Format DOT}
 Graphviz menggunakan format DOT untuk mendefinisikan graf. DOT merupakan bahasa deskripsi graf berbasis teks yang digunakan untuk menuliskan struktur \textit{node} dan \textit{edge} secara sederhana. Melalui format ini, pengguna dapat menentukan jenis graf, nama graf, hubungan antar \textit{node}, serta atribut visual seperti \textit{label}, warna, bentuk \textit{node}, dan arah hubungan. Graf tidak berarah pada DOT didefinisikan menggunakan kata kunci {\it graph} dengan simbol --, sedangkan graf berarah didefinisikan menggunakan kata kunci {\it digraph} dengan simbol ->.
 
-Format DOT sesuai digunakan untuk merepresentasikan struktur DOM karena hubungan antar elemen HTML bersifat hierarkis dan berarah dari \textit{parent} menuju \textit{child}. Misalnya, hubungan antara elemen HTML dan \textit{head} dapat dituliskan sebagai HTML -> \textit{head}, yang menunjukkan adanya \textit{edge} dari \textit{node} HTML menuju \textit{node} \textit{head}. Contoh penulisan struktur DOM dalam format DOT ditunjukkan pada Kode~\ref{kode:2:3:1:model}, sedangkan hasil visualisasinya menggunakan Graphviz ditunjukkan pada Gambar~\ref{fig:visdot}. Dalam konteks penelitian ini, DOT digunakan sebagai format perantara untuk mengubah struktur DOM menjadi representasi graf yang kemudian dapat divisualisasikan menggunakan Graphviz.
+Format DOT sesuai digunakan untuk merepresentasikan struktur DOM karena hubungan antar elemen HTML bersifat hierarkis dan berarah dari \textit{parent} menuju \textit{child}. Misalnya, hubungan antara elemen HTML dan \textit{head} dapat dituliskan sebagai \texttt{HTML -> head}, yang menunjukkan adanya \textit{edge} dari \textit{node} HTML menuju \textit{node} \textit{head}. Contoh penulisan struktur DOM dalam format DOT ditunjukkan pada Kode~\ref{kode:2:4:dot}, sedangkan hasil visualisasinya menggunakan Graphviz ditunjukkan pada Gambar~\ref{fig:visdot}. Dalam konteks penelitian ini, DOT digunakan sebagai format perantara untuk mengubah struktur DOM menjadi representasi graf yang kemudian dapat divisualisasikan menggunakan Graphviz.
 
-\begin{lstlisting}[language=html, caption=Contoh kode .dot, label=kode:2:3:1:model]
+\begin{lstlisting}[language=html, caption=Contoh kode .dot, label=kode:2:4:dot]
 	digraph DOM {
 	node [shape=oval];
 	node1 [label="html"];
@@ -256,7 +320,7 @@ Format DOT sesuai digunakan untuk merepresentasikan struktur DOM karena hubungan
 \begin{figure} [H]
 	\centering  
 	\includegraphics[scale=0.55]{../Gambar/VisualisasiGraf.png}
-	\caption[Visualisasi dari format DOT dengan menggunakan Graphviz]{Visualisasi dari kode \ref{kode:2:3:1:model} dengan format DOT dengan menggunakan Graphviz} 
+	\caption[Visualisasi dari format DOT dengan menggunakan Graphviz]{Visualisasi dari Kode~\ref{kode:2:4:dot} dengan format DOT dengan menggunakan Graphviz} 
 	\label{fig:visdot} 
 \end{figure}
 

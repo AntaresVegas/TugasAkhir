@@ -1,0 +1,144 @@
+%versi 3 (22-07-2020)
+\chapter{Analisis}
+\label{chap:analisis}
+
+\section{Analisis Masalah}
+\label{sec:analisis-masalah}
+
+\subsection{Analisis Struktur HTML}
+Halaman web tersusun dari elemen-elemen HTML yang memiliki fungsi berbeda, seperti judul, paragraf, tautan, gambar, tabel, dan formulir. Setiap elemen tersebut ditandai menggunakan \textit{tag} dan dapat memiliki atribut sebagai informasi tambahan. Permasalahan muncul ketika struktur HTML yang dianalisis memiliki jumlah elemen yang banyak, susunan yang saling bersarang, serta atribut yang beragam. Kondisi tersebut membuat pembacaan struktur halaman secara manual menjadi kurang efektif karena hubungan antar elemen tidak selalu mudah terlihat dari kode HTML mentah.
+
+Struktur HTML juga memiliki hubungan hierarkis antar elemen. Suatu elemen dapat menjadi induk bagi elemen lain, sedangkan elemen yang berada di dalamnya menjadi anak dari elemen tersebut. Hubungan ini penting karena menentukan bagaimana dokumen HTML dibentuk menjadi DOM. Jika struktur tersebut hanya dilihat dalam bentuk teks, pengguna perlu menelusuri pasangan \textit{tag} pembuka dan penutup secara berulang untuk mengetahui letak suatu elemen, kedalaman elemen, serta hubungan \textit{parent-child} antar elemen.
+
+Berdasarkan permasalahan tersebut, diperlukan proses analisis yang dapat mengubah dokumen HTML menjadi representasi yang lebih mudah dipahami. Elemen HTML perlu dipetakan sebagai \textit{node}, sedangkan hubungan antar elemen perlu dipetakan sebagai \textit{edge}. Dengan pemetaan tersebut, struktur DOM halaman web dapat dianalisis sebagai bentuk graf atau \textit{tree} sehingga hubungan antar elemen dapat terlihat lebih jelas.
+
+Analisis pada penelitian ini berfokus pada bagaimana struktur HTML diproses menjadi DOM, kemudian direpresentasikan dalam bentuk graf berarah. Representasi ini membantu pengguna memahami susunan elemen, melihat hubungan hierarkis antar elemen, serta menelusuri struktur DOM menggunakan pendekatan \textit{traversal}. Dengan demikian, proses analisis tidak hanya melihat isi dokumen HTML, tetapi juga memperhatikan relasi struktural yang terbentuk di dalam halaman web.
+
+\subsection{Analisis Pembentukan DOM}
+Dokumen HTML yang diperoleh dari suatu situs web tidak dapat langsung divisualisasikan sebagai graf karena masih berbentuk teks berisi kumpulan \textit{tag}, atribut, dan konten. Agar struktur halaman dapat dianalisis oleh sistem, dokumen HTML perlu diproses terlebih dahulu menjadi DOM. DOM merepresentasikan dokumen sebagai susunan objek yang memiliki hubungan hierarkis sehingga setiap elemen dapat diakses sebagai bagian dari struktur yang lebih teratur.
+
+Permasalahan dalam pembentukan DOM adalah tidak semua dokumen HTML memiliki susunan yang sederhana dan rapi. Halaman web dapat memiliki elemen yang sangat banyak, elemen kosong, atribut yang beragam, serta elemen yang saling bersarang pada tingkat kedalaman berbeda. Selain itu, halaman web yang diambil dari URL tertentu juga dapat memiliki struktur yang berbeda-beda antara satu situs dengan situs lainnya. Oleh karena itu, sistem membutuhkan proses \textit{parsing} yang mampu membaca dokumen HTML dan membentuk struktur DOM secara konsisten.
+
+Dalam penelitian ini, pembentukan DOM menjadi tahap penting karena hasil dari proses tersebut menjadi dasar untuk membangun graf. Apabila elemen dan hubungan antar elemen tidak terbaca dengan benar, maka graf yang dihasilkan juga tidak dapat menggambarkan struktur DOM halaman web secara tepat. Dengan demikian, sistem perlu memastikan bahwa elemen-elemen pada DOM dapat dikenali dan relasi antar elemen dapat dipertahankan sebelum masuk ke tahap pemetaan graf.
+
+\subsection{Analisis Representasi DOM sebagai Graf}
+Struktur DOM memiliki karakteristik yang menyerupai \textit{tree} karena elemen-elemen di dalamnya tersusun secara hierarkis dari elemen akar menuju elemen turunan. Meskipun demikian, dalam bentuk DOM biasa, hubungan tersebut belum tentu mudah dipahami oleh pengguna. Oleh karena itu, diperlukan representasi graf untuk menampilkan hubungan antar elemen secara visual.
+
+Pada representasi graf, setiap elemen HTML dipandang sebagai \textit{node}, sedangkan hubungan \textit{parent-child} antar elemen dipandang sebagai \textit{edge}. Arah \textit{edge} menunjukkan hubungan dari elemen induk menuju elemen anak. Dengan cara ini, struktur DOM dapat dianalisis sebagai graf berarah yang memperlihatkan susunan elemen secara lebih jelas dibandingkan tampilan kode HTML mentah.
+
+Permasalahan yang perlu diperhatikan dalam representasi ini adalah bagaimana sistem menentukan elemen mana saja yang akan dijadikan \textit{node}, bagaimana hubungan antar elemen dibentuk menjadi \textit{edge}, dan bagaimana penamaan \textit{node} dilakukan agar hasil graf tetap mudah dibaca. Jika halaman web memiliki banyak elemen dengan nama \textit{tag} yang sama, sistem perlu tetap membedakan setiap \textit{node} agar hubungan antar elemen tidak tertukar.
+
+\subsection{Analisis Traversal DOM}
+Setelah struktur DOM terbentuk, sistem perlu menelusuri seluruh elemen agar setiap elemen dapat dipetakan ke dalam graf. Proses penelusuran ini tidak dapat dilakukan secara acak karena DOM memiliki susunan hierarkis. Jika penelusuran tidak dilakukan secara sistematis, terdapat kemungkinan elemen tertentu terlewat atau hubungan antar elemen tidak terbentuk dengan benar.
+
+Metode \textit{Depth-First Search} (DFS) sesuai digunakan karena pola kerjanya mengikuti struktur hierarkis DOM. DFS menelusuri elemen dari \textit{node} induk menuju \textit{node} anak hingga mencapai elemen terdalam, kemudian kembali ke elemen sebelumnya untuk melanjutkan penelusuran pada cabang lain. Dengan pola tersebut, sistem dapat membaca struktur DOM dari akar hingga seluruh elemen turunannya secara teratur.
+
+Dalam konteks perangkat lunak yang dikembangkan, DFS digunakan untuk membantu proses pembentukan daftar \textit{node} dan \textit{edge}. Setiap kali elemen ditemukan, elemen tersebut dapat dicatat sebagai \textit{node}. Ketika elemen tersebut memiliki hubungan dengan elemen induknya, hubungan tersebut dicatat sebagai \textit{edge}. Dengan demikian, proses \textit{traversal} menjadi dasar dalam menghasilkan representasi graf yang lengkap dan sesuai dengan struktur DOM.
+
+\subsection{Analisis Kebutuhan Visualisasi}
+Tujuan utama perangkat lunak ini adalah menghasilkan visualisasi graf dari struktur DOM halaman web. Visualisasi dibutuhkan karena struktur DOM yang kompleks sulit dipahami apabila hanya ditampilkan dalam bentuk kode HTML atau daftar elemen. Melalui visualisasi graf, pengguna dapat melihat hubungan antar elemen, posisi elemen dalam hierarki, serta percabangan struktur halaman secara lebih mudah.
+
+Visualisasi yang dihasilkan perlu memperhatikan keterbacaan graf. Setiap \textit{node} harus memiliki label yang dapat menunjukkan elemen HTML yang direpresentasikan. Arah hubungan antar \textit{node} juga perlu ditampilkan dengan jelas agar pengguna dapat mengetahui elemen induk dan elemen anak. Selain itu, susunan graf perlu dibuat teratur agar struktur halaman tidak terlihat terlalu padat atau membingungkan.
+
+Dalam penelitian ini, Graphviz digunakan untuk membantu proses visualisasi karena mampu membaca representasi graf dalam format DOT. Oleh karena itu, sistem perlu menghasilkan format DOT yang sesuai dengan struktur DOM yang telah dipetakan. Format tersebut kemudian digunakan untuk membuat visualisasi graf yang dapat diamati oleh pengguna.
+
+\section{Analisis Kebutuhan Sistem}
+\label{sec:analisis-kebutuhan-sistem}
+
+Analisis kebutuhan sistem dilakukan untuk menentukan fungsi yang harus dimiliki oleh perangkat lunak serta batasan kualitas yang perlu dipenuhi. Berdasarkan judul penelitian, yaitu perangkat lunak pembuat visualisasi graf struktur DOM halaman web, sistem yang dikembangkan berfokus pada proses pengambilan satu halaman web, pembentukan struktur DOM, pemetaan elemen HTML ke dalam bentuk graf, dan penyajian hasil visualisasi kepada pengguna. Graf yang dihasilkan merepresentasikan hubungan \textit{parent-child} pada DOM satu halaman web, bukan hubungan tautan antar halaman.
+
+\subsection{Kebutuhan Fungsional}
+Kebutuhan fungsional merupakan kebutuhan yang berkaitan dengan layanan atau fungsi utama yang harus disediakan oleh sistem. Kebutuhan fungsional pada perangkat lunak pembuat visualisasi graf struktur DOM halaman web adalah sebagai berikut:
+
+\begin{enumerate}
+    \item Sistem dapat menerima masukan berupa alamat situs web atau \textit{Uniform Resource Locator} (URL) dari pengguna.
+    \item Sistem dapat mengambil dokumen HTML dari URL yang diberikan oleh pengguna.
+    \item Sistem dapat membaca dan melakukan \textit{parsing} terhadap dokumen HTML untuk membentuk struktur DOM.
+    \item Sistem dapat mengidentifikasi elemen-elemen HTML yang terdapat di dalam dokumen, seperti elemen \textit{html}, \textit{head}, \textit{body}, \textit{div}, \textit{p}, \textit{a}, dan elemen lainnya.
+    \item Sistem dapat membentuk hubungan hierarkis antar elemen HTML berdasarkan relasi \textit{parent-child} pada struktur DOM.
+    \item Sistem dapat merepresentasikan setiap elemen HTML sebagai \textit{node} dan hubungan antar elemen sebagai \textit{edge}.
+    \item Sistem dapat melakukan penelusuran struktur DOM menggunakan metode \textit{Depth-First Search} (DFS) untuk membaca elemen secara sistematis dari akar hingga elemen turunannya.
+    \item Sistem dapat menghasilkan representasi graf dalam format DOT yang dapat diproses oleh Graphviz.
+    \item Sistem dapat menampilkan hasil visualisasi graf dari struktur DOM halaman web agar pengguna dapat memahami susunan elemen HTML secara lebih mudah.
+    \item Sistem dapat menampilkan informasi dasar dari hasil pemrosesan, seperti daftar \textit{node}, daftar \textit{edge}, dan hubungan antar elemen yang terbentuk.
+    \item Sistem dapat memberikan pesan kesalahan apabila URL tidak valid, halaman web tidak dapat diakses, atau dokumen HTML gagal diproses.
+\end{enumerate}
+
+\subsection{Kebutuhan Non-Fungsional}
+Kebutuhan non-fungsional merupakan kebutuhan yang berkaitan dengan kualitas, batasan, dan karakteristik sistem dalam menjalankan fungsi-fungsinya. Kebutuhan non-fungsional pada perangkat lunak ini adalah sebagai berikut:
+
+\begin{enumerate}
+    \item \textit{Usability}: sistem memiliki antarmuka yang mudah digunakan sehingga pengguna dapat memasukkan URL, menjalankan proses visualisasi, dan melihat hasil graf tanpa langkah yang rumit.
+    \item \textit{Performance}: sistem mampu memproses dokumen HTML dan menghasilkan visualisasi graf dalam waktu yang wajar, terutama untuk halaman web dengan struktur DOM berukuran kecil hingga sedang.
+    \item \textit{Reliability}: sistem dapat menangani kesalahan yang mungkin terjadi, seperti URL kosong, URL tidak valid, koneksi gagal, atau struktur HTML yang tidak lengkap, tanpa menyebabkan aplikasi berhenti secara tiba-tiba.
+    \item \textit{Accuracy}: sistem mampu mempertahankan hubungan hierarkis DOM secara tepat ketika mengubah elemen HTML menjadi \textit{node} dan hubungan \textit{parent-child} menjadi \textit{edge}.
+    \item \textit{Maintainability}: sistem disusun secara terstruktur agar proses pengembangan, perbaikan, dan penambahan fitur dapat dilakukan dengan lebih mudah.
+    \item \textit{Compatibility}: sistem dapat memproses dokumen HTML dari berbagai situs web selama halaman tersebut dapat diakses dan memiliki struktur HTML yang dapat dibaca oleh pustaka pemrosesan HTML.
+    \item \textit{Portability}: sistem dapat dijalankan pada lingkungan yang mendukung Java, Jsoup, dan Graphviz sehingga tidak bergantung pada satu perangkat tertentu.
+    \item \textit{Readability}: hasil visualisasi graf harus memiliki tampilan yang cukup jelas, baik dari sisi penamaan \textit{node}, arah \textit{edge}, maupun susunan graf yang dihasilkan.
+\end{enumerate}
+
+\section{Analisis Sistem Usulan}
+\label{sec:analisis-sistem-usulan}
+
+Sistem usulan pada penelitian ini adalah perangkat lunak yang digunakan untuk membuat visualisasi graf dari struktur DOM satu halaman web. Sistem menerima masukan berupa URL dari pengguna, kemudian mengambil dokumen HTML dari URL tersebut. Dokumen HTML yang berhasil diperoleh diproses menjadi DOM menggunakan pustaka Jsoup. Setelah DOM terbentuk, sistem menelusuri elemen-elemen HTML secara hierarkis dan memetakan setiap elemen menjadi \textit{node} serta hubungan antar elemen menjadi \textit{edge}. Hasil pemetaan tersebut kemudian dikonversi ke dalam format DOT agar dapat divisualisasikan menggunakan Graphviz.
+
+Sistem ini diusulkan untuk membantu pengguna memahami struktur DOM halaman web tanpa harus membaca seluruh kode HTML secara manual. Dengan adanya visualisasi graf, pengguna dapat melihat hubungan induk dan anak antar elemen secara lebih jelas. Selain itu, sistem juga membantu memperlihatkan kedalaman struktur DOM, percabangan elemen, serta susunan elemen pada halaman web dalam bentuk graf berarah.
+
+\subsection{Gambaran Umum Sistem Usulan}
+Secara umum, sistem usulan bekerja melalui beberapa tahapan utama, yaitu penerimaan URL, pengambilan dokumen HTML, pembentukan DOM, penelusuran DOM, pembentukan graf, pembuatan format DOT, dan visualisasi graf. Setiap tahapan memiliki peran yang saling berhubungan. Tahap pengambilan HTML menjadi masukan bagi tahap pembentukan DOM, tahap pembentukan DOM menjadi dasar bagi proses \textit{traversal}, sedangkan hasil \textit{traversal} digunakan untuk membentuk \textit{node} dan \textit{edge} pada graf.
+
+Pada tahap awal, pengguna memasukkan alamat situs web yang akan dianalisis. Sistem kemudian melakukan validasi terhadap URL tersebut. Jika URL valid dan halaman dapat diakses, sistem mengambil dokumen HTML dari halaman tersebut. Jika URL tidak valid atau halaman tidak dapat diakses, sistem menampilkan pesan kesalahan kepada pengguna agar proses dapat diperbaiki.
+
+Setelah dokumen HTML diperoleh, sistem melakukan \textit{parsing} untuk membentuk struktur DOM. Struktur DOM tersebut kemudian ditelusuri menggunakan metode \textit{Depth-First Search} (DFS). Metode DFS digunakan karena sesuai dengan karakteristik DOM yang tersusun secara hierarkis. Dengan DFS, sistem dapat menelusuri elemen dari akar menuju elemen terdalam, kemudian kembali ke cabang lain hingga seluruh elemen selesai diproses.
+
+
+\subsection{Model Representasi Graf}
+Model representasi graf pada sistem usulan didefinisikan untuk menghindari ambiguitas ketika dokumen HTML memiliki banyak elemen dengan nama \textit{tag} yang sama. Sistem hanya memetakan \textit{element node} pada DOM sebagai simpul graf. \textit{Text node}, \textit{attribute node}, dan \textit{comment node} tidak dijadikan simpul utama karena fokus visualisasi adalah struktur elemen HTML.
+
+Setiap elemen HTML yang ditemukan saat proses \textit{traversal} diberi ID unik, misalnya \texttt{node1}, \texttt{node2}, dan seterusnya. ID unik tersebut digunakan sebagai identitas simpul pada format DOT, sedangkan nama \textit{tag} HTML digunakan sebagai label yang ditampilkan pada visualisasi. Dengan demikian, beberapa elemen dengan label yang sama, seperti \texttt{div} atau \texttt{p}, tetap dapat dibedakan oleh sistem karena memiliki ID simpul yang berbeda.
+
+Hubungan antar simpul dibentuk berdasarkan relasi langsung \textit{parent-child} pada DOM. Jika suatu elemen anak berada langsung di dalam elemen induk, maka sistem membuat \textit{edge} berarah dari simpul induk menuju simpul anak. Secara sederhana, jika elemen $p$ adalah induk langsung dari elemen $c$, maka sistem membentuk sisi berarah $(p,c)$. Model ini membuat graf yang dihasilkan merepresentasikan struktur hierarkis DOM satu halaman web.
+
+\subsection{Alur Kerja Sistem Usulan}
+Alur kerja sistem usulan dapat dijelaskan sebagai berikut:
+
+\begin{enumerate}
+    \item Pengguna memasukkan URL situs web yang ingin divisualisasikan.
+    \item Sistem memeriksa apakah URL yang dimasukkan memiliki format yang valid.
+    \item Sistem mengambil dokumen HTML dari URL yang diberikan pengguna.
+    \item Sistem melakukan \textit{parsing} HTML menggunakan Jsoup untuk membentuk struktur DOM.
+    \item Sistem menentukan elemen akar sebagai titik awal penelusuran DOM.
+    \item Sistem melakukan \textit{traversal} DOM menggunakan metode DFS.
+    \item Setiap elemen HTML yang ditemukan dicatat sebagai \textit{node}.
+    \item Setiap hubungan \textit{parent-child} antar elemen dicatat sebagai \textit{edge}.
+    \item Sistem menyusun daftar \textit{node} dan \textit{edge} ke dalam format DOT.
+    \item Graphviz memproses format DOT untuk menghasilkan visualisasi graf.
+    \item Sistem menampilkan hasil visualisasi graf kepada pengguna.
+\end{enumerate}
+
+Alur tersebut menunjukkan bahwa sistem tidak melakukan \textit{web crawling} ke banyak halaman, tetapi hanya memproses halaman berdasarkan URL yang dimasukkan oleh pengguna. Dengan demikian, fokus sistem adalah visualisasi struktur DOM dari satu halaman web, bukan pengumpulan data dari banyak halaman web secara otomatis.
+
+\subsection{Komponen Sistem Usulan}
+Sistem usulan terdiri dari beberapa komponen utama yang mendukung proses visualisasi graf struktur DOM halaman web. Komponen-komponen tersebut adalah sebagai berikut:
+
+\begin{enumerate}
+    \item \textit{Input URL}, yaitu komponen yang digunakan untuk menerima alamat situs web dari pengguna.
+    \item \textit{HTML Fetcher}, yaitu komponen yang bertugas mengambil dokumen HTML dari URL yang diberikan.
+    \item \textit{HTML Parser}, yaitu komponen yang memproses dokumen HTML menjadi struktur DOM menggunakan Jsoup.
+    \item \textit{DOM Traversal}, yaitu komponen yang menelusuri struktur DOM menggunakan metode DFS.
+    \item \textit{Graph Builder}, yaitu komponen yang membentuk \textit{node} dan \textit{edge} berdasarkan hasil penelusuran DOM.
+    \item \textit{DOT Generator}, yaitu komponen yang mengubah daftar \textit{node} dan \textit{edge} menjadi format DOT.
+    \item \textit{Graph Visualizer}, yaitu komponen yang menghasilkan visualisasi graf menggunakan Graphviz.
+    \item \textit{Output Viewer}, yaitu komponen yang menampilkan hasil visualisasi graf kepada pengguna.
+\end{enumerate}
+
+Pembagian komponen tersebut bertujuan agar setiap proses dalam sistem memiliki tanggung jawab yang jelas. Dengan struktur tersebut, sistem lebih mudah dikembangkan, diuji, dan diperbaiki apabila terjadi kesalahan pada salah satu tahapan.
+
+\subsection{Analisis Masukan dan Keluaran Sistem}
+Masukan utama pada sistem usulan adalah URL situs web yang diberikan oleh pengguna. URL tersebut digunakan sebagai alamat sumber untuk mengambil dokumen HTML. Selain URL, sistem juga memerlukan dokumen HTML yang berhasil diperoleh dari halaman web sebagai data yang akan diproses pada tahap pembentukan DOM.
+
+Keluaran utama dari sistem adalah visualisasi graf struktur DOM halaman web. Visualisasi tersebut menampilkan elemen-elemen HTML sebagai \textit{node} dan hubungan antar elemen sebagai \textit{edge}. Selain visualisasi graf, sistem juga dapat menghasilkan keluaran antara berupa struktur DOM, daftar \textit{node}, daftar \textit{edge}, dan berkas DOT. Keluaran antara tersebut berguna untuk memastikan bahwa proses pemetaan dari DOM ke graf telah berjalan sesuai dengan struktur DOM halaman web yang dianalisis.
+
+Apabila terjadi kesalahan, keluaran sistem berupa pesan informasi atau pesan kesalahan. Pesan tersebut dapat muncul ketika URL tidak valid, halaman web tidak dapat diakses, dokumen HTML gagal diproses, atau visualisasi graf gagal dibuat. Dengan adanya pesan tersebut, pengguna dapat mengetahui penyebab kegagalan proses dan melakukan perbaikan pada masukan yang diberikan.
+
