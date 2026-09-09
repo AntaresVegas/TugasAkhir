@@ -19,6 +19,12 @@ Dokumen HTML yang diperoleh dari suatu situs web tidak dapat langsung divisualis
 
 Permasalahan dalam pembentukan DOM adalah tidak semua dokumen HTML memiliki susunan yang sederhana dan rapi. Halaman web dapat memiliki elemen yang sangat banyak, elemen kosong, atribut yang beragam, serta elemen yang saling bersarang pada tingkat kedalaman berbeda. Selain itu, halaman web yang diambil dari URL tertentu juga dapat memiliki struktur yang berbeda-beda antara satu situs dengan situs lainnya. Oleh karena itu, sistem membutuhkan proses \textit{parsing} yang mampu membaca dokumen HTML dan membentuk struktur DOM secara konsisten.
 
+Pada sistem yang diusulkan, Jsoup dimanfaatkan untuk mengambil sekaligus mengonversi HTML menjadi struktur DOM. URL yang telah lolos validasi diberikan kepada Jsoup melalui metode \texttt{connect(url)}, kemudian metode \texttt{get()} digunakan untuk mengirim permintaan, mengambil respons HTML, dan melakukan \textit{parsing}. Hasil proses tersebut berupa objek \texttt{Document} yang menjadi akar struktur DOM. Dengan demikian, sistem tidak perlu memisahkan proses pengambilan HTML dan pembentukan DOM secara manual karena keduanya dapat dilakukan melalui pemanggilan \texttt{Jsoup.connect(url).get()}.
+
+Objek \texttt{Document} selanjutnya digunakan untuk mengakses elemen-elemen HTML secara hierarkis. Sistem memulai penelusuran dari elemen akar, mengambil nama \textit{tag} melalui metode \texttt{tagName()}, dan memperoleh elemen anak melalui metode \texttt{children()}. Penggunaan \texttt{children()} membuat penelusuran hanya memproses elemen HTML, sehingga \textit{text node} dan \textit{comment node} tidak dimasukkan sebagai simpul graf. Untuk setiap elemen anak yang ditemukan, sistem mempertahankan referensi elemen induknya agar relasi \textit{parent-child} dapat dibentuk sebagai \textit{edge}. Apabila proses koneksi atau \textit{parsing} gagal, sistem menangkap kesalahan tersebut dan menampilkan pesan kepada pengguna.
+
+DOM yang dibentuk oleh Jsoup merepresentasikan HTML yang diterima dari respons server. Jsoup tidak mengeksekusi JavaScript pada halaman, sehingga elemen yang baru dibuat atau diubah oleh JavaScript setelah halaman ditampilkan pada peramban tidak termasuk dalam struktur DOM yang diproses oleh sistem.
+
 Dalam penelitian ini, pembentukan DOM menjadi tahap penting karena hasil dari proses tersebut menjadi dasar untuk membangun graf. Apabila elemen dan hubungan antar elemen tidak terbaca dengan benar, maka graf yang dihasilkan juga tidak dapat menggambarkan struktur DOM halaman web secara tepat. Dengan demikian, sistem perlu memastikan bahwa elemen-elemen pada DOM dapat dikenali dan relasi antar elemen dapat dipertahankan sebelum masuk ke tahap pemetaan graf.
 
 \subsection{Analisis Representasi DOM sebagai Graf}
@@ -40,6 +46,12 @@ Tujuan utama perangkat lunak ini adalah menghasilkan visualisasi graf dari struk
 
 Visualisasi yang dihasilkan perlu memperhatikan keterbacaan graf. Setiap \textit{node} harus memiliki label yang dapat menunjukkan elemen HTML yang direpresentasikan. Arah hubungan antar \textit{node} juga perlu ditampilkan dengan jelas agar pengguna dapat mengetahui elemen induk dan elemen anak. Selain itu, susunan graf perlu dibuat teratur agar struktur halaman tidak terlihat terlalu padat atau membingungkan.
 
+Proses perubahan DOM menjadi format DOT dilakukan berdasarkan hasil penelusuran DFS. Ketika sebuah elemen DOM pertama kali ditemukan, sistem memberikan ID unik kepada elemen tersebut, misalnya \texttt{node1}, kemudian menyimpan pasangan antara objek elemen dan ID yang diberikan. Nama \textit{tag} dari elemen digunakan sebagai nilai atribut \texttt{label}. Dengan pemisahan antara ID dan label, elemen-elemen yang memiliki nama \textit{tag} sama tetap dinyatakan sebagai simpul yang berbeda. Sebagai contoh, elemen \texttt{html} dengan ID \texttt{node1} ditulis sebagai deklarasi \texttt{node1 [label="html"];} pada format DOT.
+
+Setelah simpul induk dan simpul anak memiliki ID, hubungan langsung keduanya ditulis menggunakan operator panah. Apabila \texttt{node1} merupakan induk dari \texttt{node2}, hubungan tersebut dinyatakan sebagai \texttt{node1 -> node2;}. Setiap deklarasi simpul dan hubungan ditambahkan ke dalam blok graf yang diawali dengan kata kunci \texttt{digraph} dan diakhiri dengan kurung kurawal penutup. Karena arah sisi ditulis dari ID elemen induk menuju ID elemen anak, struktur DOT yang terbentuk tetap mempertahankan hierarki DOM hasil \textit{parsing}.
+
+Penyusunan DOT dapat dilakukan bersamaan dengan proses DFS. Sistem terlebih dahulu menambahkan deklarasi untuk elemen yang sedang dikunjungi, kemudian memproses setiap elemen anak, menambahkan deklarasi simpul anak, dan menuliskan \textit{edge} dari induk menuju anak. Apabila label memuat karakter khusus, seperti tanda kutip, garis miring terbalik, atau baris baru, karakter tersebut perlu melalui proses \textit{escaping} agar tidak merusak sintaks DOT. Hasil konversi dapat diperiksa dengan memastikan seluruh elemen memiliki ID unik, setiap relasi langsung \textit{parent-child} menghasilkan satu \textit{edge}, dan elemen akar tidak memiliki sisi masuk. Pada struktur pohon yang terhubung dengan $n$ simpul, jumlah sisi yang terbentuk seharusnya sebanyak $n-1$.
+
 Dalam penelitian ini, Graphviz digunakan untuk membantu proses visualisasi karena mampu membaca representasi graf dalam format DOT. Oleh karena itu, sistem perlu menghasilkan format DOT yang sesuai dengan struktur DOM yang telah dipetakan. Format tersebut kemudian digunakan untuk membuat visualisasi graf yang dapat diamati oleh pengguna.
 
 \section{Analisis Kebutuhan Sistem}
@@ -47,22 +59,79 @@ Dalam penelitian ini, Graphviz digunakan untuk membantu proses visualisasi karen
 
 Analisis kebutuhan sistem dilakukan untuk menentukan fungsi yang harus dimiliki oleh perangkat lunak serta batasan kualitas yang perlu dipenuhi. Berdasarkan judul penelitian, yaitu perangkat lunak pembuat visualisasi graf struktur DOM halaman web, sistem yang dikembangkan berfokus pada proses pengambilan satu halaman web, pembentukan struktur DOM, pemetaan elemen HTML ke dalam bentuk graf, dan penyajian hasil visualisasi kepada pengguna. Graf yang dihasilkan merepresentasikan hubungan \textit{parent-child} pada DOM satu halaman web, bukan hubungan tautan antar halaman.
 
-\subsection{Kebutuhan Fungsional}
-Kebutuhan fungsional merupakan kebutuhan yang berkaitan dengan layanan atau fungsi utama yang harus disediakan oleh sistem. Kebutuhan fungsional pada perangkat lunak pembuat visualisasi graf struktur DOM halaman web adalah sebagai berikut:
+\subsection{Analisis \textit{Use Case} dan Skenario}
+Analisis \textit{use case} digunakan untuk menggambarkan layanan sistem berdasarkan tujuan yang ingin dicapai oleh aktor. Aktor utama pada perangkat lunak ini adalah pengguna yang ingin memperoleh visualisasi graf struktur DOM dari suatu halaman web. Jsoup dan Graphviz tidak diperlakukan sebagai aktor karena keduanya merupakan komponen internal yang digunakan oleh sistem untuk melakukan \textit{parsing} HTML dan menghasilkan visualisasi graf.
 
-\begin{enumerate}
-    \item Sistem dapat menerima masukan berupa alamat situs web atau \textit{Uniform Resource Locator} (URL) dari pengguna.
-    \item Sistem dapat mengambil dokumen HTML dari URL yang diberikan oleh pengguna.
-    \item Sistem dapat membaca dan melakukan \textit{parsing} terhadap dokumen HTML untuk membentuk struktur DOM.
-    \item Sistem dapat mengidentifikasi elemen-elemen HTML yang terdapat di dalam dokumen, seperti elemen \textit{html}, \textit{head}, \textit{body}, \textit{div}, \textit{p}, \textit{a}, dan elemen lainnya.
-    \item Sistem dapat membentuk hubungan hierarkis antar elemen HTML berdasarkan relasi \textit{parent-child} pada struktur DOM.
-    \item Sistem dapat merepresentasikan setiap elemen HTML sebagai \textit{node} dan hubungan antar elemen sebagai \textit{edge}.
-    \item Sistem dapat melakukan penelusuran struktur DOM menggunakan metode \textit{Depth-First Search} (DFS) untuk membaca elemen secara sistematis dari akar hingga elemen turunannya.
-    \item Sistem dapat menghasilkan representasi graf dalam format DOT yang dapat diproses oleh Graphviz.
-    \item Sistem dapat menampilkan hasil visualisasi graf dari struktur DOM halaman web agar pengguna dapat memahami susunan elemen HTML secara lebih mudah.
-    \item Sistem dapat menampilkan informasi dasar dari hasil pemrosesan, seperti daftar \textit{node}, daftar \textit{edge}, dan hubungan antar elemen yang terbentuk.
-    \item Sistem dapat memberikan pesan kesalahan apabila URL tidak valid, halaman web tidak dapat diakses, atau dokumen HTML gagal diproses.
-\end{enumerate}
+Berdasarkan interaksi pengguna dengan sistem, terdapat dua \textit{use case} utama, yaitu membuat visualisasi graf struktur DOM dan melihat detail hasil pemrosesan. Daftar \textit{use case} tersebut ditunjukkan pada Tabel~\ref{tab:use-case-sistem}.
+
+\begin{table}[H]
+    \centering
+    \caption{Daftar \textit{use case} sistem}
+    \label{tab:use-case-sistem}
+\begin{tabular}{|p{0.13\textwidth}|p{0.27\textwidth}|p{0.50\textwidth}|}
+    \hline
+    \textbf{ID} & \textbf{Nama \textit{Use Case}} & \textbf{Deskripsi} \\ \hline
+    UC-01 & Membuat visualisasi graf struktur DOM & Pengguna memasukkan URL, kemudian sistem mengambil HTML, membentuk DOM, menelusuri elemen, menghasilkan DOT, dan menampilkan visualisasi graf. \\ \hline
+    UC-02 & Melihat detail hasil pemrosesan & Pengguna melihat daftar \textit{node}, daftar \textit{edge}, dan representasi DOT yang dihasilkan dari proses visualisasi. \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Skenario \textit{Use Case} Membuat Visualisasi Graf Struktur DOM}
+Skenario UC-01 menjelaskan interaksi utama sejak pengguna memberikan URL hingga sistem menampilkan visualisasi graf. Skenario tersebut ditunjukkan pada Tabel~\ref{tab:skenario-uc01}.
+
+\begin{longtable}{|p{0.23\textwidth}|p{0.67\textwidth}|}
+    \caption{Skenario UC-01 membuat visualisasi graf struktur DOM}\label{tab:skenario-uc01} \\
+    \hline
+    \textbf{Bagian} & \textbf{Keterangan} \\ \hline
+    Nama \textit{use case} & Membuat visualisasi graf struktur DOM. \\ \hline
+    Aktor & Pengguna. \\ \hline
+    Tujuan & Memperoleh visualisasi graf yang merepresentasikan hubungan \textit{parent-child} pada DOM halaman web. \\ \hline
+    Prakondisi & Aplikasi dapat dijalankan dan perangkat memiliki koneksi untuk mengakses URL tujuan. \\ \hline
+    Pemicu & Pengguna memasukkan URL dan menjalankan proses visualisasi. \\ \hline
+    Skenario utama &
+    \begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=0pt]
+        \item Pengguna memasukkan URL halaman web.
+        \item Sistem memvalidasi format URL.
+        \item Sistem mengambil dokumen HTML dari URL menggunakan Jsoup.
+        \item Sistem melakukan \textit{parsing} HTML menjadi struktur DOM.
+        \item Sistem menelusuri elemen DOM menggunakan DFS.
+        \item Sistem memberikan ID unik kepada setiap elemen dan membentuk relasi \textit{parent-child}.
+        \item Sistem menyusun deklarasi \textit{node} dan \textit{edge} dalam format DOT.
+        \item Graphviz memproses DOT menjadi visualisasi graf.
+        \item Sistem menampilkan visualisasi graf kepada pengguna.
+    \end{enumerate} \\ \hline
+    Skenario alternatif &
+    \begin{enumerate}[label=\alph*., leftmargin=*, itemsep=0pt, topsep=0pt]
+        \item Jika URL kosong atau formatnya tidak valid, sistem menampilkan pesan kesalahan dan meminta pengguna memperbaiki URL.
+        \item Jika halaman tidak dapat diakses, sistem menampilkan pesan kegagalan koneksi dan menghentikan proses.
+        \item Jika HTML gagal diproses atau DOT gagal divisualisasikan, sistem menampilkan pesan kesalahan sesuai tahap yang gagal.
+    \end{enumerate} \\ \hline
+    Pascakondisi & Visualisasi graf berhasil ditampilkan atau sistem memberikan pesan yang menjelaskan penyebab kegagalan. \\ \hline
+\end{longtable}
+
+\subsubsection{Skenario \textit{Use Case} Melihat Detail Hasil Pemrosesan}
+Skenario UC-02 menjelaskan interaksi pengguna ketika melihat informasi pembentuk graf setelah proses visualisasi berhasil dilakukan. Skenario tersebut ditunjukkan pada Tabel~\ref{tab:skenario-uc02}.
+
+\begin{longtable}{|p{0.23\textwidth}|p{0.67\textwidth}|}
+    \caption{Skenario UC-02 melihat detail hasil pemrosesan}\label{tab:skenario-uc02} \\
+    \hline
+    \textbf{Bagian} & \textbf{Keterangan} \\ \hline
+    Nama \textit{use case} & Melihat detail hasil pemrosesan. \\ \hline
+    Aktor & Pengguna. \\ \hline
+    Tujuan & Memeriksa elemen dan hubungan yang digunakan untuk membentuk visualisasi graf. \\ \hline
+    Prakondisi & Proses pembentukan DOM dan graf telah berhasil dilakukan. \\ \hline
+    Pemicu & Pengguna memilih untuk melihat informasi hasil pemrosesan. \\ \hline
+    Skenario utama &
+    \begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=0pt]
+        \item Pengguna membuka bagian detail hasil pemrosesan.
+        \item Sistem menampilkan daftar \textit{node} beserta ID dan label elemen HTML.
+        \item Sistem menampilkan daftar \textit{edge} yang menunjukkan hubungan induk dan anak.
+        \item Sistem menampilkan representasi graf dalam format DOT.
+        \item Pengguna memeriksa kesesuaian detail tersebut dengan visualisasi graf.
+    \end{enumerate} \\ \hline
+    Skenario alternatif & Jika data hasil pemrosesan belum tersedia, sistem menampilkan informasi bahwa pengguna harus menjalankan proses visualisasi terlebih dahulu. \\ \hline
+    Pascakondisi & Informasi \textit{node}, \textit{edge}, dan DOT berhasil ditampilkan tanpa mengubah hasil pemrosesan. \\ \hline
+\end{longtable}
 
 \subsection{Kebutuhan Non-Fungsional}
 Kebutuhan non-fungsional merupakan kebutuhan yang berkaitan dengan kualitas, batasan, dan karakteristik sistem dalam menjalankan fungsi-fungsinya. Kebutuhan non-fungsional pada perangkat lunak ini adalah sebagai berikut:
@@ -100,24 +169,19 @@ Setiap elemen HTML yang ditemukan saat proses \textit{traversal} diberi ID unik,
 
 Hubungan antar simpul dibentuk berdasarkan relasi langsung \textit{parent-child} pada DOM. Jika suatu elemen anak berada langsung di dalam elemen induk, maka sistem membuat \textit{edge} berarah dari simpul induk menuju simpul anak. Secara sederhana, jika elemen $p$ adalah induk langsung dari elemen $c$, maka sistem membentuk sisi berarah $(p,c)$. Model ini membuat graf yang dihasilkan merepresentasikan struktur hierarkis DOM satu halaman web.
 
-\subsection{Alur Kerja Sistem Usulan}
-Alur kerja sistem usulan dapat dijelaskan sebagai berikut:
+\subsection{Diagram Sekuens Sistem Usulan}
+Diagram sekuens digunakan untuk menggambarkan urutan interaksi antar komponen ketika pengguna membuat visualisasi graf struktur DOM. Komponen yang terlibat terdiri dari Pengguna, Sistem, Jsoup, \textit{DOM Traversal}, \textit{DOT Generator}, dan Graphviz. Urutan interaksi tersebut ditunjukkan pada Gambar~\ref{fig:sequence-sistem-usulan}.
 
-\begin{enumerate}
-    \item Pengguna memasukkan URL situs web yang ingin divisualisasikan.
-    \item Sistem memeriksa apakah URL yang dimasukkan memiliki format yang valid.
-    \item Sistem mengambil dokumen HTML dari URL yang diberikan pengguna.
-    \item Sistem melakukan \textit{parsing} HTML menggunakan Jsoup untuk membentuk struktur DOM.
-    \item Sistem menentukan elemen akar sebagai titik awal penelusuran DOM.
-    \item Sistem melakukan \textit{traversal} DOM menggunakan metode DFS.
-    \item Setiap elemen HTML yang ditemukan dicatat sebagai \textit{node}.
-    \item Setiap hubungan \textit{parent-child} antar elemen dicatat sebagai \textit{edge}.
-    \item Sistem menyusun daftar \textit{node} dan \textit{edge} ke dalam format DOT.
-    \item Graphviz memproses format DOT untuk menghasilkan visualisasi graf.
-    \item Sistem menampilkan hasil visualisasi graf kepada pengguna.
-\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{../Gambar/SequenceDiagram.png}
+    \caption{Diagram sekuens proses visualisasi graf struktur DOM}
+    \label{fig:sequence-sistem-usulan}
+\end{figure}
 
-Alur tersebut menunjukkan bahwa sistem tidak melakukan \textit{web crawling} ke banyak halaman, tetapi hanya memproses halaman berdasarkan URL yang dimasukkan oleh pengguna. Dengan demikian, fokus sistem adalah visualisasi struktur DOM dari satu halaman web, bukan pengumpulan data dari banyak halaman web secara otomatis.
+Diagram tersebut dimulai ketika pengguna memasukkan URL dan sistem melakukan validasi. Jika URL tidak valid, sistem menampilkan pesan kesalahan dan proses dihentikan. Jika URL valid, sistem menggunakan Jsoup untuk mengambil HTML dan membentuk objek \texttt{Document}. Struktur DOM kemudian ditelusuri menggunakan DFS untuk menghasilkan daftar \textit{node} dan \textit{edge}. Daftar tersebut diubah menjadi format DOT, diproses oleh Graphviz, dan hasil visualisasinya ditampilkan kepada pengguna. Apabila terjadi kegagalan saat pengambilan HTML, \textit{parsing}, pembentukan DOT, atau visualisasi, sistem menampilkan pesan kesalahan sesuai tahap yang gagal.
+
+Interaksi pada diagram hanya memproses halaman berdasarkan URL yang dimasukkan oleh pengguna. Sistem tidak melakukan \textit{web crawling} ke halaman lain sehingga hasil yang dihasilkan tetap berfokus pada struktur DOM satu halaman web.
 
 \subsection{Komponen Sistem Usulan}
 Sistem usulan terdiri dari beberapa komponen utama yang mendukung proses visualisasi graf struktur DOM halaman web. Komponen-komponen tersebut adalah sebagai berikut:

@@ -134,6 +134,20 @@ Jsoup bekerja dengan cara mem-parsing kode HTML dan membentuk representasi dokum
 }
 \end{lstlisting}
 
+Penjelasan setiap baris pada Kode~\ref{kode:2:2:jsoup-connect} adalah sebagai berikut~\cite{jsoup:26:jsoup}:
+\begin{enumerate}[itemsep=0mm]
+    \item Baris pertama mengambil dan melakukan \textit{parsing} HTML halaman utama Wikipedia, kemudian menyimpan hasilnya sebagai objek \texttt{Document} pada variabel \texttt{doc}.
+    \item Baris kedua mengambil teks judul dokumen melalui \texttt{doc.title()} dan meneruskannya ke fungsi \texttt{log} untuk ditampilkan.
+    \item Baris ketiga memilih elemen \texttt{a} di dalam elemen \texttt{b} yang berada pada bagian ber-ID \texttt{mp-itn}, lalu menyimpan kumpulan tautan tersebut dalam \texttt{newsHeadlines}.
+    \item Baris keempat memulai perulangan untuk mengakses setiap elemen dalam \texttt{newsHeadlines} melalui variabel \texttt{headline}.
+    \item Baris kelima memulai pemanggilan \texttt{log} dengan format dua nilai teks: \verb|%s| sebagai tempat nilai, \verb|\n| sebagai baris baru, dan \verb|\t| sebagai tabulasi.
+    \item Baris keenam melengkapi pemanggilan tersebut dengan nilai atribut \texttt{title} dan URL absolut dari atribut \texttt{href} pada tautan yang sedang diproses.
+    \item Baris ketujuh menutup blok perulangan.
+\end{enumerate}
+
+Fungsi \texttt{log} pada contoh tersebut merupakan fungsi bantu untuk menampilkan keluaran, bukan metode bawaan Jsoup, sehingga perlu didefinisikan dalam program yang menjalankan contoh ini.
+
+
 \subsection{Kelas \texttt{Jsoup}}
 Kelas \texttt{Jsoup} merupakan titik masuk utama untuk menggunakan pustaka Jsoup. Berikut adalah beberapa metode yang tersedia pada kelas ini:
 
@@ -202,6 +216,20 @@ Pada penelitian ini, Jsoup digunakan sebagai tahap awal untuk memperoleh struktu
 		String linkText = link.text();
 	}
 \end{lstlisting}
+
+Penjelasan setiap baris pada Kode~\ref{kode:2:3:jsoup-dom}, adalah sebagai berikut~\cite{jsoup:26:jsoup}:
+\begin{enumerate}[itemsep=0mm]
+    \item Baris pertama menyimpan alamat halaman Wikipedia dalam variabel \texttt{url}.
+    \item Baris kedua mengambil dan melakukan \textit{parsing} HTML dari alamat tersebut, lalu menyimpan hasilnya sebagai objek \texttt{Document} pada variabel \texttt{doc}.
+    \item Baris ketiga mencari elemen ber-ID \texttt{content} dalam dokumen dan menyimpannya dalam variabel \texttt{content}.
+    \item Baris keempat mengambil seluruh elemen bertag \texttt{a} di dalam elemen \texttt{content}, termasuk turunannya, lalu menyimpannya dalam kumpulan \texttt{links}.
+    \item Baris kelima memulai perulangan untuk mengakses setiap elemen tautan dalam \texttt{links} melalui variabel \texttt{link}.
+    \item Baris keenam membaca nilai atribut \texttt{href} dan menyimpannya dalam \texttt{linkHref}. Nilai ini dapat berupa URL relatif maupun absolut.
+    \item Baris ketujuh mengambil isi teks tautan beserta teks elemen turunannya tanpa menyertakan \textit{tag} HTML, lalu menyimpannya dalam \texttt{linkText}.
+    \item Baris kedelapan menutup blok perulangan.
+\end{enumerate}
+
+Contoh tersebut mengasumsikan bahwa elemen ber-ID \texttt{content} tersedia. Jika elemen tidak ditemukan, variabel \texttt{content} bernilai \texttt{null} sehingga perlu diperiksa sebelum metode \texttt{getElementsByTag} dipanggil.
 
 \section{Struktur Data Tree}
 \subsection{Pengertian Tree}
