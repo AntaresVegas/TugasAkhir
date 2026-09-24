@@ -59,10 +59,10 @@ Dalam penelitian ini, Graphviz digunakan untuk membantu proses visualisasi karen
 
 Analisis kebutuhan sistem dilakukan untuk menentukan fungsi yang harus dimiliki oleh perangkat lunak serta batasan kualitas yang perlu dipenuhi. Berdasarkan judul penelitian, yaitu perangkat lunak pembuat visualisasi graf struktur DOM halaman web, sistem yang dikembangkan berfokus pada proses pengambilan satu halaman web, pembentukan struktur DOM, pemetaan elemen HTML ke dalam bentuk graf, dan penyajian hasil visualisasi kepada pengguna. Graf yang dihasilkan merepresentasikan hubungan \textit{parent-child} pada DOM satu halaman web, bukan hubungan tautan antar halaman.
 
-\subsection{Analisis \textit{Use Case} dan Skenario}
+\subsection{Analisis Kasus Penggunaan dan Skenario}
 Analisis \textit{use case} digunakan untuk menggambarkan layanan sistem berdasarkan tujuan yang ingin dicapai oleh aktor. Aktor utama pada perangkat lunak ini adalah pengguna yang ingin memperoleh visualisasi graf struktur DOM dari suatu halaman web. Jsoup dan Graphviz tidak diperlakukan sebagai aktor karena keduanya merupakan komponen internal yang digunakan oleh sistem untuk melakukan \textit{parsing} HTML dan menghasilkan visualisasi graf.
 
-Berdasarkan interaksi pengguna dengan sistem, terdapat dua \textit{use case} utama, yaitu membuat visualisasi graf struktur DOM dan melihat detail hasil pemrosesan. Daftar \textit{use case} tersebut ditunjukkan pada Tabel~\ref{tab:use-case-sistem}.
+Berdasarkan interaksi pengguna dengan sistem, terdapat dua \textit{use case} utama, yaitu membuat visualisasi graf struktur DOM dan melihat detail hasil pemrosesan. Daftar \textit{use case} tersebut ditunjukkan pada Tabel~\ref{tab:use-case-sistem}, sedangkan hubungan antara pengguna dan kedua \textit{use case} tersebut digambarkan dalam diagram pada Gambar~\ref{fig:use-case-sistem}.
 
 \begin{table}[H]
     \centering
@@ -76,7 +76,14 @@ Berdasarkan interaksi pengguna dengan sistem, terdapat dua \textit{use case} uta
 \end{tabular}
 \end{table}
 
-\subsubsection{Skenario \textit{Use Case} Membuat Visualisasi Graf Struktur DOM}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{../Gambar/UseCaseDiagram2.png}
+    \caption{Diagram \textit{use case} sistem visualisasi graf struktur DOM}
+    \label{fig:use-case-sistem}
+\end{figure}
+
+\subsubsection{Skenario Kasus Penggunaan Membuat Visualisasi Graf Struktur DOM}
 Skenario UC-01 menjelaskan interaksi utama sejak pengguna memberikan URL hingga sistem menampilkan visualisasi graf. Skenario tersebut ditunjukkan pada Tabel~\ref{tab:skenario-uc01}.
 
 \begin{longtable}{|p{0.23\textwidth}|p{0.67\textwidth}|}
@@ -109,7 +116,7 @@ Skenario UC-01 menjelaskan interaksi utama sejak pengguna memberikan URL hingga 
     Pascakondisi & Visualisasi graf berhasil ditampilkan atau sistem memberikan pesan yang menjelaskan penyebab kegagalan. \\ \hline
 \end{longtable}
 
-\subsubsection{Skenario \textit{Use Case} Melihat Detail Hasil Pemrosesan}
+\subsubsection{Skenario Kasus Penggunaan Melihat Detail Hasil Pemrosesan}
 Skenario UC-02 menjelaskan interaksi pengguna ketika melihat informasi pembentuk graf setelah proses visualisasi berhasil dilakukan. Skenario tersebut ditunjukkan pada Tabel~\ref{tab:skenario-uc02}.
 
 \begin{longtable}{|p{0.23\textwidth}|p{0.67\textwidth}|}

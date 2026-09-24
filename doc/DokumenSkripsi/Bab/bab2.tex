@@ -134,7 +134,7 @@ Jsoup bekerja dengan cara mem-parsing kode HTML dan membentuk representasi dokum
 }
 \end{lstlisting}
 
-Penjelasan setiap baris pada Kode~\ref{kode:2:2:jsoup-connect} adalah sebagai berikut~\cite{jsoup:26:jsoup}:
+Penjelasan pada Kode~\ref{kode:2:2:jsoup-connect} adalah sebagai berikut~\cite{jsoup:26:jsoup}:
 \begin{enumerate}[itemsep=0mm]
     \item Baris pertama mengambil dan melakukan \textit{parsing} HTML halaman utama Wikipedia, kemudian menyimpan hasilnya sebagai objek \texttt{Document} pada variabel \texttt{doc}.
     \item Baris kedua mengambil teks judul dokumen melalui \texttt{doc.title()} dan meneruskannya ke fungsi \texttt{log} untuk ditampilkan.
@@ -217,7 +217,7 @@ Pada penelitian ini, Jsoup digunakan sebagai tahap awal untuk memperoleh struktu
 	}
 \end{lstlisting}
 
-Penjelasan setiap baris pada Kode~\ref{kode:2:3:jsoup-dom}, adalah sebagai berikut~\cite{jsoup:26:jsoup}:
+Penjelasan pada Kode~\ref{kode:2:3:jsoup-dom}, adalah sebagai berikut~\cite{jsoup:26:jsoup}:
 \begin{enumerate}[itemsep=0mm]
     \item Baris pertama menyimpan alamat halaman Wikipedia dalam variabel \texttt{url}.
     \item Baris kedua mengambil dan melakukan \textit{parsing} HTML dari alamat tersebut, lalu menyimpan hasilnya sebagai objek \texttt{Document} pada variabel \texttt{doc}.
@@ -289,6 +289,13 @@ Pada proses \textit{traversal}, suatu \textit{node} biasanya dipilih sebagai tit
 
 Dalam konteks penelitian ini, \textit{traversal} graf digunakan untuk menelusuri struktur DOM yang telah direpresentasikan sebagai graf. Setiap elemen HTML dipandang sebagai \textit{node}, sedangkan hubungan \textit{parent-child} dipandang sebagai \textit{edge}. Dengan \textit{traversal}, struktur halaman web dapat dibaca secara teratur dari \textit{node} awal menuju \textit{node}-\textit{node} turunannya. Hal ini membantu proses analisis DOM karena setiap elemen dapat diperiksa sesuai urutan hubungan hierarkisnya.
 
+\subsection{Breadth-First Search}
+\textit{Breadth-First Search} (BFS) adalah metode \textit{traversal} yang telusuri graf per tingkat. BFS akan berkunjung ke semua \textit{node} yang paling dekat dengan \textit{node} awal terlebih dahulu, baru kemudian lanjut ke tingkat berikutnya. Jika penelusuran mulai dari elemen \texttt{<html>}, BFS akan memeriksa \texttt{<head>} dan \texttt{<body>} lebih dulu sebelum masuk ke elemen-elemen yang ada di dalam keduanya~\cite{cormen:22:introalgo}.
+
+Untuk mengatur urutan tersebut, BFS memakai struktur data antrean (\textit{queue}). Setiap \textit{node} yang baru ditemukan dimasukkan ke bagian belakang antrean, sedangkan \textit{node} yang akan diproses diambil dari bagian depan. Cara kerjanya mirip antrean biasa: yang masuk lebih dulu akan diproses lebih dulu. Pola ini membuat BFS lebih cocok ketika kita mau melihat struktur berdasarkan level atau mencari jalur dengan jumlah sisi paling sedikit pada graf yang tidak berbobot~\cite{cormen:22:introalgo}.
+
+Kalau diterapkan pada DOM, BFS bisa memberikan gambaran yang rapi tentang elemen-elemen yang berada pada kedalaman yang sama. Namun, BFS tidak langsung menyelesaikan satu cabang sampai ke elemen terdalam karena algoritma ini harus menyimpan dan memproses seluruh \textit{node} pada level yang sedang dilalui. Pada halaman web yang lebar dan memiliki banyak elemen dalam satu tingkat, antrean BFS juga bisa menjadi cukup besar. Karena penelitian ini perlu mengikuti hubungan \textit{parent-child} dari akar sampai ke bagian terdalam untuk membentuk \textit{node} dan \textit{edge}, pola penelusuran DFS lebih sesuai dibandingkan BFS.
+
 \subsection{Depth-First Search}
 {\it Depth-First Search} (DFS) adalah metode \textit{traversal} graf yang bekerja dengan menelusuri suatu simpul hingga ke bagian terdalam terlebih dahulu sebelum kembali ke simpul sebelumnya. Sesuai dengan namanya, DFS akan memilih untuk bergerak lebih dalam pada graf selama masih terdapat sisi yang belum dieksplorasi dari simpul yang sedang dikunjungi.
 
@@ -299,6 +306,8 @@ Dalam prosesnya, DFS juga mencatat hubungan pendahulu ({\it predecessor}) dari s
 DFS menggunakan penandaan warna untuk menunjukkan status setiap simpul selama proses \textit{traversal}. Simpul yang belum dikunjungi diberi warna putih, simpul yang sedang diproses diberi warna abu-abu, dan simpul yang seluruh sisi keluarnya telah selesai diperiksa diberi warna hitam. Selain itu, DFS juga mencatat dua waktu pada setiap simpul, yaitu waktu penemuan ({\it discovery time}) ketika simpul pertama kali dikunjungi dan waktu penyelesaian ({\it finishing time}) ketika seluruh daftar ketetanggaan simpul tersebut telah selesai diperiksa. Informasi ini berguna untuk memahami urutan \textit{traversal} dan struktur hubungan antar simpul dalam graf~\cite{cormen:22:introalgo}.
 
 Metode ini sangat cocok untuk struktur berbentuk \textit{tree} seperti DOM karena mengikuti pola \textit{parent-child} secara mendalam. Pada konteks DOM, DFS dapat digunakan untuk menelusuri elemen dari \textit{node} induk ke \textit{node} anak secara bertahap hingga mencapai elemen terdalam, kemudian kembali ke \textit{node} sebelumnya untuk melanjutkan penelusuran ke cabang lain. Ilustrasi proses DFS pada graf berarah dapat dilihat pada Gambar~\ref{fig:dfs}. Oleh karena itu, DFS sering digunakan untuk eksplorasi struktur hierarkis dan graf~\cite{cormen:22:introalgo}.
+
+Dalam penelitian ini, DFS lebih efektif daripada BFS dari segi kesesuaian alur penelusuran, bukan dari kompleksitas waktu asimtotiknya, karena keduanya memiliki kompleksitas $O(V+E)$. DFS dapat menyelesaikan satu cabang DOM terlebih dahulu sehingga urutan elemen yang dihasilkan tetap mengikuti susunan elemen bersarang pada dokumen HTML. Pola ini memudahkan pembentukan deklarasi \textit{node} dan relasi \textit{edge} pada format DOT secara langsung ketika setiap elemen dikunjungi. Selain itu, DFS cukup menyimpan jalur aktif dari \textit{root} menuju \textit{node} yang sedang diproses, sedangkan BFS perlu menyimpan kumpulan \textit{node} pada satu tingkat di dalam antrean. Pada DOM yang lebar, kebutuhan penyimpanan antrean BFS dapat lebih besar daripada tumpukan penelusuran DFS. Dengan demikian, DFS lebih sesuai untuk proses konversi DOM menjadi graf pada penelitian ini, sementara BFS lebih tepat apabila tujuan analisis berfokus pada urutan tingkat atau jarak terpendek dari \textit{root}.
 
 \begin{figure} [H]
 	\centering  
