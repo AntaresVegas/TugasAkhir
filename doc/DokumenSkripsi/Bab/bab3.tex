@@ -78,7 +78,7 @@ Berdasarkan interaksi pengguna dengan sistem, terdapat dua \textit{use case} uta
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{../Gambar/UseCaseDiagram2.png}
+    \includegraphics[width=0.85\textwidth]{../Gambar/UseCaseDiagram3.png}
     \caption{Diagram \textit{use case} sistem visualisasi graf struktur DOM}
     \label{fig:use-case-sistem}
 \end{figure}
@@ -175,6 +175,49 @@ Model representasi graf pada sistem usulan didefinisikan untuk menghindari ambig
 Setiap elemen HTML yang ditemukan saat proses \textit{traversal} diberi ID unik, misalnya \texttt{node1}, \texttt{node2}, dan seterusnya. ID unik tersebut digunakan sebagai identitas simpul pada format DOT, sedangkan nama \textit{tag} HTML digunakan sebagai label yang ditampilkan pada visualisasi. Dengan demikian, beberapa elemen dengan label yang sama, seperti \texttt{div} atau \texttt{p}, tetap dapat dibedakan oleh sistem karena memiliki ID simpul yang berbeda.
 
 Hubungan antar simpul dibentuk berdasarkan relasi langsung \textit{parent-child} pada DOM. Jika suatu elemen anak berada langsung di dalam elemen induk, maka sistem membuat \textit{edge} berarah dari simpul induk menuju simpul anak. Secara sederhana, jika elemen $p$ adalah induk langsung dari elemen $c$, maka sistem membentuk sisi berarah $(p,c)$. Model ini membuat graf yang dihasilkan merepresentasikan struktur hierarkis DOM satu halaman web.
+
+\subsection{Diagram Kelas Sistem Usulan}
+Diagram kelas ini menampilkan kelas-kelas yang dipakai dalam sistem beserta atribut dan metode utamanya. Versi diagram yang digunakan dalam penelitian ini ditunjukkan pada Gambar~\ref{fig:class-sistem-usulan}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{../Gambar/ClassDiagram2.png}
+    \caption{Diagram kelas perangkat lunak visualisasi graf struktur DOM}
+    \label{fig:class-sistem-usulan}
+\end{figure}
+
+Diagram terbaru menampilkan nama kelas, atribut, dan metode utamanya. Tanda \texttt{+} berarti metode dapat digunakan dari luar kelas, sedangkan tanda \texttt{-} menunjukkan bagian yang dipakai di dalam kelas itu sendiri.
+
+\subsubsection{VisualizationController}
+\texttt{VisualizationController} menjadi pengatur alur utama. Diagram terbaru tidak mencantumkan atribut pada kelas ini, tetapi menampilkan tiga metode. \texttt{validateUrl(url)} mengecek apakah URL yang dimasukkan sudah sesuai. \texttt{visualize(url)} memulai proses visualisasi berdasarkan URL tersebut. Sementara itu, \texttt{showDetails(graph)} menampilkan informasi tentang graf yang dihasilkan, misalnya jumlah elemen dan hubungannya.
+
+\subsubsection{HtmlFetcher}
+\texttt{HtmlFetcher} bertugas mengambil halaman dari alamat yang dimasukkan. Metode \texttt{fetch(url)} menjalankan proses tersebut; hasilnya kemudian dipakai pada tahap pembacaan struktur halaman. Kelas ini fokus pada pengambilan halaman, bukan pada pembentukan atau penggambaran graf.
+
+\subsubsection{DomTraversal}
+\texttt{DomTraversal} membaca struktur dokumen dan menelusuri elemen-elemen HTML untuk membentuk graf. Atribut privat \texttt{nodeId} digunakan untuk membantu memberi ID pada simpul yang dibuat. Penelusurannya mengikuti DFS: sistem memproses elemen, menelusuri anak-anaknya, lalu kembali untuk melanjutkan cabang lain.
+
+Metode \texttt{traverse(document)} memulai penelusuran dari dokumen.
+
+Metode privat \texttt{traverseElement} menangani elemen yang sedang diperiksa. Parameter \texttt{parentId} dipakai untuk menghubungkan elemen tersebut dengan induknya, sedangkan \texttt{graph} menyimpan graf yang sedang dibentuk. Setelah satu elemen diproses, penelusuran berlanjut ke elemen anaknya.
+
+\subsubsection{GraphModel}
+\texttt{GraphModel} menjadi tempat menyimpan kumpulan \texttt{nodes} dan \texttt{edges}. Metode \texttt{addNode(node)} dan \texttt{addEdge(edge)} menambahkan simpul serta sisi ke dalam graf. Metode \texttt{getNodes()} dan \texttt{getEdges()} menyediakan kembali kumpulan tersebut, misalnya agar \texttt{DotGenerator} dapat membacanya.
+
+\subsubsection{GraphNode}
+Setiap objek \texttt{GraphNode} mewakili satu elemen HTML. Atribut privat \texttt{id} menjadi penanda uniknya, sedangkan \texttt{tagName} menyimpan nama \textit{tag}, seperti \texttt{div} atau \texttt{p}. Metode \texttt{getId()} dan \texttt{getTagName()} digunakan untuk membaca kedua nilai tersebut. Jadi, dua elemen dengan nama \textit{tag} yang sama tetap bisa dibedakan melalui ID-nya.
+
+\subsubsection{GraphEdge}
+\texttt{GraphEdge} mewakili hubungan berarah antar dua simpul. Atribut \texttt{sourceId} berisi ID simpul asal dan \texttt{targetId} berisi ID simpul tujuan. Metode \texttt{getSourceId()} dan \texttt{getTargetId()} menyediakan nilai tersebut. Pada graf DOM, arah hubungan ini menunjukkan elemen induk menuju elemen anak.
+
+\subsubsection{DotGenerator}
+\texttt{DotGenerator} mengubah isi \texttt{GraphModel} menjadi teks berformat DOT. Metode \texttt{generate(graph)} membaca daftar simpul dan sisi, lalu menyusunnya agar dapat dipahami oleh Graphviz. Kelas ini menyiapkan teks graf; proses menggambarnya dilakukan oleh \texttt{GraphVisualizer}.
+
+\subsubsection{GraphVisualizer}
+\texttt{GraphVisualizer} menerima teks DOT melalui metode \texttt{visualize(dot)}. Teks tersebut kemudian diproses dengan Graphviz hingga menjadi gambar graf yang memperlihatkan elemen HTML dan hubungan induk-anaknya.
+
+\subsubsection{Gambaran Alur Kelas}
+Secara sederhana, alurnya dimulai dari \texttt{VisualizationController}, yang memeriksa URL dan meminta \texttt{HtmlFetcher} mengambil halaman. \texttt{DomTraversal} lalu menyusun hasil penelusuran ke dalam \texttt{GraphModel}. Setelah itu, \texttt{DotGenerator} membuat teks DOT dan \texttt{GraphVisualizer} mengubahnya menjadi gambar.
 
 \subsection{Diagram Sekuens Sistem Usulan}
 Diagram sekuens digunakan untuk menggambarkan urutan interaksi antar komponen ketika pengguna membuat visualisasi graf struktur DOM. Komponen yang terlibat terdiri dari Pengguna, Sistem, Jsoup, \textit{DOM Traversal}, \textit{DOT Generator}, dan Graphviz. Urutan interaksi tersebut ditunjukkan pada Gambar~\ref{fig:sequence-sistem-usulan}.
