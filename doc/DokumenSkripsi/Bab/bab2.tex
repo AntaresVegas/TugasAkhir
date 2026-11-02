@@ -4,6 +4,8 @@
 
 \section{Hypertext Markup Language (HTML)}
 \label{sec:html}
+Bagian ini menguraikan HTML sebagai bahasa \textit{markup}, meliputi pengertian, unsur pembentuk, struktur dasar, dan hierarki elemennya.
+
 \subsection{Pengertian HTML}
  
 \textit{Hypertext Markup Language} (HTML) merupakan bahasa \textit{markup} yang digunakan untuk menyusun struktur dasar halaman web. HTML tidak termasuk bahasa pemrograman karena tidak memiliki mekanisme logika seperti percabangan, perulangan, atau pengolahan data secara langsung, melainkan digunakan untuk mendeskripsikan struktur dan makna konten yang akan ditampilkan pada \textit{browser}~\cite{duckett:11:htmlcss}. HTML memungkinkan pengembang mengatur berbagai jenis konten, seperti teks, gambar, tautan, tabel, formulir, serta elemen multimedia lainnya dalam sebuah dokumen web.
@@ -74,6 +76,7 @@ Semakin kompleks halaman web, maka semakin dalam dan luas struktur hierarki yang
 
 \section{Document Object Model (DOM)}
 \label{sec:dom}
+Bagian ini membahas DOM sebagai representasi objek dari dokumen HTML, termasuk struktur pohon dan jenis-jenis \textit{node} yang menyusunnya.
 
  \subsection{Pengertian DOM}
 \textit{Document Object Model }(DOM) adalah representasi dari dokumen HTML dalam bentuk struktur objek yang dapat diakses dan dimanipulasi oleh program. DOM memungkinkan setiap elemen dalam halaman web diperlakukan sebagai objek yang memiliki properti dan metode~\cite{marini:02:thedom}.
@@ -119,6 +122,8 @@ Keberadaan berbagai jenis \textit{node} tersebut membuat DOM lebih kaya dibandin
 %\dtext{15-16}
 
 \section{Jsoup}
+Bagian ini menjelaskan pustaka Jsoup beserta kelas dan metode yang digunakan untuk mengambil serta memproses dokumen HTML menjadi DOM.
+
 \subsection{Pengertian Jsoup}
 Jsoup merupakan \textit{library} Java yang digunakan untuk membaca, memproses, mengekstraksi, dan memanipulasi dokumen HTML. \textit{Library} ini menyediakan antarmuka pemrograman yang memudahkan pengembang dalam mengambil data dari dokumen HTML, baik yang berasal dari berkas lokal, \textit{string} HTML, maupun halaman web yang diakses melalui \textit{URL}~\cite{jsoup:26:jsoup}. Dengan menggunakan Jsoup, struktur HTML dapat diproses menjadi bentuk dokumen yang lebih mudah ditelusuri dan dianalisis oleh program.
 
@@ -232,6 +237,8 @@ Penjelasan pada Kode~\ref{kode:2:3:jsoup-dom}, adalah sebagai berikut~\cite{jsou
 Contoh tersebut mengasumsikan bahwa elemen ber-ID \texttt{content} tersedia. Jika elemen tidak ditemukan, variabel \texttt{content} bernilai \texttt{null} sehingga perlu diperiksa sebelum metode \texttt{getElementsByTag} dipanggil.
 
 \section{Struktur Data Tree}
+Bagian ini menjelaskan konsep struktur data \textit{tree} dan penerapannya untuk menggambarkan hierarki elemen pada DOM.
+
 \subsection{Pengertian Tree}
 Tree adalah struktur data hierarkis yang terdiri dari sekumpulan \textit{node} dan hubungan antar \textit{node} \cite{cormen:22:introalgo}. Node paling atas dalam \textit{tree} disebut \textit{root}, sedangkan \textit{node} yang berada di bawah \textit{node} lain disebut \textit{child}. Node yang memiliki \textit{child} disebut \textit{parent}, sementara \textit{node} yang tidak memiliki \textit{child} disebut leaf. Struktur \textit{tree} digunakan untuk merepresentasikan hubungan bertingkat, yaitu satu \textit{node} dapat memiliki beberapa \textit{node} turunan.
 
@@ -243,6 +250,8 @@ DOM memiliki karakteristik yang menyerupai \textit{tree} karena setiap elemen da
 Pemahaman mengenai \textit{tree} penting dalam penelitian ini karena struktur DOM yang berbentuk \textit{tree} dapat ditelusuri menggunakan algoritma \textit{traversal}. Salah satu algoritma yang sesuai untuk struktur seperti ini adalah DFS, karena DFS menelusuri \textit{node} secara mendalam dari \textit{root} menuju leaf sebelum kembali ke cabang lain. Dengan demikian, konsep \textit{tree} menjadi dasar untuk memahami hubungan antara DOM, graf, dan proses \textit{traversal}.
 
 \section{Struktur Data Graf}
+Bagian ini membahas konsep graf, representasinya, graf berarah, penerapannya untuk memodelkan DOM, serta metode \textit{traversal} yang dapat digunakan.
+
 \subsection{Pengertian Graf}
 Graf adalah struktur data yang terdiri dari simpul ({\it node} atau {\it vertex}) dan sisi ({\it edge}) yang menghubungkan simpul-simpul tersebut. Dalam kajian algoritma, graf umumnya dinyatakan sebagai pasangan himpunan $G=(V,E)$, dengan $V$ sebagai himpunan simpul dan $E$ sebagai himpunan sisi yang merepresentasikan hubungan antar simpul~\cite{cormen:22:introalgo}. Setiap simpul dapat menggambarkan suatu objek, sedangkan sisi menunjukkan adanya relasi atau keterhubungan antara dua objek.
 
@@ -317,6 +326,8 @@ Dalam penelitian ini, DFS lebih efektif daripada BFS dari segi kesesuaian alur p
 \end{figure}
 
 \section{Graphviz}
+Bagian ini menjelaskan Graphviz sebagai perangkat lunak visualisasi graf dan format DOT yang digunakan untuk mendefinisikan graf.
+
 \subsection{Pengertian Graphviz}
 Graphviz adalah perangkat lunak visualisasi grafik \textit{open source}. Visualisasi grafik adalah cara untuk merepresentasikan informasi struktural sebagai diagram grafik abstrak dan jaringan. Teknologi ini memiliki aplikasi penting dalam jaringan, bioinformatika, rekayasa perangkat lunak, desain basis data dan web, pembelajaran mesin, dan antarmuka visual untuk domain teknis lainnya~\cite{ellson:24:graphviz}.
 

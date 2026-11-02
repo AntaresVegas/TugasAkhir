@@ -4,6 +4,7 @@
 
 \section{Analisis Masalah}
 \label{sec:analisis-masalah}
+Bagian ini menguraikan permasalahan yang melatarbelakangi sistem, mencakup struktur HTML, pembentukan DOM, pemetaannya sebagai graf, penelusuran DOM, dan kebutuhan visualisasi.
 
 \subsection{Analisis Struktur HTML}
 Halaman web tersusun dari elemen-elemen HTML yang memiliki fungsi berbeda, seperti judul, paragraf, tautan, gambar, tabel, dan formulir. Setiap elemen tersebut ditandai menggunakan \textit{tag} dan dapat memiliki atribut sebagai informasi tambahan. Permasalahan muncul ketika struktur HTML yang dianalisis memiliki jumlah elemen yang banyak, susunan yang saling bersarang, serta atribut yang beragam. Kondisi tersebut membuat pembacaan struktur halaman secara manual menjadi kurang efektif karena hubungan antar elemen tidak selalu mudah terlihat dari kode HTML mentah.
@@ -202,13 +203,13 @@ Metode \texttt{traverse(document)} memulai penelusuran dari dokumen.
 Metode privat \texttt{traverseElement} menangani elemen yang sedang diperiksa. Parameter \texttt{parentId} dipakai untuk menghubungkan elemen tersebut dengan induknya, sedangkan \texttt{graph} menyimpan graf yang sedang dibentuk. Setelah satu elemen diproses, penelusuran berlanjut ke elemen anaknya.
 
 \subsubsection{GraphModel}
-\texttt{GraphModel} menjadi tempat menyimpan kumpulan \texttt{nodes} dan \texttt{edges}. Metode \texttt{addNode(node)} dan \texttt{addEdge(edge)} menambahkan simpul serta sisi ke dalam graf. Metode \texttt{getNodes()} dan \texttt{getEdges()} menyediakan kembali kumpulan tersebut, misalnya agar \texttt{DotGenerator} dapat membacanya.
+\texttt{GraphModel} menjadi tempat menyimpan kumpulan \texttt{nodes} dan \texttt{edges}. Metode \texttt{addNode(node)} dan \texttt{addEdge(edge)} menambahkan simpul serta sisi ke dalam graf. Metode \texttt{getNodes()} dan \texttt{getEdges()} mengembalikan kumpulan tersebut, misalnya agar \texttt{DotGenerator} dapat membacanya.
 
 \subsubsection{GraphNode}
 Setiap objek \texttt{GraphNode} mewakili satu elemen HTML. Atribut privat \texttt{id} menjadi penanda uniknya, sedangkan \texttt{tagName} menyimpan nama \textit{tag}, seperti \texttt{div} atau \texttt{p}. Metode \texttt{getId()} dan \texttt{getTagName()} digunakan untuk membaca kedua nilai tersebut. Jadi, dua elemen dengan nama \textit{tag} yang sama tetap bisa dibedakan melalui ID-nya.
 
 \subsubsection{GraphEdge}
-\texttt{GraphEdge} mewakili hubungan berarah antar dua simpul. Atribut \texttt{sourceId} berisi ID simpul asal dan \texttt{targetId} berisi ID simpul tujuan. Metode \texttt{getSourceId()} dan \texttt{getTargetId()} menyediakan nilai tersebut. Pada graf DOM, arah hubungan ini menunjukkan elemen induk menuju elemen anak.
+\texttt{GraphEdge} mewakili hubungan berarah antara dua simpul. Atribut \texttt{sourceId} berisi ID simpul asal dan \texttt{targetId} berisi ID simpul tujuan. Metode \texttt{getSourceId()} dan \texttt{getTargetId()} menyediakan nilai tersebut. Pada graf DOM, arah hubungan ini menunjukkan elemen induk menuju elemen anak.
 
 \subsubsection{DotGenerator}
 \texttt{DotGenerator} mengubah isi \texttt{GraphModel} menjadi teks berformat DOT. Metode \texttt{generate(graph)} membaca daftar simpul dan sisi, lalu menyusunnya agar dapat dipahami oleh Graphviz. Kelas ini menyiapkan teks graf; proses menggambarnya dilakukan oleh \texttt{GraphVisualizer}.
@@ -231,7 +232,7 @@ Diagram sekuens digunakan untuk menggambarkan urutan interaksi antar komponen ke
 
 Diagram tersebut dimulai ketika pengguna memasukkan URL dan sistem melakukan validasi. Jika URL tidak valid, sistem menampilkan pesan kesalahan dan proses dihentikan. Jika URL valid, sistem menggunakan Jsoup untuk mengambil HTML dan membentuk objek \texttt{Document}. Struktur DOM kemudian ditelusuri menggunakan DFS untuk menghasilkan daftar \textit{node} dan \textit{edge}. Daftar tersebut diubah menjadi format DOT, diproses oleh Graphviz, dan hasil visualisasinya ditampilkan kepada pengguna. Apabila terjadi kegagalan saat pengambilan HTML, \textit{parsing}, pembentukan DOT, atau visualisasi, sistem menampilkan pesan kesalahan sesuai tahap yang gagal.
 
-Interaksi pada diagram hanya memproses halaman berdasarkan URL yang dimasukkan oleh pengguna. Sistem tidak melakukan \textit{web crawling} ke halaman lain sehingga hasil yang dihasilkan tetap berfokus pada struktur DOM satu halaman web.
+Interaksi pada diagram hanya memproses halaman berdasarkan URL yang dimasukkan oleh pengguna. Sistem tidak melakukan \textit{web crawling} ke halaman lain sehingga hasil visualisasi tetap berfokus pada struktur DOM satu halaman web.
 
 \subsection{Komponen Sistem Usulan}
 Sistem usulan terdiri dari beberapa komponen utama yang mendukung proses visualisasi graf struktur DOM halaman web. Komponen-komponen tersebut adalah sebagai berikut:
