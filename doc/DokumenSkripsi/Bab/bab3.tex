@@ -4,7 +4,7 @@
 
 \section{Analisis Masalah}
 \label{sec:analisis-masalah}
-Bagian ini menguraikan permasalahan yang melatarbelakangi sistem, mencakup struktur HTML, pembentukan DOM, pemetaannya sebagai graf, penelusuran DOM, dan kebutuhan visualisasi.
+Bagian ini menguraikan permasalahan yang melatarbelakangi sistem, mencakup penelusuran halaman melalui \textit{web crawling}, struktur HTML dan DOM, pemodelan tautan ant halaman, serta kebutuhan visualisasi peta situs dan graf DOM.
 
 \subsection{Analisis Struktur HTML}
 Halaman web tersusun dari elemen-elemen HTML yang memiliki fungsi berbeda, seperti judul, paragraf, tautan, gambar, tabel, dan formulir. Setiap elemen tersebut ditandai menggunakan \textit{tag} dan dapat memiliki atribut sebagai informasi tambahan. Permasalahan muncul ketika struktur HTML yang dianalisis memiliki jumlah elemen yang banyak, susunan yang saling bersarang, serta atribut yang beragam. Kondisi tersebut membuat pembacaan struktur halaman secara manual menjadi kurang efektif karena hubungan antar elemen tidak selalu mudah terlihat dari kode HTML mentah.
@@ -42,8 +42,24 @@ Metode \textit{Depth-First Search} (DFS) sesuai digunakan karena pola kerjanya m
 
 Dalam konteks perangkat lunak yang dikembangkan, DFS digunakan untuk membantu proses pembentukan daftar \textit{node} dan \textit{edge}. Setiap kali elemen ditemukan, elemen tersebut dapat dicatat sebagai \textit{node}. Ketika elemen tersebut memiliki hubungan dengan elemen induknya, hubungan tersebut dicatat sebagai \textit{edge}. Dengan demikian, proses \textit{traversal} menjadi dasar dalam menghasilkan representasi graf yang lengkap dan sesuai dengan struktur DOM.
 
+\subsection{Analisis FIFO dan LIFO}
+FIFO (\textit{First-In, First-Out}) berarti data yang dimasukkan lebih dahulu akan diambil lebih dahulu. Prinsip ini digunakan pada antrean. Dalam crawler, URL baru ditambahkan ke bagian belakang antrean dan URL yang akan diproses diambil dari bagian depan. Urutan tersebut menerapkan BFS, sehingga halaman yang ditemukan lebih awal dan berada pada tingkat yang lebih dekat dengan URL awal diproses terlebih dahulu.
+
+LIFO (\textit{Last-In, First-Out}) berarti data yang dimasukkan terakhir akan diambil lebih dahulu. Prinsip ini digunakan pada tumpukan. DFS dapat menggunakan tumpukan untuk menelusuri satu cabang sampai ke bagian terdalam sebelum kembali ke cabang lain. Jika DFS dilakukan secara rekursif, pemanggilan fungsi juga dikelola dengan tumpukan pemanggilan.
+
+Dalam perangkat lunak ini, FIFO digunakan untuk mengatur URL pada proses crawling situs, sedangkan DFS dengan prinsip LIFO digunakan untuk menelusuri elemen DOM sebagai keluaran pelengkap. Dengan demikian, FIFO dan LIFO menjelaskan urutan pengambilan data yang mendukung dua tujuan penelusuran yang berbeda~\cite{cormen:22:introalgo}.
+
+\subsection{Analisis Web Crawling dan Peta Situs}
+Crawling diperlukan karena satu URL hanya menunjukkan satu halaman, sedangkan tujuan penelitian adalah melihat hubungan halaman dalam satu situs. Crawler memulai dari URL awal, mengambil HTML, mencari tautan, lalu memasukkan tautan yang memenuhi aturan ke frontier untuk diproses. Agar proses memiliki akhir yang jelas, sistem membatasi kedalaman dan jumlah halaman serta hanya mengikuti URL HTTP atau HTTPS pada hostname yang sama. URL yang sudah ditemukan dicatat agar tautan melingkar tidak menyebabkan halaman diambil berulang kali~\cite{manning:08:introir}.
+
+Penelusuran halaman menggunakan BFS dengan frontier berupa antrean FIFO. URL yang ditemukan pada suatu halaman ditambahkan ke bagian belakang antrean, sedangkan URL yang diproses diambil dari bagian depan. Dengan urutan ini, halaman yang ditautkan langsung dari URL awal diproses sebelum halaman yang lebih dalam. Cara tersebut sesuai dengan tujuan perangkat lunak untuk menelusuri situs mulai dari satu halaman awal dan membantu menjaga cakupan tingkat awal saat jumlah halaman dibatasi~\cite{cormen:22:introalgo}.
+
+Tautan yang ditemukan tidak semuanya harus diikuti. Tautan eksternal, URL yang tidak didukung, halaman yang sudah tercatat, dan alamat di luar batas penelusuran tidak dimasukkan kembali ke frontier. Sebelum permintaan halaman dilakukan, aturan akses pada \texttt{robots.txt} dan jeda antarpengambilan perlu diperhatikan. Halaman yang gagal diakses dicatat bersama penyebabnya, sementara crawler dapat melanjutkan halaman lain yang masih menunggu.
+
+Pada peta situs, simpul halaman menggunakan \textit{URL path}, sedangkan sisi menunjukkan tautan dari halaman sumber menuju halaman tujuan. Bobot sisi menyatakan jumlah tautan dengan sumber dan tujuan yang sama. Tautan di area isi dicatat dari simpul halaman. Tautan di dalam elemen \texttt{header} atau \texttt{footer} dikelompokkan dari simpul khusus agar navigasi bersama yang berulang tidak membuat graf dipenuhi sisi yang sama. Hasil graf membantu pemeriksaan awal terhadap susunan tautan; rekomendasi tetap harus didukung pemeriksaan halaman terkait.
+
 \subsection{Analisis Kebutuhan Visualisasi}
-Tujuan utama perangkat lunak ini adalah menghasilkan visualisasi graf dari struktur DOM halaman web. Visualisasi dibutuhkan karena struktur DOM yang kompleks sulit dipahami apabila hanya ditampilkan dalam bentuk kode HTML atau daftar elemen. Melalui visualisasi graf, pengguna dapat melihat hubungan antar elemen, posisi elemen dalam hierarki, serta percabangan struktur halaman secara lebih mudah.
+Tujuan perangkat lunak ini adalah menghasilkan peta situs dari tautan antarhalaman sebagai visualisasi utama dan, sebagai pelengkap, visualisasi graf DOM halaman web. Visualisasi dibutuhkan karena struktur DOM yang kompleks sulit dipahami apabila hanya ditampilkan dalam bentuk kode HTML atau daftar elemen. Melalui visualisasi graf, pengguna dapat melihat hubungan antar elemen, posisi elemen dalam hierarki, serta percabangan struktur halaman secara lebih mudah.
 
 Visualisasi yang dihasilkan perlu memperhatikan keterbacaan graf. Setiap \textit{node} harus memiliki label yang dapat menunjukkan elemen HTML yang direpresentasikan. Arah hubungan antar \textit{node} juga perlu ditampilkan dengan jelas agar pengguna dapat mengetahui elemen induk dan elemen anak. Selain itu, susunan graf perlu dibuat teratur agar struktur halaman tidak terlihat terlalu padat atau membingungkan.
 
@@ -58,12 +74,12 @@ Dalam penelitian ini, Graphviz digunakan untuk membantu proses visualisasi karen
 \section{Analisis Kebutuhan Sistem}
 \label{sec:analisis-kebutuhan-sistem}
 
-Analisis kebutuhan sistem dilakukan untuk menentukan fungsi yang harus dimiliki oleh perangkat lunak serta batasan kualitas yang perlu dipenuhi. Berdasarkan judul penelitian, yaitu perangkat lunak pembuat visualisasi graf struktur DOM halaman web, sistem yang dikembangkan berfokus pada proses pengambilan satu halaman web, pembentukan struktur DOM, pemetaan elemen HTML ke dalam bentuk graf, dan penyajian hasil visualisasi kepada pengguna. Graf yang dihasilkan merepresentasikan hubungan \textit{parent-child} pada DOM satu halaman web, bukan hubungan tautan antar halaman.
+Analisis kebutuhan sistem dilakukan untuk menentukan fungsi yang harus dimiliki perangkat lunak serta batasan kualitasnya. Sistem berfokus pada crawling terbatas dari satu URL awal, pembentukan peta situs dari tautan antarhalaman, dan penyajian hasil graf. Proses pemetaan struktur DOM satu halaman tetap disediakan sebagai fungsi pelengkap. Dengan demikian, sistem menghasilkan dua jenis graf yang berbeda: graf situs merepresentasikan tautan antarhalaman, sedangkan graf DOM merepresentasikan hubungan \textit{parent-child} dalam satu halaman.
 
 \subsection{Analisis Kasus Penggunaan dan Skenario}
-Analisis \textit{use case} digunakan untuk menggambarkan layanan sistem berdasarkan tujuan yang ingin dicapai oleh aktor. Aktor utama pada perangkat lunak ini adalah pengguna yang ingin memperoleh visualisasi graf struktur DOM dari suatu halaman web. Jsoup dan Graphviz tidak diperlakukan sebagai aktor karena keduanya merupakan komponen internal yang digunakan oleh sistem untuk melakukan \textit{parsing} HTML dan menghasilkan visualisasi graf.
+Analisis \textit{use case} digunakan untuk menggambarkan layanan sistem berdasarkan tujuan yang ingin dicapai oleh aktor. Aktor utama pada perangkat lunak ini adalah pengguna yang ingin melihat peta tautan suatu situs dan, jika diperlukan, memeriksa struktur DOM halaman tertentu. Jsoup dan Graphviz tidak diperlakukan sebagai aktor karena keduanya merupakan komponen internal yang digunakan oleh sistem untuk melakukan \textit{parsing} HTML dan menghasilkan visualisasi graf.
 
-Berdasarkan interaksi pengguna dengan sistem, terdapat dua \textit{use case} utama, yaitu membuat visualisasi graf struktur DOM dan melihat detail hasil pemrosesan. Daftar \textit{use case} tersebut ditunjukkan pada Tabel~\ref{tab:use-case-sistem}, sedangkan hubungan antara pengguna dan kedua \textit{use case} tersebut digambarkan dalam diagram pada Gambar~\ref{fig:use-case-sistem}.
+Berdasarkan interaksi pengguna dengan sistem, terdapat tiga \textit{use case} utama, yaitu melakukan crawling dan membuat peta situs, membuat visualisasi graf DOM sebagai fungsi pelengkap, serta melihat detail hasil pemrosesan. Daftar \textit{use case} tersebut ditunjukkan pada Tabel~\ref{tab:use-case-sistem}. Gambar~\ref{fig:use-case-sistem} tetap menampilkan diagram fungsi visualisasi DOM yang sudah tersedia; alur crawling utama dijelaskan pada skenario UC-01.
 
 \begin{table}[H]
     \centering
@@ -72,23 +88,52 @@ Berdasarkan interaksi pengguna dengan sistem, terdapat dua \textit{use case} uta
 \begin{tabular}{|p{0.13\textwidth}|p{0.27\textwidth}|p{0.50\textwidth}|}
     \hline
     \textbf{ID} & \textbf{Nama \textit{Use Case}} & \textbf{Deskripsi} \\ \hline
-    UC-01 & Membuat visualisasi graf struktur DOM & Pengguna memasukkan URL, kemudian sistem mengambil HTML, membentuk DOM, menelusuri elemen, menghasilkan DOT, dan menampilkan visualisasi graf. \\ \hline
-    UC-02 & Melihat detail hasil pemrosesan & Pengguna melihat daftar \textit{node}, daftar \textit{edge}, dan representasi DOT yang dihasilkan dari proses visualisasi. \\ \hline
+    UC-01 & Melakukan crawling dan membuat peta situs & Pengguna memasukkan URL awal, sistem menelusuri tautan internal dalam batas tertentu, lalu menampilkan peta situs. \\ \hline
+    UC-02 & Membuat visualisasi graf DOM & Pengguna memeriksa struktur elemen pada satu halaman sebagai pelengkap peta situs. \\ \hline
+    UC-03 & Melihat detail hasil pemrosesan & Pengguna melihat daftar simpul, sisi, bobot, dan representasi DOT dari hasil crawling atau graf DOM. \\ \hline
 \end{tabular}
 \end{table}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{../Gambar/UseCaseDiagram3.png}
-    \caption{Diagram \textit{use case} sistem visualisasi graf struktur DOM}
+    \caption{Diagram \textit{use case} untuk fungsi visualisasi graf DOM}
     \label{fig:use-case-sistem}
 \end{figure}
 
-\subsubsection{Skenario Kasus Penggunaan Membuat Visualisasi Graf Struktur DOM}
-Skenario UC-01 menjelaskan interaksi utama sejak pengguna memberikan URL hingga sistem menampilkan visualisasi graf. Skenario tersebut ditunjukkan pada Tabel~\ref{tab:skenario-uc01}.
+
+
+\subsubsection{Skenario Kasus Penggunaan Crawling dan Membuat Peta Situs}
+Skenario UC-01 menjelaskan proses utama dari URL awal hingga visualisasi peta situs.
 
 \begin{longtable}{|p{0.23\textwidth}|p{0.67\textwidth}|}
-    \caption{Skenario UC-01 membuat visualisasi graf struktur DOM}\label{tab:skenario-uc01} \\
+    \caption{Skenario UC-01 melakukan crawling dan membuat peta situs}\label{tab:skenario-uc01} \\
+    \hline
+    \textbf{Bagian} & \textbf{Keterangan} \\ \hline
+    Nama \textit{use case} & Melakukan crawling dan membuat peta situs. \\ \hline
+    Aktor & Pengguna. \\ \hline
+    Tujuan & Melihat hubungan tautan antarhalaman dalam batas crawling yang ditetapkan. \\ \hline
+    Prakondisi & Aplikasi dapat dijalankan dan koneksi jaringan tersedia. \\ \hline
+    Pemicu & Pengguna memasukkan URL awal dan menjalankan crawling. \\ \hline
+    Skenario utama &
+    \begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=0pt]
+        \item Sistem memvalidasi dan menormalisasi URL awal, lalu memasukkannya ke bagian belakang antrean frontier.
+        \item Sistem mengambil URL dari bagian depan antrean frontier dan memeriksa lingkup host, aturan \texttt{robots.txt}, dan batas crawling.
+        \item Jsoup mengambil dan mem-parsing halaman HTML yang dapat diakses.
+        \item Sistem mencatat halaman sebagai simpul dan mengekstrak tautan serta lokasinya pada isi, \texttt{header}, atau \texttt{footer}.
+        \item Sistem mencatat sisi, menjumlahkan bobot untuk pasangan sumber-tujuan yang sama, lalu menambahkan tautan internal yang memenuhi syarat ke bagian belakang antrean.
+        \item Langkah pengambilan dan pemrosesan diulangi sampai frontier kosong atau batas jumlah halaman/kedalaman tercapai.
+        \item DOT disusun dan Graphviz menghasilkan gambar peta situs untuk ditampilkan.
+    \end{enumerate} \\ \hline
+    Skenario alternatif & Jika halaman gagal diakses atau tidak dapat diproses, sistem mencatat URL dan penyebabnya, lalu melanjutkan URL lain jika masih tersedia. Jika URL awal tidak valid, proses dihentikan dengan pesan kesalahan. \\ \hline
+    Pascakondisi & Peta situs dan detail hasil crawling ditampilkan, atau sistem menampilkan pesan yang menjelaskan kegagalan proses. \\ \hline
+\end{longtable}
+
+\subsubsection{Skenario Kasus Penggunaan Membuat Visualisasi Graf DOM}
+Skenario UC-02 menjelaskan fungsi visualisasi DOM yang menjadi pelengkap peta situs. Skenario ini tetap dipertahankan agar struktur halaman tunggal dapat diperiksa.
+
+\begin{longtable}{|p{0.23\textwidth}|p{0.67\textwidth}|}
+    \caption{Skenario UC-02 membuat visualisasi graf DOM}\label{tab:skenario-uc02-dom} \\
     \hline
     \textbf{Bagian} & \textbf{Keterangan} \\ \hline
     Nama \textit{use case} & Membuat visualisasi graf struktur DOM. \\ \hline
@@ -118,24 +163,24 @@ Skenario UC-01 menjelaskan interaksi utama sejak pengguna memberikan URL hingga 
 \end{longtable}
 
 \subsubsection{Skenario Kasus Penggunaan Melihat Detail Hasil Pemrosesan}
-Skenario UC-02 menjelaskan interaksi pengguna ketika melihat informasi pembentuk graf setelah proses visualisasi berhasil dilakukan. Skenario tersebut ditunjukkan pada Tabel~\ref{tab:skenario-uc02}.
+Skenario UC-03 menjelaskan interaksi pengguna ketika melihat informasi pembentuk peta situs atau graf DOM setelah pemrosesan berhasil dilakukan.
 
 \begin{longtable}{|p{0.23\textwidth}|p{0.67\textwidth}|}
-    \caption{Skenario UC-02 melihat detail hasil pemrosesan}\label{tab:skenario-uc02} \\
+    \caption{Skenario UC-03 melihat detail hasil pemrosesan}\label{tab:skenario-uc03} \\
     \hline
     \textbf{Bagian} & \textbf{Keterangan} \\ \hline
     Nama \textit{use case} & Melihat detail hasil pemrosesan. \\ \hline
     Aktor & Pengguna. \\ \hline
-    Tujuan & Memeriksa elemen dan hubungan yang digunakan untuk membentuk visualisasi graf. \\ \hline
-    Prakondisi & Proses pembentukan DOM dan graf telah berhasil dilakukan. \\ \hline
+    Tujuan & Memeriksa simpul, sisi, bobot, serta detail yang digunakan untuk membentuk peta situs atau graf DOM. \\ \hline
+    Prakondisi & Proses crawling atau pembentukan graf DOM telah berhasil dilakukan. \\ \hline
     Pemicu & Pengguna memilih untuk melihat informasi hasil pemrosesan. \\ \hline
     Skenario utama &
     \begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=0pt]
         \item Pengguna membuka bagian detail hasil pemrosesan.
-        \item Sistem menampilkan daftar \textit{node} beserta ID dan label elemen HTML.
-        \item Sistem menampilkan daftar \textit{edge} yang menunjukkan hubungan induk dan anak.
+        \item Sistem menampilkan halaman yang ditemukan dan status pengambilannya.
+        \item Sistem menampilkan daftar simpul, sisi, bobot tautan, dan hubungan induk-anak jika yang diperiksa adalah graf DOM.
         \item Sistem menampilkan representasi graf dalam format DOT.
-        \item Pengguna memeriksa kesesuaian detail tersebut dengan visualisasi graf.
+        \item Pengguna memeriksa kesesuaian detail tersebut dengan peta situs atau graf DOM yang ditampilkan.
     \end{enumerate} \\ \hline
     Skenario alternatif & Jika data hasil pemrosesan belum tersedia, sistem menampilkan informasi bahwa pengguna harus menjalankan proses visualisasi terlebih dahulu. \\ \hline
     Pascakondisi & Informasi \textit{node}, \textit{edge}, dan DOT berhasil ditampilkan tanpa mengubah hasil pemrosesan. \\ \hline
@@ -146,11 +191,13 @@ Kebutuhan non-fungsional merupakan kebutuhan yang berkaitan dengan kualitas, bat
 
 \begin{enumerate}
     \item \textit{Usability}: sistem memiliki antarmuka yang mudah digunakan sehingga pengguna dapat memasukkan URL, menjalankan proses visualisasi, dan melihat hasil graf tanpa langkah yang rumit.
-    \item \textit{Performance}: sistem mampu memproses dokumen HTML dan menghasilkan visualisasi graf dalam waktu yang wajar, terutama untuk halaman web dengan struktur DOM berukuran kecil hingga sedang.
+    \item \textit{Performance}: sistem mampu mengambil halaman dalam batas crawling dan menghasilkan visualisasi dalam waktu yang wajar untuk situs berukuran kecil hingga sedang.
     \item \textit{Reliability}: sistem dapat menangani kesalahan yang mungkin terjadi, seperti URL kosong, URL tidak valid, koneksi gagal, atau struktur HTML yang tidak lengkap, tanpa menyebabkan aplikasi berhenti secara tiba-tiba.
-    \item \textit{Accuracy}: sistem mampu mempertahankan hubungan hierarkis DOM secara tepat ketika mengubah elemen HTML menjadi \textit{node} dan hubungan \textit{parent-child} menjadi \textit{edge}.
+    \item \textit{Politeness}: sistem memeriksa aturan \texttt{robots.txt}, mengambil satu halaman pada satu waktu, dan memberi jeda antarpermintaan ke host yang sama.
+    \item \textit{Scope control}: sistem tidak mengambil URL di luar hostname awal dan berhenti saat batas kedalaman atau jumlah halaman tercapai.
+    \item \textit{Accuracy}: sistem mencatat tautan internal sebagai sisi yang tepat dan menjumlahkan bobot sesuai banyaknya tautan; pada graf DOM, sistem mempertahankan hubungan \textit{parent-child}.
     \item \textit{Maintainability}: sistem disusun secara terstruktur agar proses pengembangan, perbaikan, dan penambahan fitur dapat dilakukan dengan lebih mudah.
-    \item \textit{Compatibility}: sistem dapat memproses dokumen HTML dari berbagai situs web selama halaman tersebut dapat diakses dan memiliki struktur HTML yang dapat dibaca oleh pustaka pemrosesan HTML.
+    \item \textit{Compatibility}: sistem dapat memproses halaman HTML dari berbagai situs selama halaman tersebut dapat diakses dan dapat dibaca oleh Jsoup.
     \item \textit{Portability}: sistem dapat dijalankan pada lingkungan yang mendukung Java, Jsoup, dan Graphviz sehingga tidak bergantung pada satu perangkat tertentu.
     \item \textit{Readability}: hasil visualisasi graf harus memiliki tampilan yang cukup jelas, baik dari sisi penamaan \textit{node}, arah \textit{edge}, maupun susunan graf yang dihasilkan.
 \end{enumerate}
@@ -158,16 +205,16 @@ Kebutuhan non-fungsional merupakan kebutuhan yang berkaitan dengan kualitas, bat
 \section{Analisis Sistem Usulan}
 \label{sec:analisis-sistem-usulan}
 
-Sistem usulan pada penelitian ini adalah perangkat lunak yang digunakan untuk membuat visualisasi graf dari struktur DOM satu halaman web. Sistem menerima masukan berupa URL dari pengguna, kemudian mengambil dokumen HTML dari URL tersebut. Dokumen HTML yang berhasil diperoleh diproses menjadi DOM menggunakan pustaka Jsoup. Setelah DOM terbentuk, sistem menelusuri elemen-elemen HTML secara hierarkis dan memetakan setiap elemen menjadi \textit{node} serta hubungan antar elemen menjadi \textit{edge}. Hasil pemetaan tersebut kemudian dikonversi ke dalam format DOT agar dapat divisualisasikan menggunakan Graphviz.
+Sistem usulan merupakan perangkat lunak lokal yang menerima satu URL awal, menelusuri tautan dalam lingkup dan batas yang ditentukan, lalu menghasilkan peta situs. Jsoup digunakan untuk mengambil dan mem-parsing halaman HTML. Dari setiap halaman, sistem mengumpulkan tautan dan mengelompokkan sumbernya sebagai isi halaman, \texttt{header}, atau \texttt{footer}. Model peta situs kemudian dikonversi ke DOT dan divisualisasikan menggunakan Graphviz. Fungsi pembentukan graf DOM dari suatu halaman tetap tersedia sebagai keluaran pelengkap.
 
-Sistem ini diusulkan untuk membantu pengguna memahami struktur DOM halaman web tanpa harus membaca seluruh kode HTML secara manual. Dengan adanya visualisasi graf, pengguna dapat melihat hubungan induk dan anak antar elemen secara lebih jelas. Selain itu, sistem juga membantu memperlihatkan kedalaman struktur DOM, percabangan elemen, serta susunan elemen pada halaman web dalam bentuk graf berarah.
+Peta situs membantu pengguna memahami halaman yang saling terhubung dan menemukan pola tautan yang perlu diperiksa lebih lanjut. Visualisasi graf DOM tetap membantu melihat hubungan induk-anak, kedalaman, dan percabangan elemen pada satu halaman. Kedua visualisasi tersebut memiliki tujuan berbeda dan saling melengkapi.
 
 \subsection{Gambaran Umum Sistem Usulan}
-Secara umum, sistem usulan bekerja melalui beberapa tahapan utama, yaitu penerimaan URL, pengambilan dokumen HTML, pembentukan DOM, penelusuran DOM, pembentukan graf, pembuatan format DOT, dan visualisasi graf. Setiap tahapan memiliki peran yang saling berhubungan. Tahap pengambilan HTML menjadi masukan bagi tahap pembentukan DOM, tahap pembentukan DOM menjadi dasar bagi proses \textit{traversal}, sedangkan hasil \textit{traversal} digunakan untuk membentuk \textit{node} dan \textit{edge} pada graf.
+Secara umum, proses utama sistem terdiri dari penerimaan URL awal, pengelolaan frontier dengan BFS, pengambilan dan pem-parsing-an halaman, pengumpulan tautan, pembentukan peta situs, pembuatan DOT, dan visualisasi menggunakan Graphviz. Hubungan tautan yang ditemukan diproses sebagai graf situs. Pembentukan DOM dan penelusuran DFS tetap tersedia sebagai proses tambahan untuk menghasilkan graf dari satu halaman.
 
-Pada tahap awal, pengguna memasukkan alamat situs web yang akan dianalisis. Sistem kemudian melakukan validasi terhadap URL tersebut. Jika URL valid dan halaman dapat diakses, sistem mengambil dokumen HTML dari halaman tersebut. Jika URL tidak valid atau halaman tidak dapat diakses, sistem menampilkan pesan kesalahan kepada pengguna agar proses dapat diperbaiki.
+Pada tahap awal, pengguna memasukkan URL situs web dan sistem memvalidasi masukan tersebut. URL awal dimasukkan ke frontier. Sistem kemudian mengambil URL yang belum diproses, memeriksa hostname, aturan akses, serta batas kedalaman dan jumlah halaman, lalu meminta halaman HTML menggunakan Jsoup. Tautan internal yang ditemukan ditambahkan ke frontier jika belum pernah dicatat dan masih memenuhi batas. Jika suatu halaman gagal diakses, sistem mencatat kegagalan dan melanjutkan URL lain yang masih tersedia.
 
-Setelah dokumen HTML diperoleh, sistem melakukan \textit{parsing} untuk membentuk struktur DOM. Struktur DOM tersebut kemudian ditelusuri menggunakan metode \textit{Depth-First Search} (DFS). Metode DFS digunakan karena sesuai dengan karakteristik DOM yang tersusun secara hierarkis. Dengan DFS, sistem dapat menelusuri elemen dari akar menuju elemen terdalam, kemudian kembali ke cabang lain hingga seluruh elemen selesai diproses.
+Untuk fungsi pelengkap graf DOM, HTML dari halaman yang dipilih di-parsing menjadi struktur DOM. Elemen DOM kemudian ditelusuri menggunakan metode \textit{Depth-First Search} (DFS). Metode ini sesuai dengan karakteristik DOM yang tersusun secara hierarkis: penelusuran bergerak dari akar ke elemen terdalam, lalu kembali ke cabang berikutnya.
 
 
 \subsection{Model Representasi Graf}
@@ -175,10 +222,10 @@ Model representasi graf pada sistem usulan didefinisikan untuk menghindari ambig
 
 Setiap elemen HTML yang ditemukan saat proses \textit{traversal} diberi ID unik, misalnya \texttt{node1}, \texttt{node2}, dan seterusnya. ID unik tersebut digunakan sebagai identitas simpul pada format DOT, sedangkan nama \textit{tag} HTML digunakan sebagai label yang ditampilkan pada visualisasi. Dengan demikian, beberapa elemen dengan label yang sama, seperti \texttt{div} atau \texttt{p}, tetap dapat dibedakan oleh sistem karena memiliki ID simpul yang berbeda.
 
-Hubungan antar simpul dibentuk berdasarkan relasi langsung \textit{parent-child} pada DOM. Jika suatu elemen anak berada langsung di dalam elemen induk, maka sistem membuat \textit{edge} berarah dari simpul induk menuju simpul anak. Secara sederhana, jika elemen $p$ adalah induk langsung dari elemen $c$, maka sistem membentuk sisi berarah $(p,c)$. Model ini membuat graf yang dihasilkan merepresentasikan struktur hierarkis DOM satu halaman web.
+Hubungan pada graf DOM dibentuk berdasarkan relasi langsung \textit{parent-child}, dengan arah dari simpul induk menuju simpul anak. Peta situs menggunakan model berbeda: simpul halaman berlabel \textit{URL path}, dan sisi berarah menunjukkan hyperlink dari halaman sumber ke tujuan. Bobot sisi adalah jumlah tautan yang ditemukan pada pasangan tersebut. Tautan isi berasal dari simpul halaman, sedangkan tautan dalam \texttt{header} dan \texttt{footer} berasal dari simpul khusus. Dengan demikian, peta situs dapat menunjukkan navigasi bersama tanpa menggandakan tautan itu sebagai isi setiap halaman.
 
 \subsection{Diagram Kelas Sistem Usulan}
-Diagram kelas ini menampilkan kelas-kelas yang dipakai dalam sistem beserta atribut dan metode utamanya. Versi diagram yang digunakan dalam penelitian ini ditunjukkan pada Gambar~\ref{fig:class-sistem-usulan}.
+Diagram kelas pada Gambar~\ref{fig:class-sistem-usulan} menampilkan komponen pembentuk graf DOM yang tetap dipakai sebagai fungsi pelengkap. Komponen crawler dan peta situs dijelaskan setelah alur kelas DOM agar kedua jenis graf tidak tercampur.
 
 \begin{figure}[H]
     \centering
@@ -218,7 +265,10 @@ Setiap objek \texttt{GraphNode} mewakili satu elemen HTML. Atribut privat \textt
 \texttt{GraphVisualizer} menerima teks DOT melalui metode \texttt{visualize(dot)}. Teks tersebut kemudian diproses dengan Graphviz hingga menjadi gambar graf yang memperlihatkan elemen HTML dan hubungan induk-anaknya.
 
 \subsubsection{Gambaran Alur Kelas}
-Secara sederhana, alurnya dimulai dari \texttt{VisualizationController}, yang memeriksa URL dan meminta \texttt{HtmlFetcher} mengambil halaman. \texttt{DomTraversal} lalu menyusun hasil penelusuran ke dalam \texttt{GraphModel}. Setelah itu, \texttt{DotGenerator} membuat teks DOT dan \texttt{GraphVisualizer} mengubahnya menjadi gambar.
+Alur pada diagram ini dimulai dari \texttt{VisualizationController}, yang memeriksa URL dan meminta \texttt{HtmlFetcher} mengambil satu halaman. \texttt{DomTraversal} menyusun graf DOM, lalu \texttt{DotGenerator} dan \texttt{GraphVisualizer} menghasilkan gambarnya. Alur tersebut merupakan subproses pelengkap; alur crawling utama dijelaskan melalui komponen berikut.
+
+\subsubsection{Komponen Crawling dan Peta Situs}
+\texttt{CrawlController} mengatur proses dari URL awal hingga frontier kosong atau batas tercapai. \texttt{URLFrontier} menyimpan URL yang menunggu diproses beserta kedalamannya dalam antrean FIFO, sehingga crawling halaman mengikuti BFS. \texttt{URLPolicy} menormalisasi dan memeriksa URL, hostname, protokol, batas, serta aturan \texttt{robots.txt}. \texttt{LinkExtractor} mengambil elemen tautan, menyelesaikan URL relatif, dan mencatat apakah tautan berada pada isi, \texttt{header}, atau \texttt{footer}. \texttt{SiteMapBuilder} menggabungkan simpul, sisi, serta bobotnya. Komponen pembuat DOT dan visualisasi kemudian dapat menggunakan model peta situs maupun model DOM.
 
 \subsection{Diagram Sekuens Sistem Usulan}
 Diagram sekuens digunakan untuk menggambarkan urutan interaksi antar komponen ketika pengguna membuat visualisasi graf struktur DOM. Komponen yang terlibat terdiri dari Pengguna, Sistem, Jsoup, \textit{DOM Traversal}, \textit{DOT Generator}, dan Graphviz. Urutan interaksi tersebut ditunjukkan pada Gambar~\ref{fig:sequence-sistem-usulan}.
@@ -232,17 +282,21 @@ Diagram sekuens digunakan untuk menggambarkan urutan interaksi antar komponen ke
 
 Diagram tersebut dimulai ketika pengguna memasukkan URL dan sistem melakukan validasi. Jika URL tidak valid, sistem menampilkan pesan kesalahan dan proses dihentikan. Jika URL valid, sistem menggunakan Jsoup untuk mengambil HTML dan membentuk objek \texttt{Document}. Struktur DOM kemudian ditelusuri menggunakan DFS untuk menghasilkan daftar \textit{node} dan \textit{edge}. Daftar tersebut diubah menjadi format DOT, diproses oleh Graphviz, dan hasil visualisasinya ditampilkan kepada pengguna. Apabila terjadi kegagalan saat pengambilan HTML, \textit{parsing}, pembentukan DOT, atau visualisasi, sistem menampilkan pesan kesalahan sesuai tahap yang gagal.
 
-Interaksi pada diagram hanya memproses halaman berdasarkan URL yang dimasukkan oleh pengguna. Sistem tidak melakukan \textit{web crawling} ke halaman lain sehingga hasil visualisasi tetap berfokus pada struktur DOM satu halaman web.
+Diagram tersebut hanya menggambarkan subproses visualisasi DOM dari satu halaman, bukan keseluruhan crawling. Dalam alur sistem yang lengkap, setelah crawler berhasil mengambil halaman, hasil HTML dapat digunakan untuk membentuk peta situs dan, jika diperlukan, menjalankan subproses DOM pada halaman tersebut.
 
 \subsection{Komponen Sistem Usulan}
-Sistem usulan terdiri dari beberapa komponen utama yang mendukung proses visualisasi graf struktur DOM halaman web. Komponen-komponen tersebut adalah sebagai berikut:
+Sistem usulan terdiri dari komponen crawling dan komponen visualisasi. Komponen utama yang mendukung proses tersebut adalah sebagai berikut:
 
 \begin{enumerate}
     \item \textit{Input URL}, yaitu komponen yang digunakan untuk menerima alamat situs web dari pengguna.
     \item \textit{HTML Fetcher}, yaitu komponen yang bertugas mengambil dokumen HTML dari URL yang diberikan.
+    \item \textit{URL Frontier}, yaitu antrean URL internal yang belum diproses, disertai informasi kedalaman penemuannya.
+    \item \textit{URL Policy}, yaitu komponen yang menormalisasi URL dan memeriksa hostname, aturan akses, serta batas crawling.
+    \item \textit{Link Extractor}, yaitu komponen yang mengambil tautan dari halaman dan mengelompokkannya menurut area isi, \texttt{header}, atau \texttt{footer}.
     \item \textit{HTML Parser}, yaitu komponen yang memproses dokumen HTML menjadi struktur DOM menggunakan Jsoup.
-    \item \textit{DOM Traversal}, yaitu komponen yang menelusuri struktur DOM menggunakan metode DFS.
-    \item \textit{Graph Builder}, yaitu komponen yang membentuk \textit{node} dan \textit{edge} berdasarkan hasil penelusuran DOM.
+    \item \textit{DOM Traversal}, yaitu komponen pelengkap yang menelusuri struktur DOM menggunakan metode DFS.
+    \item \textit{Site Map Builder}, yaitu komponen yang membentuk simpul halaman, sisi tautan, dan bobot berdasarkan hasil crawling.
+    \item \textit{Graph Builder}, yaitu komponen yang membentuk \textit{node} dan \textit{edge} untuk graf DOM pelengkap.
     \item \textit{DOT Generator}, yaitu komponen yang mengubah daftar \textit{node} dan \textit{edge} menjadi format DOT.
     \item \textit{Graph Visualizer}, yaitu komponen yang menghasilkan visualisasi graf menggunakan Graphviz.
     \item \textit{Output Viewer}, yaitu komponen yang menampilkan hasil visualisasi graf kepada pengguna.
@@ -251,9 +305,9 @@ Sistem usulan terdiri dari beberapa komponen utama yang mendukung proses visuali
 Pembagian komponen tersebut bertujuan agar setiap proses dalam sistem memiliki tanggung jawab yang jelas. Dengan struktur tersebut, sistem lebih mudah dikembangkan, diuji, dan diperbaiki apabila terjadi kesalahan pada salah satu tahapan.
 
 \subsection{Analisis Masukan dan Keluaran Sistem}
-Masukan utama pada sistem usulan adalah URL situs web yang diberikan oleh pengguna. URL tersebut digunakan sebagai alamat sumber untuk mengambil dokumen HTML. Selain URL, sistem juga memerlukan dokumen HTML yang berhasil diperoleh dari halaman web sebagai data yang akan diproses pada tahap pembentukan DOM.
+Masukan utama adalah satu URL awal. Konfigurasi crawling mencakup batas jumlah halaman, batas kedalaman, dan jeda permintaan. URL awal digunakan untuk mengisi frontier dan memulai pengambilan halaman HTML.
 
-Keluaran utama dari sistem adalah visualisasi graf struktur DOM halaman web. Visualisasi tersebut menampilkan elemen-elemen HTML sebagai \textit{node} dan hubungan antar elemen sebagai \textit{edge}. Selain visualisasi graf, sistem juga dapat menghasilkan keluaran antara berupa struktur DOM, daftar \textit{node}, daftar \textit{edge}, dan berkas DOT. Keluaran antara tersebut berguna untuk memastikan bahwa proses pemetaan dari DOM ke graf telah berjalan sesuai dengan struktur DOM halaman web yang dianalisis.
+Keluaran utama adalah peta situs dalam bentuk gambar graf berarah berbobot. Informasi pendukungnya meliputi daftar halaman yang ditemukan atau gagal diakses, daftar sisi dan bobot, serta teks DOT. Sebagai keluaran pelengkap, sistem menyediakan graf DOM untuk halaman yang dipilih, termasuk daftar elemen, hubungan \textit{parent-child}, dan DOT-nya. Setiap kegagalan pengambilan halaman dicatat dengan pesan atau penyebab yang dapat diperiksa pengguna.
 
 Apabila terjadi kesalahan, keluaran sistem berupa pesan informasi atau pesan kesalahan. Pesan tersebut dapat muncul ketika URL tidak valid, halaman web tidak dapat diakses, dokumen HTML gagal diproses, atau visualisasi graf gagal dibuat. Dengan adanya pesan tersebut, pengguna dapat mengetahui penyebab kegagalan proses dan melakukan perbaikan pada masukan yang diberikan.
 

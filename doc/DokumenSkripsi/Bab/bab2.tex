@@ -99,8 +99,8 @@ Relasi \textit{parent}, \textit{child}, dan \textit{sibling} memungkinkan progra
 
 \begin{figure} [H]
 	\centering  
-	\includegraphics[scale=0.65]{../Gambar/DOMtree.png}
-	\caption[Contoh DOM Tree]{Contoh DOM berbentuk \textit{tree} yang berisi Body dan Head, di dalam Body terdapat elemen \textit{bold} dan \textit{italic}, di dalam Head terdapat elemen judul} 
+	\includegraphics[scale=0.65]{../Gambar/DOMtree2.png}
+	\caption[Contoh struktur pohon DOM]{Contoh struktur DOM berbentuk pohon yang menunjukkan simpul dokumen, elemen \texttt{html}, \texttt{head}, dan \texttt{body}, serta hubungan \textit{parent}, \textit{child}, dan \textit{sibling}. Gambar juga menampilkan elemen \texttt{title}, tautan \texttt{a} dengan atribut \texttt{href}, elemen \texttt{h1}, dan \textit{node} teks.} 
 	\label{fig:domtree} 
 \end{figure}
 
@@ -180,7 +180,7 @@ Kelas \texttt{Document} merupakan representasi dari keseluruhan dokumen HTML set
     \item \textit{select:}
     Metode ini digunakan untuk mencari elemen dalam dokumen berdasarkan CSS \textit{selector}.
     
-    \item \textit{baseUri:}
+    \item \textit{baseUrl:}
     Metode ini digunakan untuk mendapatkan URL dasar dari dokumen, jika sumbernya diambil melalui URL.
     
 \end{itemize}
@@ -296,14 +296,21 @@ Traversal graf adalah proses mengunjungi setiap \textit{node} dalam graf secara 
 
 Pada proses \textit{traversal}, suatu \textit{node} biasanya dipilih sebagai titik awal, kemudian algoritma akan menelusuri \textit{node}-\textit{node} lain yang terhubung melalui \textit{edge}. Urutan kunjungan \textit{node} bergantung pada metode \textit{traversal} yang digunakan. Beberapa metode \textit{traversal} yang umum digunakan adalah {\it Breadth-First Search} (BFS) dan {\it Depth-First Search} (DFS). BFS menelusuri \textit{node} berdasarkan tingkat kedekatan dari \textit{node} awal, sedangkan DFS menelusuri \textit{node} secara mendalam hingga mencapai cabang terdalam sebelum kembali ke \textit{node} sebelumnya.
 
-Dalam konteks penelitian ini, \textit{traversal} graf digunakan untuk menelusuri struktur DOM yang telah direpresentasikan sebagai graf. Setiap elemen HTML dipandang sebagai \textit{node}, sedangkan hubungan \textit{parent-child} dipandang sebagai \textit{edge}. Dengan \textit{traversal}, struktur halaman web dapat dibaca secara teratur dari \textit{node} awal menuju \textit{node}-\textit{node} turunannya. Hal ini membantu proses analisis DOM karena setiap elemen dapat diperiksa sesuai urutan hubungan hierarkisnya.
+Dalam penelitian ini, traversal digunakan pada dua proses yang berbeda. Pada proses crawling, halaman web dipandang sebagai \textit{node} dan tautan antarhalaman sebagai \textit{edge}. Pada proses pelengkap, elemen HTML dipandang sebagai \textit{node} dan hubungan \textit{parent-child} sebagai \textit{edge} untuk membentuk graf DOM. Pemilihan algoritma traversal disesuaikan dengan tujuan masing-masing proses.
 
 \subsection{Breadth-First Search}
 \textit{Breadth-First Search} (BFS) adalah metode \textit{traversal} yang telusuri graf per tingkat. BFS akan berkunjung ke semua \textit{node} yang paling dekat dengan \textit{node} awal terlebih dahulu, baru kemudian lanjut ke tingkat berikutnya. Jika penelusuran mulai dari elemen \texttt{<html>}, BFS akan memeriksa \texttt{<head>} dan \texttt{<body>} lebih dulu sebelum masuk ke elemen-elemen yang ada di dalam keduanya~\cite{cormen:22:introalgo}.
 
 Untuk mengatur urutan tersebut, BFS memakai struktur data antrean (\textit{queue}). Setiap \textit{node} yang baru ditemukan dimasukkan ke bagian belakang antrean, sedangkan \textit{node} yang akan diproses diambil dari bagian depan. Cara kerjanya mirip antrean biasa: yang masuk lebih dulu akan diproses lebih dulu. Pola ini membuat BFS lebih cocok ketika kita mau melihat struktur berdasarkan level atau mencari jalur dengan jumlah sisi paling sedikit pada graf yang tidak berbobot~\cite{cormen:22:introalgo}.
 
-Jika diterapkan pada DOM, BFS dapat memberikan gambaran yang rapi tentang elemen-elemen yang berada pada kedalaman yang sama. Namun, BFS tidak langsung menyelesaikan satu cabang sampai ke elemen terdalam karena algoritma ini harus menyimpan dan memproses seluruh \textit{node} pada level yang sedang dilalui. Pada halaman web yang lebar dan memiliki banyak elemen dalam satu tingkat, antrean BFS juga bisa menjadi cukup besar. Oleh karena itu, BFS umumnya lebih boros memori daripada DFS, terutama pada struktur yang lebar, karena BFS perlu menyimpan banyak \textit{node} dari suatu tingkat di dalam antrean, sedangkan DFS hanya perlu menyimpan jalur penelusuran yang sedang dilalui beserta informasi untuk melakukan \textit{backtracking}. Karena penelitian ini perlu mengikuti hubungan \textit{parent-child} dari akar sampai ke bagian terdalam untuk membentuk \textit{node} dan \textit{edge}, pola penelusuran DFS lebih sesuai dibandingkan BFS.
+Pada proses crawling, halaman dipandang sebagai \textit{node} dan tautan sebagai \textit{edge}. Dengan antrean FIFO, BFS memproses halaman berdasarkan kedalamannya dari URL awal: halaman yang ditemukan langsung dari URL awal diproses sebelum halaman yang berada lebih dalam. Jika jumlah halaman dibatasi, urutan ini mengutamakan cakupan halaman pada tingkat awal sejauh batas yang ditetapkan memungkinkan. Tujuan perangkat lunak adalah menelusuri situs secara sistematis mulai dari satu halaman awal dan mengikuti halaman-halaman yang ditautkan. Karena itu, BFS dipilih untuk crawling agar penelusuran melebar lebih dahulu sebelum masuk ke subhalaman yang lebih dalam~\cite{cormen:22:introalgo,manning:08:introir}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.65]{../Gambar/BFS.png}
+    \caption[Ilustrasi proses BFS pada graf tak berarah]{Ilustrasi BFS pada graf tak berarah. Setiap panel menunjukkan graf dan antrean pada awal iterasi; angka pada simpul dan antrean menyatakan jarak dari simpul awal. Area jingga menandai frontier (simpul dalam antrean), sedangkan area biru muda menandai simpul yang telah dikeluarkan dari antrean. Simpul dan sisi jingga menyoroti pemrosesan pada iterasi sebelumnya, sementara sisi biru menunjukkan pohon BFS yang terbentuk.}
+    \label{fig:bfs}
+\end{figure}
 
 \subsection{Depth-First Search}
 {\it Depth-First Search} (DFS) adalah metode \textit{traversal} graf yang bekerja dengan menelusuri suatu simpul hingga ke bagian terdalam terlebih dahulu sebelum kembali ke simpul sebelumnya. Sesuai dengan namanya, DFS akan memilih untuk bergerak lebih dalam pada graf selama masih terdapat sisi yang belum dieksplorasi dari simpul yang sedang dikunjungi.
@@ -316,7 +323,7 @@ DFS menggunakan penandaan warna untuk menunjukkan status setiap simpul selama pr
 
 Metode ini sangat cocok untuk struktur berbentuk \textit{tree} seperti DOM karena mengikuti pola \textit{parent-child} secara mendalam. Pada konteks DOM, DFS dapat digunakan untuk menelusuri elemen dari \textit{node} induk ke \textit{node} anak secara bertahap hingga mencapai elemen terdalam, kemudian kembali ke \textit{node} sebelumnya untuk melanjutkan penelusuran ke cabang lain. Ilustrasi proses DFS pada graf berarah dapat dilihat pada Gambar~\ref{fig:dfs}. Oleh karena itu, DFS sering digunakan untuk eksplorasi struktur hierarkis dan graf~\cite{cormen:22:introalgo}.
 
-Dalam penelitian ini, DFS lebih efektif daripada BFS dari segi kesesuaian alur penelusuran, bukan dari kompleksitas waktu asimtotiknya, karena keduanya memiliki kompleksitas $O(V+E)$. DFS dapat menyelesaikan satu cabang DOM terlebih dahulu sehingga urutan elemen yang dihasilkan tetap mengikuti susunan elemen bersarang pada dokumen HTML. Pola ini memudahkan pembentukan deklarasi \textit{node} dan relasi \textit{edge} pada format DOT secara langsung ketika setiap elemen dikunjungi. Selain itu, DFS cukup menyimpan jalur aktif dari \textit{root} menuju \textit{node} yang sedang diproses, sedangkan BFS perlu menyimpan kumpulan \textit{node} pada satu tingkat di dalam antrean. Pada DOM yang lebar, kebutuhan penyimpanan antrean BFS dapat lebih besar daripada tumpukan penelusuran DFS. Dengan demikian, DFS lebih sesuai untuk proses konversi DOM menjadi graf pada penelitian ini, sementara BFS lebih tepat apabila tujuan analisis berfokus pada urutan tingkat atau jarak terpendek dari \textit{root}.
+Pada penelitian ini, DFS digunakan untuk menelusuri elemen DOM sebagai keluaran pelengkap. DFS memproses hubungan \textit{parent-child} hingga mencapai bagian terdalam sebelum beralih ke cabang lain, sehingga sesuai untuk membentuk graf dari struktur elemen HTML. BFS digunakan pada crawling antarhalaman karena tujuan utamanya adalah menjangkau halaman-halaman dari satu URL awal secara bertingkat. Dengan demikian, kedua algoritma digunakan pada objek yang berbeda: DFS untuk elemen DOM dan BFS untuk halaman situs.
 
 \begin{figure} [H]
 	\centering  
@@ -372,7 +379,75 @@ Format DOT sesuai digunakan untuk merepresentasikan struktur DOM karena hubungan
 	\label{fig:visdot} 
 \end{figure}
 
-%\subsection{Tabel}  
+\section{Web Crawling}
+\label{sec:web-crawling}
+
+\subsection{URL Frontier dan DNS}
+\textit{URL frontier} adalah struktur data yang menyimpan URL yang telah ditemukan tetapi belum diambil oleh crawler. Frontier mengatur URL yang menunggu diproses, sedangkan daftar URL yang telah dikunjungi digunakan untuk mencegah halaman yang sama diambil berulang kali. Urutan pengambilan URL bergantung pada strategi penelusuran; pada penelitian ini, frontier dikelola sebagai antrean FIFO untuk mendukung BFS~\cite{manning:08:introir}.
+
+\textit{Domain Name System} (DNS) adalah sistem terdistribusi yang menyediakan informasi tentang nama domain, termasuk pemetaan nama \textit{host} ke alamat IP yang diperlukan untuk membangun koneksi jaringan~\cite{rfc:87:dns}. Ketika aplikasi Java menghubungi suatu \textit{hostname}, proses pencarian alamat IP umumnya dilakukan secara otomatis oleh resolver sistem. Oleh karena itu, DNS bukan komponen crawler yang dirancang secara langsung dalam penelitian ini.
+
+\textit{Web crawling} adalah proses mengambil halaman web secara bertahap dengan memulai dari satu atau beberapa URL awal, membaca tautan pada halaman yang berhasil diambil, lalu menambahkan tautan yang memenuhi aturan ke frontier. Proses tersebut diulang sampai tidak ada URL yang tersisa atau batas crawling tercapai~\cite{manning:08:introir}. Berbeda dari penelusuran satu halaman, crawler perlu menyimpan URL yang menunggu diproses dan URL yang sudah pernah dikunjungi agar proses tidak berulang tanpa akhir.
+
+Pada penelitian ini, crawler menggunakan satu URL awal dan hanya mengikuti tautan dalam \textit{hostname} yang sama. Crawling juga dibatasi berdasarkan kedalaman dan jumlah halaman. Batas ini membantu menjaga agar program tetap terarah dan tidak terus mengikuti URL yang dihasilkan secara dinamis atau berulang. Sistem mengambil halaman HTML publik dan tidak menjalankan JavaScript; karena itu, tautan yang hanya muncul setelah JavaScript dijalankan tidak termasuk dalam hasil.
+
+\subsection{Tahapan dan Komponen Crawler}
+
+Pada crawler yang lebih besar, pengelolaan URL, pengambilan halaman, DNS, dan penyimpanan data dapat ditangani oleh komponen terpisah. Pada perangkat lunak ini, DNS bekerja otomatis saat Java menghubungi hostname situs. Komponen yang dirancang secara langsung meliputi \textit{frontier} untuk menyimpan URL yang menunggu diproses, pengambil halaman, parser Jsoup, dan pembentuk graf~\cite{manning:08:introir}.
+
+Alur crawler dapat dijelaskan melalui tahapan berikut:
+\begin{enumerate}
+    \item \textbf{Menyiapkan URL awal.} URL masukan divalidasi, dinormalisasi, lalu dimasukkan ke \textit{URL frontier} dengan kedalaman nol.
+    \item \textbf{Memilih URL untuk diambil.} Crawler mengambil URL dari frontier, memeriksa apakah URL tersebut sudah dikunjungi, berada dalam lingkup \textit{hostname}, menggunakan HTTP atau HTTPS, dan belum melewati batas kedalaman maupun jumlah halaman.
+    \item \textbf{Memeriksa aturan akses dan mengambil halaman.} Sebelum meminta halaman, crawler memperhatikan aturan pada \texttt{robots.txt}. Permintaan dilakukan secara tertib agar tidak membebani server. Kegagalan DNS, koneksi, waktu tunggu, atau respons server dicatat; kegagalan pada satu halaman tidak harus menghentikan URL lain yang masih ada di frontier.
+    \item \textbf{Mem-parsing HTML dan mencari tautan.} Dokumen yang berhasil diambil diproses sebagai HTML. Tautan umumnya ditemukan dari elemen \texttt{a} dan atribut \texttt{href}. URL relatif diselesaikan terhadap URL halaman asal sebelum diperiksa lebih lanjut.
+    \item \textbf{Memeriksa dan menambahkan tautan.} Tautan di luar lingkup atau bukan halaman HTML tidak dimasukkan ke frontier. URL yang sudah tercatat tidak ditambahkan kembali. Tautan internal yang baru ditemukan dimasukkan ke frontier dengan kedalaman satu tingkat di bawah halaman asal.
+    \item \textbf{Memperbarui graf dan mengulangi proses.} Hubungan tautan dicatat dalam model peta situs. Langkah memilih, mengambil, dan mem-parsing halaman diulangi sampai frontier kosong atau batas yang ditetapkan tercapai.
+\end{enumerate}
+
+Pencatatan URL yang sudah ditemukan penting karena sebuah situs dapat memiliki tautan berulang atau hubungan melingkar. Normalisasi membantu mengenali URL yang merujuk ke alamat yang sama, misalnya dengan menyelesaikan URL relatif dan mengabaikan bagian fragmen setelah tanda \texttt{\#}. Pemeriksaan URL mencegah halaman yang sama dimasukkan berkali-kali, sedangkan pemeriksaan isi halaman yang benar-benar sama meskipun URL-nya berbeda merupakan langkah tambahan yang tidak termasuk dalam lingkup sistem ini~\cite{manning:08:introir}.
+
+\subsection{Robots Exclusion Protocol (robots.txt)}
+
+Berkas \texttt{robots.txt} berisi petunjuk bagi crawler mengenai bagian situs yang boleh ditelusuri atau yang diminta untuk tidak diambil. Berkas ini biasanya ditempatkan pada direktori utama situs, misalnya pada path \texttt{/robots.txt}, dan mengikuti aturan \textit{Robots Exclusion Protocol}~\cite{rfc:22:robots}. Aturan \texttt{User-agent} menentukan crawler yang dituju, sedangkan \texttt{Disallow} dan \texttt{Allow} menyatakan path yang diminta untuk tidak ditelusuri atau yang boleh diakses oleh crawler.
+
+Contoh berikut meminta semua crawler untuk tidak mengambil halaman yang berada di bawah path \texttt{/private/}:
+
+\begin{lstlisting}[caption=Contoh aturan robots.txt]
+User-agent: *
+Disallow: /private/
+\end{lstlisting}
+
+Crawler membaca aturan yang sesuai sebelum mengambil halaman dan diminta untuk mematuhinya. Namun, \texttt{robots.txt} bukan mekanisme keamanan atau pembatas akses; halaman yang disebut di dalamnya masih dapat dibuka secara langsung jika alamatnya diketahui~\cite{rfc:22:robots}. Dalam rancangan penelitian ini, crawler memeriksa aturan tersebut sebelum meminta halaman.
+
+\subsection{Politeness, Robustness, dan Batas Crawler}
+
+Crawler perlu mengambil halaman dengan cara yang sopan dan tetap dapat menangani masalah jaringan. Manning, Raghavan, dan Schütze menjelaskan bahwa crawler perlu mematuhi aturan yang diberikan situs dan mengatur permintaan agar satu server tidak menerima terlalu banyak permintaan dalam waktu singkat~\cite{manning:08:introir}. Dalam rancangan penelitian ini, crawler memeriksa \texttt{robots.txt}, memproses satu URL pada satu waktu, dan memberi jeda antarpermintaan ke \textit{hostname} yang sama. Besar jeda ditetapkan dan dicatat pada konfigurasi pengujian.
+
+Koneksi yang gagal, halaman yang tidak ditemukan, format respons yang bukan HTML, dan waktu tunggu yang habis merupakan kondisi yang perlu ditangani. Sistem mencatat URL yang gagal dan alasannya, kemudian dapat melanjutkan penelusuran URL lain yang masih berada dalam batas. Batas jumlah halaman dan kedalaman juga membantu mengurangi risiko terjebak pada kumpulan URL yang tidak habis, misalnya tautan kalender atau parameter pencarian yang terus menghasilkan alamat baru.
+
+\subsection{Peta Situs sebagai Graf Berarah Berbobot}
+\label{sec:peta-situs}
+
+Untuk menggambarkan hubungan tautan dalam situs, digunakan graf berarah berbobot $G=(V,E,w)$. Simpul $V$ berupa \textit{URL path} halaman yang ditemukan serta dua simpul khusus, yaitu \texttt{header} dan \texttt{footer}. Sisi berarah $(u,v)$ dibuat apabila terdapat tautan dari bagian yang direpresentasikan oleh $u$ menuju halaman $v$. Bobot $w(u,v)$ menyatakan banyaknya tautan yang ditemukan dari sumber $u$ ke tujuan $v$. Jika beberapa tautan yang sama ditemukan, bobotnya dijumlahkan.
+
+Tautan pada isi halaman dicatat dari simpul halaman asal. Sebaliknya, tautan di dalam elemen \texttt{header} dan \texttt{footer} dicatat dari simpul khusus masing-masing, bukan diulang sebagai tautan isi pada setiap halaman. Banyak situs menampilkan navigasi header atau footer yang sama di berbagai halaman. Pemisahan ini mengurangi sisi berulang yang dapat membuat graf tampak padat dan membantu pembaca membedakan tautan isi dari navigasi bersama. Peta situs menunjukkan struktur tautan yang ditemukan, tetapi tidak dengan sendirinya membuktikan bahwa suatu tautan salah; tautan yang tampak tidak biasa perlu diperiksa kembali pada halaman sumber.
+
+\subsection{Wget}
+
+GNU Wget adalah program baris perintah untuk mengunduh berkas dari web tanpa perlu interaksi terus-menerus dari pengguna. Wget mendukung protokol HTTP, HTTPS, dan FTP. Selain mengunduh satu berkas, Wget dapat mengambil halaman secara rekursif dengan mengikuti tautan pada halaman HTML dan CSS. Untuk halaman web, penelusuran rekursif Wget berjalan dengan BFS, yaitu mengambil halaman berdasarkan tingkat kedalaman. Wget juga dapat menyimpan salinan halaman dan berkas pendukungnya agar dapat dibuka secara lokal~\cite{gnu:24:wget}.
+
+Perintah berikut menunjukkan contoh penggunaan Wget untuk mengambil halaman situs:
+
+\begin{lstlisting}[caption=Contoh pengambilan halaman situs menggunakan Wget]
+wget --mirror --level=2 --wait=1 --convert-links --adjust-extension --page-requisites --no-parent https://informatika.unpar.ac.id
+\end{lstlisting}
+
+Pada perintah tersebut, \texttt{--mirror} mengaktifkan pengambilan rekursif dan pencatatan waktu perubahan berkas. Karena opsi ini secara bawaan menelusuri tanpa batas kedalaman, \texttt{--level=2} membatasi penelusuran hingga dua tingkat. Opsi \texttt{--wait=1} memberi jeda satu detik antarpermintaan. Opsi \texttt{--page-requisites} mengambil berkas pendukung seperti gambar dan lembar gaya, sedangkan \texttt{--convert-links} menyesuaikan tautan agar mengarah ke salinan lokal. Opsi \texttt{--adjust-extension} menambahkan ekstensi yang sesuai pada berkas HTML, dan \texttt{--no-parent} mencegah penelusuran naik ke direktori induk~\cite{gnu:24:wget}.
+
+Pengambilan rekursif dapat menghasilkan banyak berkas, sehingga batas kedalaman dan jeda permintaan perlu disesuaikan dengan kebutuhan serta aturan situs. Wget bukan perangkat lunak yang digunakan dalam penelitian ini; perangkat lunak penelitian menggunakan Java dan Jsoup untuk mengumpulkan tautan dan membentuk peta situs.
+
+%\\subsection{Tabel}  
 %Berikut adalah contoh pembuatan tabel. 
 %Penempatan tabel dan gambar secara umum diatur secara otomatis oleh \LaTeX{}, perhatikan contoh di file bab2.tex untuk melihat bagaimana cara memaksa tabel ditempatkan sesuai keinginan kita.
 

@@ -221,8 +221,8 @@
 % - gunakan \texorpdfstring{\\}{} untuk pindah ke baris baru
 % - judul TIDAK ditulis dengan menggunakan huruf besar seluruhnya !!
 %=============================================================================
-\judulINA{Perangkat Lunak Pembuat Visualisasi Graf Struktur DOM Halaman Web}
-\judulENG{Web Page DOM Structure Graph Visualization Software}
+\judulINA{Perangkat Lunak Pembuat Visualisasi Graf Situs Web}
+\judulENG{Software for Generating Website Graph Visualizations}
 %_____________________________________________________________________________
 %=============================================================================
 % 								BAGIAN X
@@ -234,8 +234,8 @@
 % - hilangkan tanda << & >>, dan isi sesuai dengan data anda
 % - langsung mulai setelah '{' awal, jangan mulai menulis di baris bawahnya
 %=============================================================================
-\abstrakINA{Penelitian ini membahas pengembangan perangkat lunak untuk membuat visualisasi graf dari struktur Document Object Model (DOM) pada satu halaman web. Sistem menerima masukan berupa Uniform Resource Locator (URL), mengambil dokumen HTML, membentuk struktur DOM menggunakan Jsoup, kemudian menelusuri elemen HTML menggunakan metode Depth-First Search (DFS). Setiap elemen HTML direpresentasikan sebagai node dengan ID unik, sedangkan hubungan parent-child antar elemen direpresentasikan sebagai edge berarah. Hasil pemetaan tersebut disusun ke dalam format DOT dan divisualisasikan menggunakan Graphviz. Perangkat lunak ini diharapkan membantu pengguna memahami struktur DOM halaman web secara lebih mudah dibandingkan membaca kode HTML mentah.}
-\abstrakENG{This research discusses the development of software for generating graph visualizations of the Document Object Model (DOM) structure of a single web page. The system receives a Uniform Resource Locator (URL), retrieves the HTML document, builds the DOM structure using Jsoup, and traverses the HTML elements using Depth-First Search (DFS). Each HTML element is represented as a node with a unique ID, while each parent-child relationship is represented as a directed edge. The mapping result is written in DOT format and visualized using Graphviz. The software is expected to help users understand the DOM structure of a web page more easily than reading raw HTML code.}  
+\abstrakINA{Situs web dengan banyak halaman dan tautan dapat sulit dipahami hanya dengan membuka halaman satu per satu. Skripsi ini merancang perangkat lunak lokal berbasis Java yang menerima satu URL awal dan melakukan web crawling dalam batas yang ditetapkan. Halaman yang ditemukan dipetakan ke dalam graf berarah berbobot: simpul mewakili path halaman atau bagian \texttt{header} dan \texttt{footer}, sisi menunjukkan tautan, dan bobot sisi menunjukkan jumlah tautan. Jsoup digunakan untuk membaca dokumen HTML, sedangkan Graphviz digunakan untuk membuat visualisasi dari berkas DOT. Pengujian fungsional direncanakan pada situs Informatika UNPAR dan dibandingkan dengan perangkat lunak sejenis. Pengujian eksperimental direncanakan pada tiga situs web lain. Hasil graf akan dianalisis sebagai dasar untuk menyusun rekomendasi. Nilai hasil pengujian dan rekomendasi akhir disajikan setelah perangkat lunak diuji.}
+\abstrakENG{A website with many pages and links can be difficult to understand by visiting each page one at a time. This thesis designs local Java software that accepts a starting URL and performs web crawling within defined limits. The discovered pages are represented as a directed weighted graph: nodes represent page paths or the \texttt{header} and \texttt{footer} sections, edges represent links, and edge weights show the number of links. Jsoup is used to read HTML documents, while Graphviz creates a visualization from DOT files. Functional testing is planned for the Informatics UNPAR website and will be compared with similar software. Experimental testing will use three other websites. The resulting graphs will be analyzed to support recommendations. Test measurements and final recommendations will be reported after the software is tested.}
 %=============================================================================
 
 %_____________________________________________________________________________
@@ -247,8 +247,8 @@
 % - kunciENG: keywords in english
 % Petunjuk: hilangkan tanda << & >>, dan isi sesuai dengan data anda.
 %=============================================================================
-\kunciINA{DOM, HTML, visualisasi graf, Jsoup, Graphviz, Depth-First Search}
-\kunciENG{DOM, HTML, graph visualization, Jsoup, Graphviz, Depth-First Search}
+\kunciINA{web crawling, graf berarah berbobot, peta situs, Jsoup, Graphviz}
+\kunciENG{web crawling, directed weighted graph, site map, Jsoup, Graphviz}
 %=============================================================================
 
 %_____________________________________________________________________________

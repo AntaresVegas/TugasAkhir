@@ -9,20 +9,26 @@
 
     Meskipun struktur DOM merupakan konsep dasar dalam pengembangan web, representasinya dalam bentuk kode HTML sering kali sulit dipahami secara langsung, terutama pada halaman web yang memiliki banyak elemen. Oleh karena itu, diperlukan suatu cara yang dapat membantu menyajikan struktur tersebut dalam bentuk yang lebih mudah dipahami.
     
-    Salah satu cara yang dapat digunakan adalah dengan memvisualisasikan struktur halaman web dalam bentuk graf. Dalam pendekatan ini, setiap elemen HTML pada satu halaman web direpresentasikan sebagai simpul (\textit{node}) dan hubungan antar elemen direpresentasikan sebagai sisi (\textit{edge}). Graf yang dimaksud pada penelitian ini adalah graf struktur DOM dari satu halaman web, bukan graf tautan antar halaman pada suatu situs. Dengan demikian, struktur DOM dapat dilihat secara lebih jelas dan terstruktur.
+    Selain susunan elemen pada satu halaman, hubungan tautan antarhalaman dalam satu situs juga perlu dipahami. \textit{Web crawling} membantu mengumpulkan halaman dan tautan secara bertahap dari satu URL awal dengan mengikuti tautan yang ditemukan sampai batas tertentu~\cite{manning:08:introir}. Hasilnya dapat disajikan sebagai peta situs. Pada penelitian ini, peta situs menjadi visualisasi utama untuk melihat hubungan antarhalaman, sedangkan graf DOM tetap dipertahankan sebagai visualisasi pelengkap untuk memeriksa struktur elemen pada halaman tertentu.
     
-    Berdasarkan permasalahan tersebut, tugas akhir ini berfokus pada pengembangan perangkat lunak yang mampu mengambil dokumen HTML dari suatu \textit{Uniform Resource Locator} (URL), membangun struktur DOM, dan merepresentasikan struktur DOM dari halaman tersebut dalam bentuk graf yang dapat divisualisasikan. Perangkat lunak ini diharapkan dapat membantu pengguna dalam memahami struktur halaman web secara lebih mudah.
+    Keteraturan tautan internal dapat mempermudah pengguna berpindah antarhalaman dan membantu pengelola memahami susunan situs. Peta situs yang menunjukkan hubungan tersebut dapat digunakan sebagai alat bantu pemeriksaan, bukan sebagai penilaian otomatis terhadap kualitas situs.
+
+    Berdasarkan permasalahan tersebut, tugas akhir ini mengembangkan perangkat lunak lokal berbasis Java yang menerima URL awal, menelusuri tautan dalam batas tertentu, dan membuat peta situs dalam bentuk graf berarah berbobot. Sistem juga mempertahankan fungsi untuk membentuk graf DOM dari halaman yang diproses, sehingga hubungan antarhalaman dan susunan elemen dalam halaman dapat diperiksa melalui dua jenis visualisasi.
 
 \section{Rumusan Masalah}
 \label{sec:1:rumusan}
 
 Rumusan masalah yang akan dibahas pada tugas akhir ini adalah:
 \begin{enumerate}
-    \item Bagaimana cara mengambil dokumen HTML dari suatu situs web berdasarkan URL serta membangun struktur DOM?
+    \item Bagaimana merancang proses \textit{web crawling} yang dimulai dari satu URL dan mengikuti tautan dalam batas penelusuran yang ditetapkan?
         
     \item Bagaimana cara merepresentasikan struktur DOM ke dalam bentuk graf yang terdiri dari (\textit{node}) dan (\textit{edge}) melalui proses traversal yang sistematis?
         
-    \item Bagaimana merancang perangkat lunak yang mampu menghasilkan visualisasi graf dari struktur DOM satu halaman web secara otomatis dan mudah dipahami pengguna?
+    \item Bagaimana merepresentasikan hubungan tautan antarhalaman sebagai peta situs berarah berbobot dengan pemisahan tautan \texttt{header} dan \texttt{footer}?
+
+    \item Bagaimana merancang perangkat lunak yang menghasilkan peta situs serta tetap menyediakan visualisasi graf DOM sebagai informasi pelengkap?
+
+    \item Bagaimana menguji hasil \textit{crawling} dan graf pada situs Informatika UNPAR serta tiga situs lain, lalu menyusun rekomendasi berdasarkan hasilnya?
 \end{enumerate}
 
 \section{Tujuan}
@@ -30,11 +36,15 @@ Rumusan masalah yang akan dibahas pada tugas akhir ini adalah:
 
 Tujuan yang ingin dicapai skripsi ini adalah sebagai berikut:
 \begin{enumerate}
-    \item Mengambil dokumen HTML dari suatu situs web berdasarkan URL serta membangun struktur DOM.
+    \item Merancang proses \textit{web crawling} menggunakan metode \textit{Breadth-First Search} (BFS), dimulai dari satu URL awal dan mengikuti tautan secara bertingkat dengan batas kedalaman dan jumlah halaman.
     
     \item Merepresentasikan struktur DOM ke dalam bentuk graf yang terdiri dari (\textit{node}) dan (\textit{edge}) melalui proses traversal yang sistematis.
     
-    \item Merancang perangkat lunak yang mampu menghasilkan visualisasi graf dari struktur DOM satu halaman web secara otomatis dan mudah dipahami pengguna.
+    \item Membentuk peta situs berarah berbobot dari tautan yang ditemukan dan memisahkan tautan pada \texttt{header} serta \texttt{footer}.
+
+    \item Merancang perangkat lunak lokal berbasis Java yang menghasilkan peta situs dan mempertahankan visualisasi DOM sebagai keluaran pelengkap.
+
+    \item Menguji perangkat lunak pada situs Informatika UNPAR dan tiga situs lain serta menyusun rekomendasi berdasarkan graf yang dihasilkan.
 \end{enumerate}
 
 \section{Batasan Masalah}
@@ -42,12 +52,12 @@ Tujuan yang ingin dicapai skripsi ini adalah sebagai berikut:
 
 Pengerjaan tugas akhir ini memiliki batasan sebagai berikut:
 \begin{itemize}
-    \item Perangkat lunak dikembangkan menggunakan bahasa pemrograman Java.
-    \item Sistem memproses satu halaman web berdasarkan URL yang dimasukkan oleh pengguna dan tidak melakukan \textit{web crawling} ke halaman lain.
-    \item Sistem menganalisis dokumen HTML yang diperoleh dari URL dan tidak mengeksekusi JavaScript sisi klien.
-    \item Elemen yang dipetakan ke dalam graf adalah elemen HTML pada struktur DOM, sedangkan teks, atribut, dan komentar tidak dijadikan \textit{node} utama.
-    \item Hasil visualisasi graf dibuat menggunakan format DOT dan Graphviz.
-    \item Halaman web yang diproses adalah halaman yang dapat diakses secara publik tanpa autentikasi khusus.
+    \item Perangkat lunak berjalan secara lokal, dikembangkan dengan Java, dan dapat menggunakan antarmuka CLI atau GUI.
+    \item Masukan utama adalah satu URL awal. Crawler menggunakan antrean FIFO untuk menelusuri URL dengan BFS, hanya mengikuti URL HTTP atau HTTPS dengan \textit{hostname} yang sama, serta berhenti ketika batas kedalaman atau jumlah halaman tercapai.
+    \item Halaman yang diproses harus dapat diakses secara publik tanpa autentikasi. Sistem tidak menjalankan JavaScript.
+    \item Peta situs menggunakan \textit{URL path} sebagai simpul halaman. Tautan isi halaman berasal dari simpul halaman tersebut, sedangkan tautan dari \texttt{header} dan \texttt{footer} berasal dari simpul khusus. Bobot sisi menyatakan jumlah tautan yang ditemukan.
+    \item Visualisasi graf DOM per halaman tetap tersedia sebagai keluaran pelengkap. Graf DOM memetakan elemen HTML, sedangkan teks, atribut, dan komentar tidak dijadikan \textit{node} utama.
+    \item Berkas graf dibuat dalam format DOT dan divisualisasikan menggunakan Graphviz.
 \end{itemize}
 
 \section{Metodologi}
@@ -55,11 +65,12 @@ Pengerjaan tugas akhir ini memiliki batasan sebagai berikut:
 
 Metodologi pengerjaan tugas akhir ini adalah sebagai berikut:
 \begin{enumerate}
-    \item Melakukan studi literatur mengenai HTML, DOM, struktur data graf, Graphviz, dan metode traversal.
-    \item Melakukan analisis kebutuhan serta perancangan arsitektur perangkat lunak yang akan dikembangkan.
-    \item Mengimplementasikan sistem untuk mengambil dokumen HTML, membangun struktur DOM, serta merepresentasikannya dalam bentuk graf.
-    \item Melakukan pengujian menggunakan beberapa halaman web dengan struktur yang berbeda serta mengevaluasi kesesuaian daftar \textit{node}, daftar \textit{edge}, dan hasil visualisasi graf.
-    \item Melakukan analisis terhadap hasil visualisasi berdasarkan keterbacaan graf, kesesuaian relasi \textit{parent-child}, dan keberhasilan pembentukan berkas DOT.
+    \item Melakukan studi literatur mengenai HTML, DOM, graf, web crawling, pengelolaan URL, Jsoup, Graphviz, dan prinsip crawling.
+    \item Menganalisis kebutuhan serta merancang crawling BFS, batas penelusuran, pengelompokan tautan dari \texttt{header} dan \texttt{footer}, model graf situs, dan keluaran graf DOM pelengkap.
+    \item Mengimplementasikan crawler lokal berbasis Java, pembentukan peta situs, dan fungsi visualisasi DOM yang telah dirancang.
+    \item Melakukan pengujian fungsional pada \url{https://informatika.unpar.ac.id} dan membandingkan cakupan halaman serta tautan dengan perangkat lunak sejenis menggunakan pengaturan yang dicatat.
+    \item Melakukan pengujian eksperimental pada tiga situs web lain dengan URL awal dan batas crawling yang dicatat.
+    \item Menganalisis simpul, sisi, bobot, halaman yang ditemukan, serta keterbacaan graf.
     \item Menyusun dokumentasi dan laporan tugas akhir.
 \end{enumerate}
 
@@ -71,10 +82,12 @@ Sistematika pembahasan skripsi ini adalah sebagai berikut:
     \item Bab 1: Pendahuluan
           Membahas latar belakang, rumusan masalah, tujuan, batasan masalah, metodologi, dan sistematika pembahasan.
     \item Bab 2: Landasan Teori
-    Membahas dasar dan hierarki HTML, struktur dan jenis \textit{node} DOM, graf berarah, format DOT, dan Graphviz.
+    Membahas HTML, DOM, Jsoup, graf, \textit{web crawling}, peta situs, format DOT, dan Graphviz.
     \item Bab 3: Analisis
-    Membahas analisis masalah, kebutuhan sistem, sistem usulan, model representasi graf, serta kriteria evaluasi sistem.
+    Membahas masalah dan kebutuhan crawling, pemodelan peta situs dan graf DOM, sistem usulan, serta kriteria evaluasi.
     \item Bab 4: Perancangan
+          Membahas arsitektur crawler, alur penelusuran URL, pembentukan peta situs, serta rancangan visualisasi DOM pelengkap.
     \item Bab 5: Implementasi dan Pengujian
+          Membahas implementasi perangkat lunak dan hasil pengujian fungsional maupun eksperimental.
     \item Bab 6: Kesimpulan dan Saran
 \end{itemize}

@@ -2,18 +2,39 @@
 \chapter{Perancangan}
 \label{chap:perancangan}
 
-Bab ini membahas rancangan perangkat lunak berdasarkan hasil analisis pada Bab~\ref{chap:analisis}. Pada bab sebelumnya, fokus pembahasannya adalah masalah, kebutuhan sistem, dan gambaran sistem usulan. Pada bab ini, pembahasan mulai diarahkan ke cara sistem tersebut akan dibangun. Rancangan dibuat agar proses dari URL sampai menjadi visualisasi graf memiliki alur yang jelas dan setiap bagian program mempunyai tugas yang tidak saling tumpang tindih.
+Bab ini membahas rancangan perangkat lunak berdasarkan hasil analisis pada Bab~\ref{chap:analisis}. Fokus utama rancangan adalah proses crawling dari URL awal hingga terbentuk peta situs. Rancangan juga mempertahankan pembentukan graf DOM sebagai fungsi pelengkap. Dengan pemisahan ini, alur pengumpulan tautan antarhalaman tidak tercampur dengan alur penelusuran elemen dalam satu halaman.
 
 \section{Perancangan Arsitektur Sistem}
 \label{sec:perancangan-arsitektur-sistem}
 
 Arsitektur sistem dirancang dengan membagi proses utama ke dalam beberapa komponen. Pembagian ini dilakukan agar program lebih mudah dipahami, dikembangkan, dan diperbaiki. Dengan demikian, sistem tidak perlu mengerjakan semuanya sekaligus. Setiap komponen cukup menangani tugas tertentu, kemudian hasilnya diteruskan ke komponen berikutnya.
 
-Proses dimulai dari komponen masukan URL yang menerima alamat halaman web dari pengguna. URL tersebut terlebih dahulu diperiksa agar sistem tidak langsung memproses masukan yang kosong atau memiliki format yang tidak sesuai. Setelah URL dinyatakan valid, komponen \textit{HTML Fetcher} menggunakan Jsoup untuk mengambil dokumen HTML dan membentuk objek \texttt{Document}. Objek ini menjadi sumber data utama untuk proses penelusuran DOM.
+Proses utama dimulai dari komponen masukan URL. URL awal divalidasi dan dinormalisasi, lalu dimasukkan ke bagian belakang \textit{URL Frontier} dengan kedalaman nol. Frontier dikelola sebagai antrean FIFO, sehingga \textit{Crawl Controller} mengambil URL dari bagian depan dan menjalankan crawling dengan BFS. Urutan ini memproses halaman berdasarkan kedalaman dari URL awal. Komponen tersebut juga memeriksa kebijakan crawling, termasuk hostname, batas kedalaman dan jumlah halaman, serta aturan \texttt{robots.txt}. Setelah pemeriksaan lolos, \textit{HTML Fetcher} menggunakan Jsoup untuk mengambil halaman. Halaman yang berhasil diambil kemudian diproses untuk memperoleh tautan dan membentuk simpul maupun sisi peta situs.
 
-Komponen \textit{DOM Traversal} kemudian menelusuri elemen-elemen pada objek \texttt{Document} menggunakan metode DFS. Setiap elemen yang ditemukan dikirim ke \textit{Graph Builder} untuk dibentuk menjadi \textit{node}. Pada saat yang sama, hubungan langsung antara elemen induk dan elemen anak dicatat sebagai \textit{edge}. Agar elemen dengan nama \textit{tag} yang sama tidak tertukar, setiap \textit{node} diberikan ID unik, sedangkan nama \textit{tag} tetap digunakan sebagai label yang nantinya terlihat pada gambar graf.
+Untuk keluaran DOM pelengkap, objek \texttt{Document} diteruskan ke \textit{DOM Traversal} yang menelusuri elemen menggunakan DFS. Setiap elemen dibentuk menjadi \textit{node} dengan ID unik, sedangkan hubungan induk-anak dicatat sebagai \textit{edge}. Proses ini terpisah dari pembentukan peta situs: simpul pada graf DOM adalah elemen HTML, sedangkan simpul peta situs adalah \textit{URL path} halaman atau \texttt{header}/\texttt{footer}.
 
-Hasil pembentukan \textit{node} dan \textit{edge} diteruskan kepada \textit{DOT Generator}. Komponen ini menyusun data graf ke dalam format DOT yang dapat dibaca oleh Graphviz. Setelah itu, \textit{Graph Visualizer} meminta Graphviz mengubah data DOT menjadi gambar. Gambar tersebut akhirnya ditampilkan melalui bagian keluaran bersama informasi pendukung, seperti daftar \textit{node}, daftar \textit{edge}, dan teks DOT. Singkatnya, arsitektur sistem membentuk alur berurutan dari masukan URL, pengambilan HTML, pembentukan DOM, penelusuran elemen, penyusunan graf, sampai penampilan hasil visualisasi.
+Model peta situs dan model DOM diteruskan ke \textit{DOT Generator} yang menyusun deklarasi graf. Untuk peta situs, bobot sisi ditampilkan sebagai jumlah tautan. \textit{Graph Visualizer} meminta Graphviz mengubah DOT menjadi gambar. Keluaran utama berupa peta situs beserta daftar URL, sisi, bobot, dan teks DOT; graf DOM serta detailnya tetap tersedia sebagai keluaran pelengkap. Dengan demikian, arsitektur lengkap mencakup masukan URL, pengelolaan frontier, pengambilan dan parsing halaman, ekstraksi tautan, pembentukan peta situs, serta visualisasi graf.
+
+\section{Perancangan Alur Web Crawling}
+\label{sec:perancangan-alur-web-crawling}
+
+Crawling dirancang sebagai proses BFS berulang yang menggunakan frontier berupa antrean FIFO dan dikendalikan oleh dua batas utama, yaitu kedalaman serta jumlah halaman. URL awal diberi kedalaman nol. Setiap tautan internal baru yang ditemukan pada halaman berkedalaman $d$ dicatat dengan kedalaman $d+1$ dan dimasukkan ke bagian belakang antrean. URL diambil dari bagian depan antrean, sehingga halaman diproses menurut kedalamannya dari URL awal. Urutan ini mengutamakan halaman tingkat pertama sebelum subhalaman yang lebih dalam, sejauh batas jumlah halaman memungkinkan. URL hanya dimasukkan ke frontier jika belum pernah ditemukan, masih berada pada hostname awal, menggunakan HTTP atau HTTPS, dan belum melampaui batas. Fragmen URL setelah tanda \texttt{\#} tidak digunakan untuk membedakan halaman. URL relatif diselesaikan berdasarkan alamat halaman yang memuatnya.
+
+Urutan proses crawling dirancang sebagai berikut:
+\begin{enumerate}
+    \item Sistem memvalidasi URL awal, menyimpan hostname sumber, menginisialisasi frontier, daftar URL ditemukan, dan model graf kosong.
+    \item Selama frontier masih berisi URL dan batas jumlah halaman belum tercapai, sistem mengambil URL dari bagian depan antrean beserta kedalamannya.
+    \item Sistem memastikan URL belum diproses, memeriksa aturan \texttt{robots.txt}, lalu memberi jeda permintaan sesuai konfigurasi sebelum meminta halaman.
+    \item Jsoup mengambil respons dan mem-parsing HTML. Jika pengambilan gagal atau respons bukan halaman HTML, URL dan penyebab kegagalan dicatat, lalu proses berlanjut ke URL berikutnya.
+    \item Sistem menambahkan \textit{URL path} halaman ke graf dan mencari tautan \texttt{a[href]}. URL tujuan diselesaikan ke bentuk absolut dan diperiksa terhadap lingkup hostname, protokol, duplikasi, kedalaman, dan batas jumlah halaman.
+    \item Untuk setiap tautan internal, sistem menambahkan sisi dari halaman sumber ke halaman tujuan. Tautan dalam elemen \texttt{header} dan \texttt{footer} menggunakan simpul sumber khusus; tautan lainnya menggunakan simpul halaman sumber. Bobot sisi untuk pasangan sumber-tujuan yang sama ditambah satu setiap kali tautan ditemukan.
+    \item URL tujuan yang memenuhi aturan dimasukkan ke bagian belakang frontier dengan kedalaman satu tingkat lebih besar. Apabila batas tercapai, sisi tautan yang ditemukan tetap dapat dicatat, tetapi status tujuan dicatat sebagai belum diambil.
+    \item Setelah frontier habis atau batas tercapai, sistem menyusun DOT, menjalankan Graphviz, dan menampilkan gambar serta detail hasil.
+\end{enumerate}
+
+URL yang telah diproses disimpan dalam himpunan tersendiri agar tautan berulang dan hubungan melingkar tidak membuat crawler mengambil halaman yang sama terus-menerus. Kunci pemeriksaan memakai URL yang sudah dinormalisasi, sedangkan simpul yang ditampilkan mengikuti \textit{URL path} sesuai model peta situs. Karena itu, beberapa URL dengan path sama tetapi parameter berbeda dapat tergabung pada label simpul yang sama; kondisi ini perlu diperhatikan saat membaca hasil.
+
+Pemeriksaan \texttt{robots.txt} dan jeda permintaan merupakan bagian dari rancangan agar proses tidak mengabaikan aturan situs dan tidak mengirim permintaan bertubi-tubi. Batas kedalaman dan jumlah halaman menjadi pengaman tambahan untuk mencegah crawling terus berjalan pada ruang URL yang sangat besar atau berulang. Gagasan frontier, penghapusan URL duplikat, dan pengaturan permintaan mengacu pada prinsip crawling yang dijelaskan oleh Manning, Raghavan, dan Schütze~\cite{manning:08:introir}.
 
 \section{Perancangan Alur Pengolahan DOM}
 \label{sec:perancangan-alur-pengolahan-dom}
@@ -24,4 +45,22 @@ Saat sebuah elemen pertama kali dikunjungi, sistem menambahkan satu nomor pada p
 
 Setelah penelusuran selesai, seluruh deklarasi \textit{node} dan \textit{edge} digabungkan ke dalam blok \texttt{digraph}. Label yang mengandung karakter khusus perlu melalui proses \textit{escaping} agar tidak merusak sintaks DOT. Hasil DOT kemudian diberikan kepada Graphviz untuk dibuat menjadi gambar graf berarah. Kalau prosesnya berhasil, sistem menampilkan gambar dan detail data graf kepada pengguna. Kalau terjadi masalah, misalnya URL tidak dapat diakses, HTML gagal diproses, atau Graphviz tidak berhasil membuat gambar, sistem menampilkan pesan kesalahan sesuai tahap yang bermasalah.
 
-Intinya, rancangan alur ini menjaga agar setiap elemen hanya dibuat sebagai satu \textit{node}, setiap hubungan langsung menghasilkan satu \textit{edge}, dan seluruh cabang DOM tetap ditelusuri. Dengan aturan tersebut, visualisasi yang dihasilkan diharapkan tetap sesuai dengan struktur DOM halaman web yang diterima oleh Jsoup.
+Intinya, alur DOM ini menjaga agar setiap elemen hanya dibuat sebagai satu \textit{node}, setiap hubungan langsung menghasilkan satu \textit{edge}, dan seluruh cabang DOM tetap ditelusuri. Alur tersebut dijalankan pada halaman yang dipilih sebagai analisis pelengkap dan tidak menggantikan peta situs yang dibentuk dari seluruh tautan yang ditemukan crawler.
+
+\subsection{Contoh Bentuk DOT Peta Situs}
+Contoh berikut memperlihatkan hubungan antarhalaman dan simpul navigasi bersama. Contoh ini bersifat ilustratif, bukan hasil pengujian. Nilai pada atribut \texttt{label} menunjukkan bobot tautan.
+
+\begin{lstlisting}[caption=Contoh DOT untuk peta situs]
+digraph SiteMap {
+    "/pengantar-kurikulum/" -> "/pengantar-kurikulum/2/" [label=1, weight=1];
+    "/pengantar-kurikulum/" -> "/pengantar-kurikulum/3/" [label=1, weight=1];
+    "/pengantar-kurikulum/2/" -> "/pengantar-kurikulum/" [label=1, weight=1];
+    "header" -> "/pengantar-kurikulum/" [label=1, weight=1];
+    "footer";
+}
+\end{lstlisting}
+
+\section{Rancangan Pengujian}
+Rancangan pengujian disusun agar fungsi crawling, pembentukan peta situs, dan visualisasi DOM dapat diperiksa tanpa menganggap hasilnya sudah diperoleh. Pengujian fungsional direncanakan pada situs Informatika UNPAR dan hasil crawling dibandingkan dengan perangkat lunak sejenis menggunakan URL awal serta batas yang sama. Pengujian eksperimental direncanakan pada tiga situs web lain; pemilihan situs dan nilai konfigurasi dicatat saat pengujian dilakukan.
+
+Hal-hal yang perlu diperiksa meliputi validasi URL awal, pembatasan hostname dan protokol, penghentian pada batas kedalaman atau jumlah halaman, penanganan URL berulang dan tautan melingkar, pengambilan halaman gagal, pengelompokan tautan isi/\texttt{header}/\texttt{footer}, penghitungan bobot sisi, serta kesesuaian berkas DOT dengan gambar Graphviz. Jumlah halaman dan tautan yang ditemukan, URL yang gagal, dan konfigurasi crawling dicatat. Rekomendasi disusun setelah tautan yang dianggap perlu diperiksa dibuka kembali; bentuk graf saja tidak cukup untuk memastikan suatu tautan keliru.
